@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="" width="400" alt="SOLAS Logo"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/DeadM4nn/SOLAS/main/public/images/Main%20Logo.png" width="400" alt="SOLAS Logo"></a></p>
 
 ## About SOLAS
 
