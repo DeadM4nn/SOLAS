@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/search_result', function () {
+    return view('result_pages/library_search');
 });
+
+Route::get('/search_test', function () {
+    return view('test_pages/search_and_find');
+});
+
 
 Auth::routes();
 
