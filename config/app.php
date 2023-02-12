@@ -3,7 +3,11 @@
 use Illuminate\Support\Facades\Facade;
 
 return [
-
+    /*
+    * Package Service Providers...
+    */
+    Yab\MySQLScout\Providers\MySQLScoutServiceProvider::class,
+    
     /*
     |--------------------------------------------------------------------------
     | Application Name
