@@ -1,15 +1,23 @@
 @extends('layouts/solas_layout')
 @section('page_title')
-<x-searchBar/>
+<form action="../library/search" method="POST">
+    @csrf
+    <x-searchBar/>
+</form>
 @endsection
 
 @section('content')
 
 <p class="fw-light">
-20 results found
+    @if(count($results)==0)
+    No results found.
+    @else
+    {{count($results)}} results found
+    @endif
 </p>
 
-<x-display-horizontal/>
-<x-display-horizontal/>
-<x-display-horizontal/>
+@foreach($results as $data)
+    <x-display-horizontal :data="$data" />
+@endforeach
+
 @endsection

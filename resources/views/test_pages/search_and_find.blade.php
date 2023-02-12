@@ -26,7 +26,8 @@
     <img class="my-4" src="/images/full_logo.png" height=30% width=auto style="align:center;"></img>
 </div>
 
-<form action="" method="POST">
+<form action="library/search" method="POST">
+    @csrf
     <div class="search-bar" align="center">
         <x-searchBar/>
     </div>

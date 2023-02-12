@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\HTTP\Controllers\libraryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,15 +13,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/search_result', function () {
+Route::get('/search/results', function () {
     return view('result_pages/library_search');
 });
 
-Route::get('/search_test', function () {
+Route::get('/home', function () {
     return view('test_pages/search_and_find');
 });
+
+Route::get('/', [libraryController::class, "search_result"]);
 
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/what', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::POST('library/search', [libraryController::class, "search"]);
+Route::get('library/all', [libraryController::class, "show_all"]);

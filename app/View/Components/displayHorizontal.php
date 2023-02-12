@@ -11,9 +11,14 @@ class displayHorizontal extends Component
      *
      * @return void
      */
-    public function __construct()
+
+    public $name;
+    public $desc;
+    
+    public function __construct($data)
     {
-        //
+        $this->name = $data->name;
+        $this->desc = $data->description;
     }
 
     /**
