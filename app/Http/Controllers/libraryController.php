@@ -13,11 +13,14 @@ class libraryController extends Controller
     }
 
     public function search(Request $req){
-        $results = DB::table('library')
+        /*$results = DB::table('library')
         ->where('name', $req->searchKey)
         ->select('name', 'description')
+        ->get();*/
+
+        $results = Library::search($req->searchKey)
         ->get();
-        
+
         return view('result_pages/library_search', ["results"=>$results]);
     }
 }

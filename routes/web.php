@@ -18,7 +18,7 @@ Route::get('/search/results', function () {
 });
 
 Route::get('/home', function () {
-    return view('test_pages/search_and_find');
+    return view('misc/solas_home');
 });
 
 Route::get('/', [libraryController::class, "search_result"]);

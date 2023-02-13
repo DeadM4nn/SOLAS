@@ -9,5 +9,6 @@ use Laravel\Scout\Searchable;
 class Library extends Model
 {
     use HasFactory;
+    use Searchable;
     protected $table = 'library';
 }
