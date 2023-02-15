@@ -29,4 +29,8 @@ Auth::routes();
 Route::get('/what', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::POST('library/search', [libraryController::class, "search"]);
-Route::get('library/all', [libraryController::class, "show_all"]);
+
+
+//Test Pages
+Route::get('test/library/all', [libraryController::class, "show_all"]);
+Route::view("test/confirmation/after","confirmation_pages/after");
