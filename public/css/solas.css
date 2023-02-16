@@ -1,0 +1,28 @@
+.solas-confirmation{
+    width:28rem;
+}
+.solas-confirmation-button{
+    width:3rem;
+}
+
+.solas-alert-bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 100;
+    position: fixed;
+
+    opacity: 1;
+    animation-name: confirm---open;
+    animation-duration: 0.2s;
+    animation-fill-mode: forwards;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

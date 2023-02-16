@@ -11,6 +11,8 @@
             <h2>{{$name}}</h2>
         </div>
 
+    
+
         <div class="w3-cell w3-right-align">
             <form method="POST" action="{{ url('library/delete') }}">
                 <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">

@@ -3,6 +3,7 @@
 <head>
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link href="{{ asset('css/w3css_modified.css') }}" rel="stylesheet" type="text/css" >
+    <link href="{{ asset('css/solas.css') }}" rel="stylesheet" type="text/css" >
     <style>
     .search-bar .text-field{
         width: 25%;

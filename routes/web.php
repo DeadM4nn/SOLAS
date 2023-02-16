@@ -33,5 +33,6 @@ Route::POST('library/search', [libraryController::class, "search"]);
 
 //Test Pages
 Route::get('test/library/all', [libraryController::class, "show_all"]);
-Route::view("test/confirmation/after","confirmation_pages/after");
+Route::view("test/confirmation/after","confirmations/after");
 Route::POST('library/delete', [LibraryController::class, "delete"]);
+Route::view("test/confirmation/alert","test_pages/alertBox");
