@@ -23,5 +23,19 @@ class libraryController extends Controller
 
         return view('result_pages/library_search', ["results"=>$results]);
     }
+
+    public function delete(Request $req){
+        // Get a list of all that has the id (One record)
+        $id = $req->library_id;
+        $record = Library::find($id);
+        $name = $record->name;
+        $message = $name." has been deleted";
+        $link = "admin/library/all";
+
+        // Delete Record
+        $record->delete();
+
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
 }
 

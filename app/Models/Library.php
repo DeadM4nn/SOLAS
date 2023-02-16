@@ -11,4 +11,5 @@ class Library extends Model
     use HasFactory;
     use Searchable;
     protected $table = 'library';
+    protected $primaryKey = 'library_id';
 }

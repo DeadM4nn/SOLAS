@@ -12,10 +12,10 @@
         </div>
 
         <div class="w3-cell w3-right-align">
-            <form method="POST" action="library/delete">
+            <form method="POST" action="{{ url('library/delete') }}">
                 <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">
                 <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
-
+                @csrf
                 <input type="hidden" name="library_id" value="{{$library_id}}">
                 <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem;    height: 2.3rem; position: relative; top: 0.9rem; left: 0.5rem;">
             </form>
