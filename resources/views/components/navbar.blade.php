@@ -43,15 +43,14 @@
 
 @endphp
 
-<div>
-    @foreach($navbar[$group] as $items)
-            <!-- {{$items[0]}} -->
-    @endforeach
-
+<div style="text-align:right;">
     @auth
         <form method="POST" action="{{ route('logout') }}">
+            @foreach($navbar[$group] as $items)
+                    <a class="m-2 fw-normal" style="text-decoration: none;" href="{{ url($items[1]) }}">{{$items[0]}}</a>
+            @endforeach
             @csrf
-            <button class="w3-button w3-black" type="submit">Logout</button>
+            <button class="ms-3 btn btn-secondary" type="submit">Logout</button>
         </form>
     @else
         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>

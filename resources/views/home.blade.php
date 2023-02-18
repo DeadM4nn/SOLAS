@@ -26,7 +26,7 @@
     <x-navbar/>
 </div>
 
-<div class="text-center solas-title-home" style="margin-bottom:0rem; padding-top:9rem">
+<div class="text-center solas-title-home" style="margin-bottom:-2rem; padding-top:9rem">
     <img class="my-4" src="/images/full_logo.png" height=30% width=auto></img>
 </div>
 
