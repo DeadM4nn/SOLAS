@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Controllers\libraryController;
+use App\HTTP\Controllers\HomeController;
+use App\HTTP\Controllers\Auth\LoginController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,26 +16,6 @@ use App\HTTP\Controllers\libraryController;
 |
 */
 
-Route::get('/search/results', function () {
-    return view('result_pages/library_search');
-});
-
-Route::get('/home', function () {
-    return view('misc/solas_home');
-});
-
-Route::get('/', [libraryController::class, "search_result"]);
-
-
 Auth::routes();
-
-Route::get('/what', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::POST('library/search', [libraryController::class, "search"]);
-
-
-//Test Pages
-Route::get('test/library/all', [libraryController::class, "show_all"]);
-Route::view("test/confirmation/after","confirmations/after");
-Route::POST('library/delete', [LibraryController::class, "delete"]);
-Route::view("test/confirmation/alert","test_pages/alertBox");
+Route::redirect("/","/home");
+Route::get("/home",[HomeController::class,"index"]);

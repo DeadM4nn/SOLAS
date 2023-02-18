@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
         'password',
     ];
@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //used for middleware to check if the current user is a admin or not.
+    public function isAdmin()
+    {
+        return $this->is_admin === true;
+    }
+
+    public function username()
+    {
+        return 'username';
+    }
+
+    
 }

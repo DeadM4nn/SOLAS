@@ -1,0 +1,20 @@
+
+/*
+
+Route::get('/search/results', function () {
+    return view('result_pages/library_search');
+});
+
+Route::get('/home', function () {
+    return view('misc/solas_home');
+});
+Route::get('/', [libraryController::class, "search_result"]);
+Auth::routes();
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::POST('library/search', [libraryController::class, "search"]);
+//Test Pages
+Route::get('test/library/all', [libraryController::class, "show_all"]);
+Route::view("test/confirmation/after","confirmations/after");
+Route::POST('library/delete', [LibraryController::class, "delete"]);
+Route::view("test/confirmation/alert","test_pages/alertBox");
+*/

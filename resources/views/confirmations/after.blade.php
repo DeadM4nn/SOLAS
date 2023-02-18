@@ -1,28 +1,4 @@
-@extends('layouts/gray_background_layout')
-
-
-
-@section('style')
-
-    <style>
-        .card{
-            margin: auto;
-            width: 50%;
-            Margin-top: 20rem;
-        }
-
-        .card-title{
-            text-align: center;
-            padding: 0.8rem 0;
-        }
-
-        .card-text a{
-            width: 100%;
-            margin: 0;
-        }
-
-    </style>
-@endsection
+@extends('layouts.gray_background_layout')
 
 @section('content')
     <div class="card bg-light mb-3" style="max-width: 25rem;">

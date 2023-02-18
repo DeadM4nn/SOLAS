@@ -1,4 +1,4 @@
-@extends('layouts/solas_layout')
+@extends('layouts.solas_layout')
 @section('page_title')
 <form action="../library/search" method="POST">
     @csrf

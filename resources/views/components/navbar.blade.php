@@ -47,4 +47,12 @@
     @foreach($navbar[$group] as $items)
             <!-- {{$items[0]}} -->
     @endforeach
+
+    <!-- Sign In and Out button -->
+    @if(session('status'))
+        <a class="btn btn-dark" href="{{ url('logout') }}">Sign Out</a>
+    @else
+        <a class="btn btn-outline-dark" href="{{ url('login') }}">Sign Up</a>
+    @endif
+
 </div>
