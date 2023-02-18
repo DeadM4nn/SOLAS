@@ -4,18 +4,19 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class alertBox extends Component
+class solasAlertCode extends Component
 {
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public $library_id;
 
-    public function __construct($newLibraryId)
+    
+
+    public function __construct()
     {
-        $this->library_id = $newLibraryId;
+        //
     }
 
     /**
@@ -25,6 +26,6 @@ class alertBox extends Component
      */
     public function render()
     {
-        return view('components.alert-box');
+        return view('components.solas-alert-code');
     }
 }

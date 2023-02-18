@@ -1,6 +1,7 @@
 .solas-confirmation{
     width:28rem;
 }
+
 .solas-confirmation-button{
     width:3rem;
 }
@@ -25,4 +26,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.solas-alert-display{
+    visibility: visible;
+}
+
+.solas-alert-hide{
+    visibility: hidden;
 }
