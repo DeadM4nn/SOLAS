@@ -1,45 +1,65 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<!doctype html>
+<html">
+<head>
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <link href="{{ asset('css/w3css_modified.css') }}" rel="stylesheet" type="text/css" >
+    <style>
+    .search-bar .text-field{
+        width: 25%;
+        border-radius: 0.375rem;
+        border: 1px solid #ced4da;
+        font-size: 0.9rem;
+        line-height: 1.6;
+        background-color: #fbfbfb;
+        font-size: 0.9rem;
+        font-weight: 400;
+        padding: 0.375rem 0.75rem;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+    .search-bar .magnifying-button{
+        position: relative;
+        top: 10px;
+    }
+    .fw-light{
+        color:#c4c4c4;
+    }
+    .solas-tag{
+        padding: 0.3rem 1.2rem; 
+        margin-right:0.5rem; 
+        margin-bottom:1rem;
+    }
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    .solas-bg-language{
+        background-color:#4BC51D; 
+    }
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    .solas-bg-category{
+        background-color:#0E7FC0; 
+    }
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    .solas-bg-license{
+        background-color:#7C7C7C;
+    }
 
-        <!-- Styles -->
-        @livewireStyles
-    </head>
-    <body class="font-sans antialiased">
-        <x-banner />
+    .solas-rating-card{
+        height: 1.2rem;
+        padding: 0rem 1rem;
+        bottom: 0.125rem;
+        position: relative;
+    }
 
-        <div class="min-h-screen bg-gray-100">
-            @livewire('navigation-menu')
+    .solas-padding{
+        padding:1rem 2rem;
+    }
+    </style>
+</head>
+<body>
+    <div class="p-5">
+    @yield('page_title')
+    <div>
+    
+    <hr class="divider">
+    @yield('content')
 
-            <!-- Page Heading -->
-            @if (isset($header))
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endif
-
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
-        </div>
-
-        @stack('modals')
-
-        @livewireScripts
-    </body>
+</body>
 </html>
