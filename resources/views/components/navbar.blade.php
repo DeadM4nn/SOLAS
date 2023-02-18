@@ -49,9 +49,10 @@
     @endforeach
 
     @auth
-        <a href="{{ route('logout') }}" class="btn btn-secondary">
-            Log out
-        </a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="w3-button w3-black" type="submit">Logout</button>
+        </form>
     @else
         <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
 
