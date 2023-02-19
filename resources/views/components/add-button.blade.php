@@ -1,3 +1,3 @@
-<div>
-    <!-- Simplicity is an acquired taste. - Katharine Gerould -->
+<div class="solas-add-button">
+    <a class="btn btn-primary">+</a>
 </div>

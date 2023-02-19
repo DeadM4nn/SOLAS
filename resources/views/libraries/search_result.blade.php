@@ -2,17 +2,25 @@
 @section('page_title')
 <form action="../library/search" method="POST">
     @csrf
-    <x-searchBar :query="$searchKey" />
+    @if(isset($searchKey))
+        <x-searchBar :query="$searchKey" />
+    @else
+        <x-searchBar />
+    @endif
 </form>
 @endsection
 
 @section('content')
-
+<x-add-button />
 <p class="fw-light">
-    @if(count($results)==0)
-    No results found for "{{$searchKey}}"
+    @if(isset($searchKey))
+        @if(count($results)==0)
+            No results found for "{{$searchKey}}"
+        @else
+            {{$amount}} results found for "{{$searchKey}}"
+        @endif
     @else
-    {{$amount}} results found for "{{$searchKey}}"
+        {{$amount}} results found
     @endif
 </p>
 

@@ -2,6 +2,18 @@
     margin-top:2rem;
 }
 
+.solas-add-button{
+    position: fixed;
+    z-index: 9999;
+    bottom: 0;
+    right: 0;
+    margin: 2rem;
+}
+
+.solas-add-button a{
+    border-radius: 50% !important;
+}
+
 .solas-content{
     padding: 1rem 8rem;
 }
