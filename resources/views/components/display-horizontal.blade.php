@@ -5,7 +5,7 @@
 
     <div class="w3-cell-row">
         
-        <div class="w3-cell">
+        <div class="w3-cell solas-title-3">
             <h2>{{$name}}</h2>
         </div>
 

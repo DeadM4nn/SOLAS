@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Library;
 use Illuminate\Http\Request;
 
 class LibraryControl extends Controller
 {
     public function show_all(){
         $results=Library::all();
-        return view('result_pages/library_search', ["results"=>$results]);
+        return view('libraries/search_result', ["results"=>$results]);
     }
 
     public function search(Request $req){
@@ -17,9 +17,9 @@ class LibraryControl extends Controller
         ->select('name', 'description')
         ->get();*/
 
-        $results = Library::search($req->searchKey)
-        ->get();
+        $results = 0; //Library::search($req->searchKey)
+        //->get();
 
-        return view('result_pages/library_search', ["results"=>$results]);
+        return view('libraries/search_result', ["results"=>$results]);
     }
 }
