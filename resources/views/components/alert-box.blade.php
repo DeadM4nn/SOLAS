@@ -2,7 +2,7 @@
     <div class="w3-display-container w3-display-middle">
         <div class="w3-card p-3 mb-3 solas-confirmation bg-white">
             <div>
-                Are you sure? This will permanently delete the <b>{{$library_id}}</b> record.
+                Are you sure? This will permanently delete the <b>{{$name}}</b> record.
             </div>
             <p class="card-text">
                 <form method="POST" action="{{ url('library/delete') }}"  style="text-align:right;">

@@ -12,10 +12,12 @@ class alertBox extends Component
      * @return void
      */
     public $library_id;
+    public $name;
 
-    public function __construct($newLibraryId)
+    public function __construct($newLibraryId, $libraryName = "names")
     {
         $this->library_id = $newLibraryId;
+        $this->name = $libraryName;
     }
 
     /**

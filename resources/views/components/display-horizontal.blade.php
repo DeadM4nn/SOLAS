@@ -12,7 +12,7 @@
             <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
             <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem; top:1rem;   height: 2.3rem; position: relative; left: 0.5rem;"
             onClick="document.getElementById('alert-box-{{$library_id}}').style.visibility='visible';">
-            <x-alert-box :new-library-id="$library_id" />
+            <x-alert-box :new-library-id="$library_id" :library-name="$name" />
         </div>
     </div>
 

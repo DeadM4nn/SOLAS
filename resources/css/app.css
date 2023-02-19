@@ -2,6 +2,22 @@
 @tailwind components;
 @tailwind utilities; **/
 
+.solas-confirmation{
+    width:28rem;
+}
+
+.solas-confirmation-button{
+    width:3rem;
+}
+
+.solas-alert-display{
+    visibility: visible;
+}
+
+.solas-alert-hide{
+    visibility: hidden;
+}
+
 .solas-title-home{
     text-align: center;
     margin-bottom:0rem; 
@@ -19,14 +35,6 @@
     display:inline;
     height: 25%;
     width: auto;
-}
-
-.solas-confirmation{
-    width:28rem;
-}
-
-.solas-confirmation-button{
-    width:3rem;
 }
 
 .solas-alert-bg{
