@@ -10,7 +10,7 @@
         </div>
 
         <div class="w3-cell w3-right-align">
-            <form method="POST" action="library/delete">
+            <form method="POST" action="{{ url('library/delete' )}}">
                 <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">
                 <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
 
