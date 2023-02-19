@@ -1,3 +1,5 @@
 <div class="solas-add-button">
-    <a class="btn btn-primary">+</a>
+    <div class="fab-container">
+    <a href="{{ url('library/add') }}" class="fab">+</a>
+    </div>
 </div>
