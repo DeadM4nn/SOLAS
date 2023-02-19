@@ -1,22 +1,18 @@
 <div class="card w3-card mt-3">
     <div class="card-body solas-padding">
-    
-
 
     <div class="w3-cell-row">
         
-        <div class="w3-cell solas-title-3">
+        <div class="w3-cell">
             <h2>{{$name}}</h2>
         </div>
 
         <div class="w3-cell w3-right-align">
-            <form method="POST" action="{{ url('library/delete' )}}">
-                <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">
-                <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
-
-                <input type="hidden" name="library_id" value="{{$library_id}}">
-                <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem;    height: 2.3rem; position: relative; top: 0.9rem; left: 0.5rem;">
-            </form>
+            <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">
+            <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
+            <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem; top:1rem;   height: 2.3rem; position: relative; left: 0.5rem;"
+            onClick="document.getElementById('alert-box-{{$library_id}}').style.visibility='visible';">
+            <x-alert-box :new-library-id="$library_id" />
         </div>
     </div>
 
