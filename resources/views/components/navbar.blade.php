@@ -45,9 +45,10 @@
 
 <div style="text-align:right;">
     @auth
-        <form method="POST" action="{{ route('logout') }}">
+
+        <form method="POST" action="{{ route('logout') }}" style="">
             @foreach($navbar[$group] as $items)
-                    <a class="m-2 fw-normal" style="text-decoration: none;" href="{{ url($items[1]) }}">{{$items[0]}}</a>
+                    <a class="solas-navbar-items" style="" href="{{ url($items[1]) }}">{{$items[0]}}</a>
             @endforeach
             @csrf
             <button class="ms-3 btn btn-secondary" type="submit">Logout</button>

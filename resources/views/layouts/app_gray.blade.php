@@ -1,8 +1,7 @@
 <html>
     <head>
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
-        <link href="{{ asset('css/solas.css') }}" rel="stylesheet" type="text/css" >
 
         
         @yield('style')

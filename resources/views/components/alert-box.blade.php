@@ -1,7 +1,7 @@
 <div id="alert-box-{{$library_id}}" class="solas-alert-bg" style="visibility:hidden;">
     <div class="w3-display-container w3-display-middle">
         <div class="w3-card p-3 mb-3 solas-confirmation bg-white">
-            <div>
+            <div style="text-align:center;">
                 Are you sure? This will permanently delete the <b>{{$name}}</b> record.
             </div>
             <p class="card-text">

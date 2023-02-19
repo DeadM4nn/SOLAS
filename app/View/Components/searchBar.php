@@ -11,9 +11,13 @@ class searchBar extends Component
      *
      * @return void
      */
-    public function __construct()
+
+    public $searchKey;
+
+    public function __construct($query = null)
     {
-        //
+        $this->searchKey = $query;
+
     }
 
     /**

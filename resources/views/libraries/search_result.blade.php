@@ -2,7 +2,7 @@
 @section('page_title')
 <form action="../library/search" method="POST">
     @csrf
-    <x-searchBar/>
+    <x-searchBar :query="$searchKey" />
 </form>
 @endsection
 
@@ -10,9 +10,9 @@
 
 <p class="fw-light">
     @if(count($results)==0)
-    No results found.
+    No results found for "{{$searchKey}}"
     @else
-    {{count($results)}} results found
+    {{$amount}} results found for "{{$searchKey}}"
     @endif
 </p>
 
@@ -20,4 +20,5 @@
     <x-display-horizontal :data="$data" />
 @endforeach
 
+{{ $results->links('paginations/solas-pagination') }}
 @endsection

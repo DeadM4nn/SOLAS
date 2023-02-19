@@ -1,4 +1,4 @@
-@extends('layouts.gray_background_layout')
+@extends('layouts.app_gray')
 
 @section('content')
     <div class="card bg-light mb-3" style="max-width: 25rem;">
