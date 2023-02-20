@@ -12,7 +12,7 @@
         @yield('page_title')
     </div>
     
-    <hr class="divider">
+    <hr class="divider mb-5">
     @yield('content')
     </div>
 </body>

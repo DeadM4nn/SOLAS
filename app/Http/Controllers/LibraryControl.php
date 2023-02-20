@@ -175,7 +175,12 @@ class LibraryControl extends Controller
 
     public function all_downloads($id){
         $library = Library::find($id);
-        return view('libraries/all_download', ["library"=>$library]);
+        $results = Version::where('library_id', $id)
+                   ->orderBy('created_at', 'desc')
+                   ->get();
+        
+
+        return view('libraries/all_download', ["library"=>$library, "results"=>$results]);
     }
 }
 

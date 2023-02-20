@@ -7,7 +7,7 @@ All Downloads - {{$library->name}}
     <a class="justify-content-start btn btn-outline-primary">
         < Back
     </a>
-    <a class="justify-content-end btn btn-primary">
+    <a class="justify-content-end btn btn-primary" href="{{ url('library/update/'.$library->library_id) }}#upload">
         Upload ＋
     </a>
 </div>
@@ -21,16 +21,21 @@ All Downloads - {{$library->name}}
     </tr>
   </thead>
   <tbody>
+    @foreach($results as $result)
     <tr>
-        <th scope="row">12/3/12</th>
-        <td>2.0.2</td>
-        <td>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</td>
+        <th scope="row">
+            {{$result->created_at}}
+        </th>
+
+        <td>{{$result->version_number}}</td>
+        <td>{{$result->description}}</td>
         <td>
             <div style="text-align:right;">        
-                <a href="{{ url('storage/uploads/3.rar') }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download 2.0.2 ⭳</a>
+                <a href="{{ url('storage/uploads/'.$result->version_id.'.rar') }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download 2.0.2 ⭳</a>
             </div>
         </td>
     </tr>
+    @endforeach
   </tbody>
 </table>
 @endsection

@@ -42,7 +42,7 @@ Update {{$library->name}}
             </x-button>
         </div>
     </form>
-        
+    <section id="upload">
     <form method="POST" action="{{ url('library/upload') }}" enctype="multipart/form-data">
         @csrf
         <hr class="hr" style="color: #acacac;" width=100%>
@@ -85,6 +85,7 @@ Update {{$library->name}}
             </x-button>
         </div>
     </form>
+    </section>
 </div>
 
 @endsection
