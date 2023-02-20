@@ -23,7 +23,7 @@ Route::post('/library/delete', [LibraryControl::class,"delete"]);
 Route::post('/library/search', [LibraryControl::class,"search"]);
 Route::view('/library/add', 'libraries/add');
 Route::post('/library/add/process', [LibraryControl::class,"add"]);
-Route::get('/library/request/{{id}}', [LibraryControl::class,"view"]);
+Route::get('/library/request/{id}', [LibraryControl::class,"view_library"]);
 
 Route::redirect("/","home");
 

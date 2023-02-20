@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LibraryControl extends Controller
 {
-    public function view($id){
+    public function view_library($id){
         $current_library = Library::find($id);
         
         //Checks if the record exists
@@ -19,7 +19,9 @@ class LibraryControl extends Controller
 
         $current_library->views = $current_library->views+1;
         $current_library->save();
-        return view('/library/view/'.$id, 'library/view');
+
+        $view_library = Library::find($id);
+        return view('libraries/view', ["library"=>$view_library]);
 
     }
 
