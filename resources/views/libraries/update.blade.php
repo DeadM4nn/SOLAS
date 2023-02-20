@@ -41,9 +41,10 @@ Update {{$library->name}}
                 Update
             </x-button>
         </div>
-        </form>
+    </form>
         
-        <form>
+    <form method="POST" action="{{ url('library/upload') }}" enctype="multipart/form-data">
+        @csrf
         <hr class="hr" style="color: #acacac;" width=100%>
         <div class="fs-3 fw-bold">Upload new file to {{$library->name}}</div>
 
@@ -67,6 +68,7 @@ Update {{$library->name}}
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
+        <input type="hidden" name="library_id" id="library_id" value="{{ $library->library_id }}">
 
         <div class="mb-5">
             <label for="file_description" class="form-label">Version Description</label>

@@ -11,6 +11,31 @@ class LibraryControl extends Controller
 {
 
 
+    public function upload(Request $req){
+        //validation
+        $req->validate([
+            'library_file' => 'required|mimes:zip,rar|max:2048'
+        ]);
+
+        //Storing information
+        $new_version = new Version;
+        $new_version->library_id = $req->library_id;
+        $new_version->version_number = $req->version;
+        $new_version->description = $req->file_description;
+        $new_version->save();
+
+        //Check if is_file empty
+        $current_library = Library::find($req->library_id);
+        if($current_library->is_file == 0){
+            $current_library->is_file = 1;
+            $current_library->save();
+        }
+
+        $message=$req->version_number." has been successfully added";
+        $link="library/all";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
     public function view_library_update($id){
         $library = Library::findOrFail($id);
         return view('libraries/update', ["library"=>$library]);
@@ -141,4 +166,7 @@ class LibraryControl extends Controller
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
+
 }
+
+
