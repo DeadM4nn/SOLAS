@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Models\Library;
+use App\Models\Version;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class LibraryControl extends Controller
 {
@@ -64,12 +66,24 @@ class LibraryControl extends Controller
 
     public function add(Request $req){
         
+        /*
         $req->validate([
-            'command' => 'required_without_all:link',
-            'link' => 'required_without_all:command',
+            'command' => 'required_without_all:link, library_file',
+            'link' => 'required_without_all:command, library_file',
+            'library_file' => 'required_without_all:command|file',
         ], [
             'required_without_all' => 'Please provide in either the Link, Command or upload the file of your library.',
 
+        ]);*/
+
+        if(isset($req->library_file))
+        $req->validate([
+            'library_file' => 'required|mimes:zip,rar|max:2048',
+            'file_description' => 'required|filled',
+            'version' => 'required',
+        ], [
+            'file_description.required' => 'Please provide a file description. (Required when uploading a file)',
+            'version.required' => 'Please provide a version number. (Required when uploading a file)',
         ]);
 
         $user = Auth::user();
@@ -79,8 +93,24 @@ class LibraryControl extends Controller
         $new_library->creator_id = $user->id;
         $new_library->link = $user->link;
         $new_library->command = $user->command;
+        
+        if(isset($req->library_file)){
+            $new_library->is_file = 1;
+        }
+
         $new_library->save();
 
+        //Storing information
+        $new_version = new Version;
+        $new_version->library_id = $new_library->library_id;
+        $new_version->version_number = $req->version;
+        $new_version->description = $req->file_description;
+        $new_version->save();
+
+        //Uploading the file
+        $filename = $new_version->version_id;
+        $file=$req->file('library_file');
+        $file->storeAs('uploads', $filename);
 
 
         if ($user->is_admin) {

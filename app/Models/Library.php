@@ -12,4 +12,9 @@ class Library extends Model
     protected $primaryKey = 'library_id';
     protected $table = 'library';
     public $timestamps = false;
+
+    public function versions()
+    {
+        return $this->hasMany(Version::class);
+    }
 }

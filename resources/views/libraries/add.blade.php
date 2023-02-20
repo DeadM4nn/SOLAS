@@ -4,7 +4,7 @@ Add Library
 @endsection
 @section('content')
 <div class="ms-5 me-5">
-    <form action="../library/add/process" method="POST">
+    <form action="../library/add/process" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3 mt-5">
             <label for="name" class="form-label">Title</label>
@@ -39,19 +39,33 @@ Add Library
 
         <div class="mb-4 mt-3">
         <label for="name" class="form-label">File Upload</label>
-            <input class="form-control form-control-lg" id="formFileLg" type="file">
+            <input class="form-control form-control-lg" name="library_file" id="library_file" type="file" enctype="multipart/form-data" required>
             <div class="fs-6 fw-light">Please choose or drag and drop the file. This form only accepts .zip file</div>
         </div>
 
+        @error('library_file')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
+
         <div class="mb-3">
             <label for="name" class="form-label">Version Number</label>
-            <input type="text" placeholder="e.g. 1.90.2 (Only required if uploading a file)" value="{{ old('version') }}" name="version" id="version" class="form-control">
+            <input type="text" placeholder="e.g. 1.90.2 (Only required if uploading a file)" value="{{ old('version') }}" name="version" id="version" class="form-control" required>
         </div>
+
+        @error('version')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
+
 
         <div class="mb-5">
             <label for="file_description" class="form-label">Version Description</label>
-            <textarea class="form-control" placeholder="Briefly describe what is updated or what is in the file (Only required if uploading a file)" name="file_description" id="file_description" rows="3">{{ old('file_description') }}</textarea>
+            <textarea class="form-control" placeholder="Briefly describe what is updated or what is in the file (Only required if uploading a file)" name="file_description" id="file_description" rows="3" required>{{ old('file_description') }}</textarea>
         </div>
+
+        @error('file_description')
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
         <div>
             <x-button class="mt-4 btn btn-primary" style="width:100%; background:#0E7FC0;">
