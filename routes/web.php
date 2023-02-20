@@ -29,6 +29,19 @@ Route::get('library/update/{id}', [LibraryControl::class,"view_library_update"])
 Route::post('/library/upload', [LibraryControl::class,"upload"]);
 Route::get('library/{id}/downloads', [LibraryControl::class,"all_downloads"]);
 
+Route::get('/downloads/{filename}', function ($filename) {
+    $path = storage_path('app/uploads/' . $filename);
+    if (!File::exists($path)) {
+        abort(404);
+    }
+    $file = File::get($path);
+    $type = File::mimeType($path);
+    $response = Response::make($file, 200);
+    $response->header("Content-Type", $type);
+    $response->header("Content-Disposition", "attachment; filename=$filename");
+    return $response;
+})->name('download');
+
 Route::redirect("/","home");
 
 Route::middleware([

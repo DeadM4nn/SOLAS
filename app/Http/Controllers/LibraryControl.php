@@ -49,7 +49,14 @@ class LibraryControl extends Controller
 
     public function view_library($id){
         $current_library = Library::find($id);
-        
+        $download = Version::where('library_id', $id)->latest()->first();
+
+        if(is_null($download)){
+            $download = "";
+        } else {
+            $download = $download->version_id;
+        }
+
         //Checks if the record exists
         if(is_null($current_library)){
             $message = "We have no record of that library.";
@@ -61,13 +68,16 @@ class LibraryControl extends Controller
         $current_library->save();
 
         $view_library = Library::find($id);
-        return view('libraries/view', ["library"=>$view_library]);
+        return view('libraries/view', ["library"=>$view_library,"download"=>$download]);
 
     }
 
     public function delete(Request $req){
         // Get a list of all that has the id (One record)
         $id = $req->library_id;
+
+        Version::where('library_id', $id)->delete();
+
         $record = Library::find($id);
         $name = $record->name;
         $message = $name." has been deleted";
@@ -93,8 +103,7 @@ class LibraryControl extends Controller
         ->get();
         */
         $searchKey = $req->searchKey;
-        $results = Library::search($searchKey)
-        ->paginate(10);;
+        $results = Library::search($searchKey)->paginate(20000);
         $amount=count($results);
 
         return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);

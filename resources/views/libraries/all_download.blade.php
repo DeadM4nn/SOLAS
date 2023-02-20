@@ -31,7 +31,7 @@ All Downloads - {{$library->name}}
         <td>{{$result->description}}</td>
         <td>
             <div style="text-align:right;">        
-                <a href="{{ url('storage/uploads/'.$result->version_id.'.rar') }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download 2.0.2 ⭳</a>
+                <a href="{{ url('/downloads/{filename}'.$result->version_id.'.rar') }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download 2.0.2 ⭳</a>
             </div>
         </td>
     </tr>

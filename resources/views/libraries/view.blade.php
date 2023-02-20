@@ -71,7 +71,7 @@
         <div class="col-3 solas-library-column-title col-form-label align-items-center">File</div>
         <div class="col-9 align-items-center" style="">
             <div class="badge text-wrap solas-library-column-title" style="width:100%; text-align:left;">
-                <a href="{{ url('storage/uploads/3.rar') }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download ⭳
+                <a target="_blank" href="{{ url('/downloads/'.$download) }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download ⭳
                 </a>
             </div>
             <a class="text-muted p-3" href="{{ url('library/'.$library->library_id.'/downloads') }}">All Versions...</a>
