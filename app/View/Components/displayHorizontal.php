@@ -15,7 +15,8 @@ class displayHorizontal extends Component
     public $name;
     public $desc;
     public $library_id;
-    
+    public $id;
+
     public function __construct($data)
     {
         $this->name = $data->name;

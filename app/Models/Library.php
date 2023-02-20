@@ -11,4 +11,5 @@ class Library extends Model
     use Searchable;
     protected $primaryKey = 'library_id';
     protected $table = 'library';
+    public $timestamps = false;
 }

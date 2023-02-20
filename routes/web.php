@@ -22,6 +22,8 @@ Route::get('/library/all', [LibraryControl::class,"show_all"]);
 Route::post('/library/delete', [LibraryControl::class,"delete"]);
 Route::post('/library/search', [LibraryControl::class,"search"]);
 Route::view('/library/add', 'libraries/add');
+Route::post('/library/add/process', [LibraryControl::class,"add"]);
+Route::get('/library/request/{{id}}', [LibraryControl::class,"view"]);
 
 Route::redirect("/","home");
 

@@ -8,13 +8,13 @@ Add Library
         @csrf
         <div class="mb-3 mt-5">
             <label for="name" class="form-label">Title</label>
-            <input type="name" id="name" class="form-control">
+            <input type="text" name="name" id="name" class="form-control">
             <div id="TitleHelp" class="form-text"></div>
         </div>
 
         <div class="mb-5">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="3"></textarea>
         </div>
 
         <hr class="hr" style="color: #acacac;" width=100%>

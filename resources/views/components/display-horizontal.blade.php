@@ -4,7 +4,7 @@
     <div class="w3-cell-row">
         
         <div class="w3-cell">
-            <h2>{{$name}}</h2>
+            <h2><a href="/library/request/{{$library_id}}" style="text-decoration:none;">{{$name}}<a/></h2>
         </div>
 
         <div class="w3-cell w3-right-align">
