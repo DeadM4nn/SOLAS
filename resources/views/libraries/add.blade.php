@@ -21,12 +21,12 @@ Add Library
 
         <div class="mb-3">
         <label for="command" class="form-label">Command</label>
-        <input type="command" id="command" class="form-control">
+        <input type="text" id="command" name="command" class="form-control">
         </div>
 
         <div class="mb-3">
-        <label for="command" class="form-label">Source</label>
-        <input type="source" id="source" class="form-control">
+        <label for="link" class="form-label">Source</label>
+        <input type="text" id="link" name="link" class="form-control">
         </div>
 
         <div>

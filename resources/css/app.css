@@ -19,12 +19,20 @@
     color: #FBFBFB;
 }
 
+.solas-library-command:active{
+    color: #FBFBFB;
+}
+
 .solas-library-link:hover{
     background-color: #5C5C78 !important;
     color:#fbfbfb;
     border: 2px solid #5C5C78;
   }
 
+.solas-horizontal-display{
+  width:auto; 
+  height:14rem;
+}
 .solas-library-link{
     overflow:hidden;
     border: 2px solid #5C5C78;

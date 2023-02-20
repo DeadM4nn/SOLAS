@@ -74,7 +74,7 @@ class LibraryControl extends Controller
         } else {
             $link="users/library";
         }
-        $message=$new_library->name."has been added!";
+        $message=$new_library->name." has been added!";
         
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);

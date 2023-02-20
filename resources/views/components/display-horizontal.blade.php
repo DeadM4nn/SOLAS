@@ -1,4 +1,4 @@
-<div class="card w3-card mt-3">
+<div class="solas-horizontal-display card w3-card mt-3">
     <div class="card-body solas-padding">
 
     <div class="w3-cell-row">
@@ -9,7 +9,7 @@
 
         <div class="w3-cell w3-right-align">
             <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">
-            <x-bookmark-button />
+            <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
             <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem; top:1rem;   height: 2.3rem; position: relative; left: 0.5rem;"
             onClick="document.getElementById('alert-box-{{$library_id}}').style.visibility='visible';">
             <x-alert-box :new-library-id="$library_id" :library-name="$name" />
@@ -31,7 +31,22 @@
     
     
         <div class="d-flex bd-highlight">
-            <div class="p-2 w-100"><p>{{$desc}}</p>
+            <div class="p-2 w-100"><p>
+            
+            @php
+                $max_length = 350;
+
+                // Check the length of the variable
+                if(strlen($desc) > $max_length) {
+                    // Truncate the variable to the maximum length
+                    echo substr($desc, 0, $max_length)."...";
+                } else {
+                    echo $desc;
+                }
+
+            @endphp
+
+            </p>
             </div>
             
             <div class="p-2 flex-shrink-1">

@@ -44,33 +44,40 @@
         </div>
 
     </div>
-    <div class="row mb-4">
-        <div class="col-3 solas-library-column-title col-form-label align-items-center">Install Command</div>
-        <div class="col-9 align-items-center" style="">
-            <div class="badge text-wrap solas-library-column-title" style="width:100%">
-                <input class="form-control solas-library-command" value="$ pip install tensorflow-cpu" readonly>
+    @if(isset($library->command))
+        <div class="row mb-4">
+            <div class="col-3 solas-library-column-title col-form-label align-items-center">Install Command</div>
+            <div class="col-9 align-items-center" style="">
+                <div class="badge text-wrap solas-library-column-title" style="width:100%">
+                    <input class="form-control solas-library-command" value="{{$library->command}}" readonly>
+                </div>
             </div>
         </div>
-    </div>
+    @endif
 
+    @if(isset($library->link))
     <div class="row mb-4">
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Source</div>
         <div class="col-9 align-items-center" style="">
             <div class="badge text-wrap solas-library-column-title" style="width:100%">
-                <a class="btn btn-outline-dark solas-library-link">https://github.com/tensorflow/tensorflow</a>
+                <a class="btn btn-outline-dark solas-library-link" target="_blank" href="{{$library->link}}">{{$library->link}}</a>
             </div>
         </div>
     </div>
-    
+    @endif
+
+    @if($library->is_file)
     <div class="row">
         <div class="col-3 solas-library-column-title col-form-label align-items-center">File</div>
         <div class="col-9 align-items-center" style="">
             <div class="badge text-wrap solas-library-column-title" style="width:100%; text-align:left;">
-                <a class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;">Download ⭳
+                <a href="{{ url("library/download/latest/".$library->library_id) }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;">Download ⭳
                 </a>
             </div>
+            <a class="text-muted p-3" href="{{ url("library/download/all/".$library->library_id) }}">All Versions...</a>
         </div>
     </div>
+    @endif
 
 @endsection
 @section('page_title')
