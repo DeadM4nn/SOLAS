@@ -11,6 +11,11 @@ class LibraryControl extends Controller
 {
 
 
+    public function view_library_update($id){
+        $library = Library::findOrFail($id);
+        return view('libraries/update', ["library"=>$library]);
+    }
+
     public function view_library($id){
         $current_library = Library::find($id);
         
@@ -64,6 +69,19 @@ class LibraryControl extends Controller
         return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);
     } 
 
+    public function update(Request $req){
+        $current_library = Library::findOrFail($req->library_id);
+        $current_library->name = $req->name;
+        $current_library->description = $req->description;
+        $current_library->link = $req->link;
+        $current_library->command = $req->command;
+
+        $current_library->save();
+        $message = $current_library->name." has been successfully update";
+        $link = "library/all";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
     public function add(Request $req){
         
         /*
@@ -108,8 +126,8 @@ class LibraryControl extends Controller
         $new_version->save();
 
         //Uploading the file
-        $filename = $new_version->version_id;
         $file=$req->file('library_file');
+        $filename = $new_version->version_id.$file->getClientOriginalExtension();
         $file->storeAs('uploads', $filename);
 
 

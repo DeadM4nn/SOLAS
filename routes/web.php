@@ -23,7 +23,10 @@ Route::post('/library/delete', [LibraryControl::class,"delete"]);
 Route::post('/library/search', [LibraryControl::class,"search"]);
 Route::view('/library/add', 'libraries/add');
 Route::post('/library/add/process', [LibraryControl::class,"add"]);
+Route::post('/library/update/process', [LibraryControl::class,"update"]);
 Route::get('/library/request/{id}', [LibraryControl::class,"view_library"]);
+Route::get('library/update/{id}', [LibraryControl::class,"view_library_update"]);
+
 
 Route::redirect("/","home");
 
