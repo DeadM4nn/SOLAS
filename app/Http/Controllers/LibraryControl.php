@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 class LibraryControl extends Controller
 {
+
+
     public function view_library($id){
         $current_library = Library::find($id);
         
@@ -61,12 +63,24 @@ class LibraryControl extends Controller
     } 
 
     public function add(Request $req){
+        
+        $req->validate([
+            'command' => 'required_without_all:link',
+            'link' => 'required_without_all:command',
+        ], [
+            'required_without_all' => 'Please provide in either the Link, Command or upload the file of your library.',
+
+        ]);
+
         $user = Auth::user();
         $new_library = new Library;
         $new_library->name = $req->name;
         $new_library->description = $req->description;
         $new_library->creator_id = $user->id;
+        $new_library->link = $user->link;
+        $new_library->command = $user->command;
         $new_library->save();
+
 
 
         if ($user->is_admin) {
