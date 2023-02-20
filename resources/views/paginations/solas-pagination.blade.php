@@ -37,7 +37,7 @@
 
         
         <!-- Next Button -->    
-        @if ($paginator->onFirstPage())
+        @if ($paginator->hasMorePages())
             <li class="page-item">
                 <a href="{{ $paginator->nextPageUrl() }}" class="page-link" tabindex="-1" rel="next">Next</a>
             </li>

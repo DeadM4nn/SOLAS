@@ -27,6 +27,7 @@ Route::post('/library/update/process', [LibraryControl::class,"update"]);
 Route::get('/library/request/{id}', [LibraryControl::class,"view_library"]);
 Route::get('library/update/{id}', [LibraryControl::class,"view_library_update"]);
 Route::post('/library/upload', [LibraryControl::class,"upload"]);
+Route::get('library/{id}/downloads', [LibraryControl::class,"all_downloads"]);
 
 Route::redirect("/","home");
 

@@ -31,6 +31,12 @@ class LibraryControl extends Controller
             $current_library->save();
         }
 
+
+        //Uploading the file
+        $file=$req->file('library_file');
+        $filename = $new_version->version_id.".".$file->getClientOriginalExtension();
+        $file->storeAs('uploads', $filename);
+
         $message=$req->version_number." has been successfully added";
         $link="library/all";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
@@ -152,7 +158,7 @@ class LibraryControl extends Controller
 
         //Uploading the file
         $file=$req->file('library_file');
-        $filename = $new_version->version_id.$file->getClientOriginalExtension();
+        $filename = $new_version->version_id.".".$file->getClientOriginalExtension();
         $file->storeAs('uploads', $filename);
 
 
@@ -167,6 +173,10 @@ class LibraryControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
+    public function all_downloads($id){
+        $library = Library::find($id);
+        return view('libraries/all_download', ["library"=>$library]);
+    }
 }
 
 

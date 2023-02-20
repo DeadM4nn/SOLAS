@@ -74,7 +74,7 @@
                 <a href="{{ url('storage/uploads/3.rar') }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download ⭳
                 </a>
             </div>
-            <a class="text-muted p-3" href="{{ url('library/download/all/".$library->library_id') }}">All Versions...</a>
+            <a class="text-muted p-3" href="{{ url('library/'.$library->library_id.'/downloads') }}">All Versions...</a>
         </div>
     </div>
     @endif
@@ -88,9 +88,9 @@
 
         <div class="justify-content-end">
             <a class="me-3" href="{{ url('library/update/'.$library->library_id) }}">
-                <img src="{{ asset('icons/edit.png') }}">
+                    <img style="height: 1.6rem;" src="{{ asset('icons/edit.png') }}">
             </a>
-            <x-bookmark-button />
+            <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
         </div>
     </div>
 @endsection
