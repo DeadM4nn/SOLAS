@@ -3,6 +3,7 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
+    <title>{{ config('app.name') }}</title>
 </head>
 <body>
     <x-header />

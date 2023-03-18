@@ -10,7 +10,6 @@ class Library extends Model
     use HasFactory;
     use Searchable;
     protected $primaryKey = 'library_id';
-    protected $table = 'library';
     public $timestamps = false;
 
     public function versions()
