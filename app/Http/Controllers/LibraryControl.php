@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class LibraryControl extends Controller
 {
-
-
     public function upload(Request $req){
         //validation
         $req->validate([
@@ -30,7 +28,6 @@ class LibraryControl extends Controller
             $current_library->is_file = 1;
             $current_library->save();
         }
-
 
         //Uploading the file
         $file=$req->file('library_file');
@@ -124,16 +121,6 @@ class LibraryControl extends Controller
 
     public function add(Request $req){
         
-        /*
-        $req->validate([
-            'command' => 'required_without_all:link, library_file',
-            'link' => 'required_without_all:command, library_file',
-            'library_file' => 'required_without_all:command|file',
-        ], [
-            'required_without_all' => 'Please provide in either the Link, Command or upload the file of your library.',
-
-        ]);*/
-
         if(isset($req->library_file))
         $req->validate([
             'library_file' => 'required|mimes:zip,rar|max:2048',
@@ -178,6 +165,7 @@ class LibraryControl extends Controller
         }
         $message=$new_library->name." has been added!";
         
+        $tags = $req->version;
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
