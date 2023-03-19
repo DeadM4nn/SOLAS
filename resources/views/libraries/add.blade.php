@@ -7,13 +7,13 @@ Add Library
     <form action="../library/add/process" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3 mt-5">
-            <label for="name" class="form-label">Title</label>
+            <label for="name" class="form-label">Title<span class="text-danger">*</span></label>
             <input type="text" value="{{ old('name') }}" placeholder="e.g. Laravel" name="name" id="name" class="form-control" required>
         </div>
 
         <div class="mb-5">
 
-            <label for="description" class="form-label">Description</label>
+            <label for="description" class="form-label">Description<span class="text-danger">*</span></label>
             <textarea class="form-control" name="description" placeholder="Briefly describe what is your library about." id="description" rows="3" required>{{ old('description') }}</textarea>
         </div>
 
@@ -38,7 +38,7 @@ Add Library
         <hr class="hr" style="color: #acacac;" width=100%>
 
         <div class="mb-4 mt-3">
-        <label for="name" class="form-label">File Upload</label>
+        <label for="name" class="form-label">File Upload<span class="text-danger">*</span></label>
             <input class="form-control form-control-lg" name="library_file" id="library_file" type="file" enctype="multipart/form-data" required>
             <div class="fs-6 fw-light">Please choose or drag and drop the file. This form only accepts .zip file</div>
         </div>
