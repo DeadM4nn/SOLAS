@@ -1,6 +1,7 @@
 <?php
 
 use App\HTTP\Controllers\LibraryControl;
+use App\HTTP\Controllers\UserControl;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,3 +58,6 @@ Route::middleware([
 
 //Route::get("/home","home")->name("home");
 Route::view("/dashboard","home")->name("dashboard");
+
+// User Pages
+Route::get('/admin/users/all', [UserControl::class,"show_all"]);

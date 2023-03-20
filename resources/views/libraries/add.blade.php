@@ -18,7 +18,7 @@ Add Library
 @endsection
 @section('content')
 <div class="ms-5 me-5">
-    <form onsubmit="return false;" action="../library/add/process" method="POST" enctype="multipart/form-data">
+    <form action="../library/add/process" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3 mt-5">
             <label for="name" class="form-label">Title<span class="text-danger">*</span></label>
