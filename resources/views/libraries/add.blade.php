@@ -40,14 +40,14 @@ Add Library
                     </div>
                     <a id="tag-list">
                     </a>
-                    <input type="hidden" id="tag" value="{{ old('tag') }}" class="form-control" />
+                    <input type="hidden" id="tag" id="name" value="Machine Learning<=>Acah" class="form-control" />
                 </div>
             <ul class="list tags-list"></ul>
         </div>
 
         <div class="mb-3">
             <label for="name" class="form-label">License</label>
-            <input type="text" id="license" value="{{ old('license') }}" placeholder="e.g. GNU General Public License" name="license" class="form-control" required>
+            <input type="text" id="license" value="{{ old('license') }}" placeholder="e.g. GNU General Public License" name="license" class="form-control">
             <ul class="list license-list"></ul>
         </div>
 
@@ -73,6 +73,7 @@ Add Library
         <label for="command" class="form-label">Command</label>
         <input type="text" id="command" placeholder="e.g. npm install react" value="{{ old('command') }}" name="command" class="form-control">
         </div>
+
 
         <div class="mb-3">
         <label for="link" class="form-label">Source</label>
@@ -185,9 +186,9 @@ Add Library
     ];
 
     let tags = [
-        "Machine Learning", 
-        "Cryptography",
-        "Graphics",
+        @foreach($tag_names as $tag_name)
+            "{{$tag_name["name"]}}",
+        @endforeach       
     ];
 
     let languages = [

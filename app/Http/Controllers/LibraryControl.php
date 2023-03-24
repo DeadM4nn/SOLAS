@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 use App\Models\Library;
+use App\Models\Tag;
+use App\Models\LibraryTag;
 use App\Models\Version;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class LibraryControl extends Controller
 {
@@ -83,6 +86,9 @@ class LibraryControl extends Controller
         // Delete Record
         $record->delete();
 
+        //Delete Tags
+        LibraryTag::where('library_id', $id)->delete();
+
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
@@ -106,6 +112,7 @@ class LibraryControl extends Controller
         return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);
     } 
 
+
     public function update(Request $req){
         $current_library = Library::findOrFail($req->library_id);
         $current_library->name = $req->name;
@@ -117,6 +124,28 @@ class LibraryControl extends Controller
         $message = $current_library->name." has been successfully update";
         $link = "library/all";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
+     // This function is used to register the tag to the account
+     public function add_tag_to_account($tagName, $library_id){
+        $tag_existance = Tag::where('name', $tagName)->first();
+        
+        // Checks if the tag alr exist
+        if ($tag_existance) {
+            $tag_id = $tag_existance->tag_id;
+        } else {
+            $tag_new = new Tag;
+            $tag_new->name = $tagName;
+            $tag_new->save();
+            $tag_id = $Tag_new->tag_id;
+        }
+
+        LibraryTag::where('library_id', $library_id)->delete();
+        $library_tag_new = new LibraryTag;
+        $library_tag_new->library_id = $library_id;
+        $library_tag_new->tag_id = $tag_id;
+        $library_tag_new->save();
+
     }
 
     public function add(Request $req){
@@ -165,10 +194,25 @@ class LibraryControl extends Controller
         }
         $message=$new_library->name." has been added!";
         
-        $tags = $req->version;
+        // Add Tag
+        $req->tag = "Machine Learning<=>Acah";
+        Log::info($req->tag);
+        if (!empty($req->tag)) {
+            Log::info($req->tag);
+
+            $tags_list = $req->tag;
+            $tags_list = explode("<=>", $tags_list);
+
+            foreach($tags_list as $tag){
+                LibraryControl::add_tag_to_account($tag, $new_library->library_id);
+            }
+        }
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
+
+
+   
 
     public function all_downloads($id){
         $library = Library::find($id);
@@ -179,6 +223,14 @@ class LibraryControl extends Controller
 
         return view('libraries/all_download', ["library"=>$library, "results"=>$results]);
     }
+
+
+    public function view_add_library(){
+        # Get all the Tag names
+        $tag_names = Tag::select("name")->get();
+        return view('libraries/add', ["tag_names"=>$tag_names]);
+    }
+
 }
 
 

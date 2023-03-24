@@ -22,7 +22,7 @@ Route::get('/home', function () {
 Route::get('/library/all', [LibraryControl::class,"show_all"]);
 Route::post('/library/delete', [LibraryControl::class,"delete"]);
 Route::post('/library/search', [LibraryControl::class,"search"]);
-Route::view('/library/add', 'libraries/add');
+Route::get('/library/add', [LibraryControl::class,"view_add_library"]);
 Route::post('/library/add/process', [LibraryControl::class,"add"]);
 Route::post('/library/update/process', [LibraryControl::class,"update"]);
 Route::get('/library/request/{id}', [LibraryControl::class,"view_library"]);

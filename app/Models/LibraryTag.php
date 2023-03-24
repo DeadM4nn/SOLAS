@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class LibraryTag extends Model
 {
     use HasFactory;
+    
+    public $timestamps = false;
 
     public function libraries()
     {
