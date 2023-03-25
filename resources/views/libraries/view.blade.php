@@ -13,30 +13,26 @@
         <div class="col-3 solas-library-column-title col-form-label align-items-center">License</div>
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
             <div class="badge solas-tag solas-bg-license solas-bg-license text-wrap" style="font-size:0.7rem">
-                GNU Lesser General Public License (LPGL) 
+                {{$license}}
             </div>
         </div>
-
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Language</div>
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
-            <div class="badge solas-tag solas-bg-language text-wrap" style="font-size:0.7rem">
-                Python
-            </div>
-            <div class="badge solas-tag solas-bg-language text-wrap" style="font-size:0.7rem">
-                C++
-            </div>
+        @foreach($languages as $language)    
+        <div class="badge solas-tag solas-bg-language text-wrap" style="font-size:0.7rem">
+                {{$language["name"]}}
+        </div>
+        @endforeach
         </div>
         
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Tags</div>
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
+    @foreach( $tags as $tag)
             <div class="badge solas-tag solas-bg-category text-wrap" style="font-size:0.7rem">
-                Machine Learning
+                {{$tag['name']}}
             </div>
-            <div class="badge solas-tag solas-bg-category text-wrap" style="font-size:0.7rem">
-                Deep Learning
-            </div>
+    @endforeach
         </div>
-
 
         <!-- Horizontal Divider -->
         <div class="col-12">

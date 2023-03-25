@@ -10,13 +10,16 @@ class LibraryTag extends Model
     use HasFactory;
     
     public $timestamps = false;
+    protected $table = 'library_tags';
 
-    public function libraries()
+    public function library()
     {
         return $this->belongsTo(Library::class);
     }
-
-    public function tags(){
+    
+    public function tag()
+    {
         return $this->belongsTo(Tag::class);
     }
+
 }

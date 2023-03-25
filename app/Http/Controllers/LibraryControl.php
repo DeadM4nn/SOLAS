@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Library;
 use App\Models\Tag;
+use App\Models\Language;
+use App\Models\LibraryLanguage;
 use App\Models\LibraryTag;
 use App\Models\Version;
 use Illuminate\Http\Request;
@@ -44,12 +46,67 @@ class LibraryControl extends Controller
 
     public function view_library_update($id){
         $library = Library::findOrFail($id);
-        return view('libraries/update', ["library"=>$library]);
+        $tag_names = Tag::select("name")->get();
+        $language_names = Language::select("name")->get();
+
+        //Getting all tags
+        $tags_dic = Tag::select('tags.name')
+        ->distinct()
+        ->join('library_tags', 'library_tags.tag_id', '=', 'tags.tag_id')
+        ->where('library_tags.library_id', '=', $id)
+        ->get();
+        
+        $tags = Array();
+        // Extract the 'name' values into a new array
+        foreach($tags_dic as $tag){
+            array_push($tags,$tag['name']);
+        }
+
+        $tags = implode("<=>",$tags);
+
+
+        //Getting all the languages
+        $languages_dic = Language::select('languages.name')
+        ->distinct()
+        ->join('library_languages', 'library_languages.language_id', '=', 'languages.language_id')
+        ->where('library_languages.library_id', '=', $id)
+        ->get();
+
+        $languages = Array();
+        // Extract the 'name' values into a new array
+        foreach($languages_dic as $language){
+            array_push($languages,$language['name']);
+        }
+
+        $languages = implode("<=>",$languages);
+
+        return view('libraries/update', ["library"=>$library,"tag_names"=>$tag_names,"language_names"=>$language_names, "tags"=>$tags, "languages"=>$languages]);
     }
 
     public function view_library($id){
         $current_library = Library::find($id);
         $download = Version::where('library_id', $id)->latest()->first();
+
+        //Getting all tags
+        $tags = Tag::select('tags.name', 'tags.tag_id')
+        ->distinct()
+        ->join('library_tags', 'library_tags.tag_id', '=', 'tags.tag_id')
+        ->where('library_tags.library_id', '=', $id)
+        ->get();
+
+        //Getting all languages
+        $languages = Language::select('languages.name', 'languages.language_id')
+        ->distinct()
+        ->join('library_languages', 'library_languages.language_id', '=', 'languages.language_id')
+        ->where('library_languages.library_id', '=', $id)
+        ->get();
+
+        //Setting license
+        if(empty($current_library->license)){
+            $license = "Unspecified";
+        } else {
+            $license = $current_library->license;
+        }
 
         if(is_null($download)){
             $download = "";
@@ -68,7 +125,7 @@ class LibraryControl extends Controller
         $current_library->save();
 
         $view_library = Library::find($id);
-        return view('libraries/view', ["library"=>$view_library,"download"=>$download]);
+        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license]);
 
     }
 
@@ -88,6 +145,8 @@ class LibraryControl extends Controller
 
         //Delete Tags
         LibraryTag::where('library_id', $id)->delete();
+        //Delete Language
+        LibraryLanguage::where('library_id', $id)->delete();
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
@@ -123,11 +182,43 @@ class LibraryControl extends Controller
         $current_library->save();
         $message = $current_library->name." has been successfully update";
         $link = "library/all";
+
+        // Delete all occurances of tags and library so that they may get renew
+        LibraryTag::where('library_id', $current_library->library_id)->delete();
+        LibraryLanguage::where('library_id', $current_library->library_id)->delete();
+
+        
+        // Update Tag
+        Log::info($req->tag);
+        if (!empty($req->tag)) {
+            Log::info($req->tag);
+
+            $tags_list = $req->tag;
+            $tags_list = explode("<=>", $tags_list);
+
+            foreach($tags_list as $tag){
+                LibraryControl::add_tag_to_account($tag, $current_library->library_id);
+            }
+        }
+
+        // Update Language
+        Log::info($req->language);
+        if (!empty($req->language)) {
+            Log::info($req->language);
+            $languages_list = $req->language;
+            $languages_list = explode("<=>", $languages_list);
+
+            foreach($languages_list as $languages){
+                LibraryControl::add_language_to_account($languages, $current_library->library_id);
+            }
+        }
+        
+
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
-     // This function is used to register the tag to the library
-     public function add_tag_to_account($tagName, $library_id){
+    // This function is used to register the tag to the library
+    public function add_tag_to_account($tagName, $library_id){
         $tag_existance = Tag::where('name', $tagName)->first();
         
         // Checks if the tag alr exist
@@ -137,10 +228,11 @@ class LibraryControl extends Controller
             $tag_new = new Tag;
             $tag_new->name = $tagName;
             $tag_new->save();
-            $tag_id = $tag_new->tag_id;
-        }
 
-        LibraryTag::where('library_id', $library_id)->delete();
+            // Its still called ID
+            $tag_id = $tag_new->id;
+        }
+        Log::Info($tag_id);
         $library_tag_new = new LibraryTag;
         $library_tag_new->library_id = $library_id;
         $library_tag_new->tag_id = $tag_id;
@@ -156,18 +248,19 @@ class LibraryControl extends Controller
         if ($language_existance) {
             $language_id = $language_existance->language_id;
         } else {
-            $language_new = new language;
+            $language_new = new Language;
             $language_new->name = $languageName;
             $language_new->save();
-            $language_id = $language_new->language_id;
+            //Newly created IDs are still id
+            $language_id = $language_new->id;
         }
 
-        Librarylanguage::where('library_id', $library_id)->delete();
-        $library_language_new = new Librarylanguage;
+
+        $library_language_new = new LibraryLanguage;
         $library_language_new->library_id = $library_id;
         $library_language_new->language_id = $language_id;
         $library_language_new->save();
-
+        
     }
 
     public function add(Request $req){
@@ -187,8 +280,9 @@ class LibraryControl extends Controller
         $new_library->name = $req->name;
         $new_library->description = $req->description;
         $new_library->creator_id = $user->id;
-        $new_library->link = $user->link;
-        $new_library->command = $user->command;
+        $new_library->link = $req->link;
+        $new_library->command = $req->command;
+        $new_library->license = $req->license;
         
         if(isset($req->library_file)){
             $new_library->is_file = 1;
@@ -229,11 +323,22 @@ class LibraryControl extends Controller
             }
         }
 
+        // Add Language
+        Log::info($req->language);
+        if (!empty($req->language)) {
+            Log::info($req->language);
+
+            $languages_list = $req->language;
+            $languages_list = explode("<=>", $languages_list);
+
+            foreach($languages_list as $languages){
+                LibraryControl::add_language_to_account($languages, $new_library->library_id);
+            }
+        }
+        
+
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
-
-
-   
 
     public function all_downloads($id){
         $library = Library::find($id);
@@ -245,11 +350,11 @@ class LibraryControl extends Controller
         return view('libraries/all_download', ["library"=>$library, "results"=>$results]);
     }
 
-
     public function view_add_library(){
         # Get all the Tag names
         $tag_names = Tag::select("name")->get();
-        return view('libraries/add', ["tag_names"=>$tag_names]);
+        $language_names = Language::select("name")->get();
+        return view('libraries/add', ["tag_names"=>$tag_names, "language_names"=>$language_names]);
     }
 
 }
