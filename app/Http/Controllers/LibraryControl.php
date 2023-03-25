@@ -126,7 +126,7 @@ class LibraryControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
-     // This function is used to register the tag to the account
+     // This function is used to register the tag to the library
      public function add_tag_to_account($tagName, $library_id){
         $tag_existance = Tag::where('name', $tagName)->first();
         
@@ -137,7 +137,7 @@ class LibraryControl extends Controller
             $tag_new = new Tag;
             $tag_new->name = $tagName;
             $tag_new->save();
-            $tag_id = $Tag_new->tag_id;
+            $tag_id = $tag_new->tag_id;
         }
 
         LibraryTag::where('library_id', $library_id)->delete();
@@ -145,6 +145,28 @@ class LibraryControl extends Controller
         $library_tag_new->library_id = $library_id;
         $library_tag_new->tag_id = $tag_id;
         $library_tag_new->save();
+
+    }
+
+    // This function is used to register the Language to the account
+    public function add_language_to_account($languageName, $library_id){
+        $language_existance = Language::where('name', $languageName)->first();
+        
+        // Checks if the language alr exist
+        if ($language_existance) {
+            $language_id = $language_existance->language_id;
+        } else {
+            $language_new = new language;
+            $language_new->name = $languageName;
+            $language_new->save();
+            $language_id = $language_new->language_id;
+        }
+
+        Librarylanguage::where('library_id', $library_id)->delete();
+        $library_language_new = new Librarylanguage;
+        $library_language_new->library_id = $library_id;
+        $library_language_new->language_id = $language_id;
+        $library_language_new->save();
 
     }
 
@@ -195,7 +217,6 @@ class LibraryControl extends Controller
         $message=$new_library->name." has been added!";
         
         // Add Tag
-        $req->tag = "Machine Learning<=>Acah";
         Log::info($req->tag);
         if (!empty($req->tag)) {
             Log::info($req->tag);

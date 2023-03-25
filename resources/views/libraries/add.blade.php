@@ -40,7 +40,7 @@ Add Library
                     </div>
                     <a id="tag-list">
                     </a>
-                    <input type="hidden" id="tag" id="name" value="Machine Learning<=>Acah" class="form-control" />
+                    <input type="hidden" id="tag" name="tag" value="{{ old('tag') }}" />
                 </div>
             <ul class="list tags-list"></ul>
         </div>
@@ -60,7 +60,7 @@ Add Library
                 </div>
                 <a id="language-list">
                 </a>
-                <input type="hidden" value="{{ old('language') }}" id="language" class="form-control" />
+                <input type="hidden" id="language" name="language" value="{{ old('language') }}" />
             </div>
             <ul class="list language-list"></ul>
         </div>
@@ -381,7 +381,8 @@ function get_tags(){
     tagContentList.forEach((tag, index) => {
   	tagContentList[index] = tag.replace(" ×", "");
 	});
-    document.getElementById("tag").value = tagContentList.join("<=>")
+    document.getElementById("tag").value = tagContentList.join("<=>");
+    console.log(document.getElementById("tag").value);
     return tagContentList;
 }
 
