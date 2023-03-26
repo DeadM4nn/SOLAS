@@ -5,11 +5,19 @@
 
 @section('content')
 
+<style>
+    .solas-tag{
+        width: 6rem;
+        top: 1rem;
+        margin-bottom: 0px;
+        position: relative;
+        top: -0.3rem;
+        margin-left: 1rem;
+    }
+</style>
 
 @foreach($results as $data)
-    @if(!$data["is_admin"])
-        <x-display-account-horizontal :data="$data" />
-    @endif
+    <x-display-account-horizontal :data="$data" /> 
 @endforeach
 
 @endsection

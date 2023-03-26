@@ -15,9 +15,9 @@ class accountAlertBox extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($account_id_new, $username)
+    public function __construct($accountId, $username)
     {
-        $this->account_id = $account_id_new;
+        $this->account_id = $accountId;
         $this->username = $username;
     }
 

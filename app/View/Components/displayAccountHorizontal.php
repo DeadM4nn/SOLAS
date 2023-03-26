@@ -22,7 +22,7 @@ class displayAccountHorizontal extends Component
         $this->account_id = $data->id;
         $this->username = $data->username;
         $this->email = $data->email;
-        $this->is_admin = $data->library_id;
+        $this->is_admin = $data->is_admin;
     }
 
     /**

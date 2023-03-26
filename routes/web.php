@@ -61,3 +61,4 @@ Route::view("/dashboard","home")->name("dashboard");
 
 // User Pages
 Route::get('/admin/users/all', [UserControl::class,"show_all"]);
+Route::post('/admin/users/delete', [UserControl::class,"delete"]);

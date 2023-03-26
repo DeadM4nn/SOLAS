@@ -130,7 +130,6 @@ class LibraryControl extends Controller
     }
 
     public function delete(Request $req){
-        // Get a list of all that has the id (One record)
         $id = $req->library_id;
 
         Version::where('library_id', $id)->delete();
@@ -230,7 +229,7 @@ class LibraryControl extends Controller
             $tag_new->save();
 
             // Its still called ID
-            $tag_id = $tag_new->id;
+            $tag_id = $tag_new->tag_id;
         }
         Log::Info($tag_id);
         $library_tag_new = new LibraryTag;

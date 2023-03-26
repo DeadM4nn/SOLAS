@@ -10,12 +10,13 @@ class LibraryLanguage extends Model
     use HasFactory;
     public $timestamps = false;
 
-    public function libraries()
+    public function library()
     {
         return $this->belongsTo(Library::class);
     }
-
-    public function tags(){
+    
+    public function languages()
+    {
         return $this->belongsTo(Language::class);
     }
 }
