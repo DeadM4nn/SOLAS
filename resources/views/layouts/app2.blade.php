@@ -17,12 +17,14 @@
                 @yield('content1')
             </div>
         
+            @yield('content3')
         </div>
 
         <div class="justify-content-end">
             @yield('content2')
         </div>
+           
     </div>
-    
+
 </body>
 </html>

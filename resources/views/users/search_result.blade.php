@@ -1,9 +1,30 @@
 @extends('layouts.app')
 @section('page_title')
-    All Accounts
+<style>
+#searchKey {
+    width : 75% !important;
+}
+</style>
+
+    <div class="d-flex justify-content-start">
+        All Accounts
+    </div>
+
+    <div class="d-flex justify-content-end" style="position: relative; top: -3.9rem;">
+        <form action="../../admin/users/search" method="POST" class="solas-search-bar">
+            @csrf
+            @if(isset($searchKey))
+                <x-searchBar :query="$searchKey" />
+            @else
+                <x-searchBar />
+            @endif
+        </form>
+    </div>
+
 @endsection
 
 @section('content')
+
 
 <style>
     .solas-tag{

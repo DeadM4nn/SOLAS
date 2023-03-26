@@ -59,6 +59,12 @@ Route::middleware([
 //Route::get("/home","home")->name("home");
 Route::view("/dashboard","home")->name("dashboard");
 
-// User Pages
+// User Admin Pages
 Route::get('/admin/users/all', [UserControl::class,"show_all"]);
 Route::post('/admin/users/delete', [UserControl::class,"delete"]);
+Route::post('/admin/users/search', [UserControl::class,"search"]);
+Route::get('/admin/users/update/{id}', [UserControl::class,"admin_view_update"]);
+Route::post('/admin/users/update_process', [UserControl::class,"update"]);
+
+// User Personal Pages
+Route::get('/user', [UserControl::class,"user_view"]);
