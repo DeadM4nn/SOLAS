@@ -109,7 +109,7 @@ Add Library
 
         <div class="mb-5">
             <label for="file_description" class="form-label">Version Description</label>
-            <textarea class="form-control" placeholder="Briefly describe what is updated or what is in the file (Only required if uploading a file)" name="file_description" id="file_description" rows="3" required>{{ old('file_description') }}</textarea>
+            <textarea class="form-control" placeholder="Briefly describe what is updated or what is in the file (Only required if uploading a file)" name="file_description" id="file_description" rows="3" >{{ old('file_description') }}</textarea>
         </div>
 
         @error('file_description')

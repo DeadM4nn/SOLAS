@@ -135,18 +135,25 @@ class LibraryControl extends Controller
 
         Version::where('library_id', $id)->delete();
 
+        $user = Auth::user();
         $record = Library::find($id);
         $name = $record->name;
         $message = $name." has been deleted";
         $link = "/library/all";
 
-        // Delete Record
-        $record->delete();
+        if ($user->is_admin) {
+            $link="library/all";
+        } else {
+            $link="user/libraries";
+        }
 
         //Delete Tags
         LibraryTag::where('library_id', $id)->delete();
         //Delete Language
         LibraryLanguage::where('library_id', $id)->delete();
+
+        // Delete Record
+        $record->delete();
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }

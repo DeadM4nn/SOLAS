@@ -12,19 +12,13 @@
             </div>
 
             <div class="w3-cell w3-right-align">
+            @if(!$is_admin)
                 <button type="button" class="btn btn-danger" style="width:8rem;"
-                @if($is_admin)
-                    disabled
-                @endif
                 onClick="document.getElementById('alert-box-{{$account_id}}').style.visibility='visible';"
                 >Delete</button>
                 <x-account-alert-box :username="$username" :account_id='$account_id'  />
                 <a href="{{url('/admin/users/update/'.(string)$account_id)}}" type="button" class="btn btn-success" style="width:8rem;" 
-                @if($is_admin)
-                    disabled
-                @endif
                 >Edit</a>
-                @if(!$is_admin)
                 <button type="button" class="btn btn-outline-dark" style="width:8rem;">Ratings</button>
                 @endif
             </div>
