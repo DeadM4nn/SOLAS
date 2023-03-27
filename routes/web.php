@@ -50,11 +50,10 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
+
 });
 
+Route::get('/home', function () {return view('home');})->name('home');
 
 //Route::get("/home","home")->name("home");
 Route::view("/dashboard","home")->name("dashboard");
@@ -68,3 +67,4 @@ Route::post('/admin/users/update_process', [UserControl::class,"update"]);
 
 // User Personal Pages
 Route::get('/user', [UserControl::class,"user_view"]);
+Route::get('user/update/{id}', [UserControl::class,"admin_view_update"]);

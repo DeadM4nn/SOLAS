@@ -20,8 +20,7 @@
         </div>
         </div>
 
-        <a class="btn btn-outline-dark mb-2" style="width:100%;">Edit</a>
-
+                <a href="{{url('/user/update/'.(string)$account_id)}}" type="button" class="btn btn-outline-dark" >Edit</a>
 
             <!-- Horizontal Divider -->
             <div class="mb-5 col-12">

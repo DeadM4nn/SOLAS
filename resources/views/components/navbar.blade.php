@@ -1,11 +1,32 @@
 <!-- Navbar Array -->
+    
+@if(auth()->check() && auth()->user()->is_admin)
+        <style>
+            .solas-header{
+                background-color:#1483C3;
+            }
+            .solas-navbar-items{
+                color:white;
+            }
+            .solas-navbar-items:hover{
+                color:white;
+                text-decoration:underline;
+                text-decoration-color:white ;
+            }
+        </style>
+    @endif
+
+
 @php
 
     //For the current navbar settings
-    $is_admin = false;
-    $logged_in = true;
-
-    $navbar = array();
+    $logged_in = auth()->check();
+    if($logged_in){
+        $is_admin = auth()->user()->is_admin;
+    } else {
+        $is_admin = false;
+    }
+        $navbar = array();
     
 
     $navbar['guest']=array(
@@ -25,11 +46,10 @@
 
 
     $navbar['admin']=array(
-        array("Home","/admin/home"),
-        array("My Libraries", "/admin/libraries"),
-        array("Accounts", "/admin/accounts"),      
-        array("Libraries", "/admin/libraries")
-
+        array("Home","/home"),
+        array("Libraries", "/library/all"),
+        array("Accounts", "/admin/users/all"),      
+        array("My Account", "/user")
     );
 
 
@@ -54,10 +74,10 @@
             <button class="ms-3 btn btn-secondary" type="submit">Logout</button>
         </form>
     @else
-        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Log in</a>
+        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 me-3">Log in</a>
 
         @if (Route::has('register'))
-            <a href="{{ route('register') }}" class="ml-4 font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Register</a>
+            <a href="{{ route('register') }}" class="btn btn-outline-dark me-3">Register</a>
         @endif
     @endauth
 </div>

@@ -23,8 +23,14 @@ class UserControl extends Controller
         $current_user->save();
 
         $message = $current_user->username." has been successfully updated";
-        $link = "admin/users/all";
+        
+        if(Auth::user()->is_admin){
+            $link = "admin/users/all";
+        } else {
+            $link = "/user";
+        };
 
+    
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
@@ -85,7 +91,7 @@ class UserControl extends Controller
     public function admin_view_update($id){
         $user = USER::findOrFail($id);
 
-        if($user->is_admin){
+        if($user->is_admin && Auth::user()->id != $id){
             $message = "Updating a Admin User is prohibited";
             $link = "/admin/users/all";
             return view("confirmations/after", ["message"=>$message, "link"=>$link]);
@@ -102,7 +108,7 @@ class UserControl extends Controller
 
         $libraries = Library::where("creator_id",'=',$id)->get();
 
-        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries]);
+        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries, "account_id"=>$id]);
     }
 
 
