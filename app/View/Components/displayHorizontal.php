@@ -16,12 +16,14 @@ class displayHorizontal extends Component
     public $desc;
     public $library_id;
     public $id;
+    public $creator_id;
 
     public function __construct($data)
     {
         $this->name = $data->name;
         $this->desc = $data->description;
         $this->library_id = $data->library_id;
+        $this->creator_id = $data->creator_id;
     }
 
     /**

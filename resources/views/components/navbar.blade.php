@@ -38,8 +38,6 @@
 
     $navbar['user']=array(
         array("Home","/home"),
-        array("Tags","/tag"),
-        array("Bookmarks", "/user/bookmarks"),
         array("My Libraries", "/user/libraries"),
         array("My Profile", "/user")
     );

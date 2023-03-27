@@ -82,11 +82,18 @@
             {{$library->name}}
         </div>
 
+
         <div class="justify-content-end">
+            @if(auth()->check())
+            @if(auth()->user()->id == $library->creator_id || auth()->user()->is_admin)
             <a class="me-3" href="{{ url('library/update/'.$library->library_id) }}">
                     <img style="height: 1.6rem;" src="{{ asset('icons/edit.png') }}">
             </a>
+            @endif
+             @endif
             <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
         </div>
+
+
     </div>
 @endsection

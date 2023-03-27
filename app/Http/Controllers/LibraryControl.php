@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
 
+
 class LibraryControl extends Controller
 {
     public function upload(Request $req){
@@ -305,7 +306,7 @@ class LibraryControl extends Controller
         if ($user->is_admin) {
             $link="library/all";
         } else {
-            $link="users/library";
+            $link="user/libraries";
         }
         $message=$new_library->name." has been added!";
         
@@ -356,6 +357,12 @@ class LibraryControl extends Controller
         return view('libraries/add', ["tag_names"=>$tag_names, "language_names"=>$language_names]);
     }
 
+    public function view_my_libraries(){
+        $id = Auth::user()->id;
+        $results = Library::where("creator_id",'=',$id)->get();
+        $amount = count($results);
+        return view('libraries/user/my_libraries', ['results'=>$results, "amount"=>$amount]);
+    }
 }
 
 

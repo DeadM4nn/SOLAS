@@ -10,8 +10,13 @@
         <div class="w3-cell w3-right-align">
             <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">
             <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
-            <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem; top:1rem;   height: 2.3rem; position: relative; left: 0.5rem;"
-            onClick="document.getElementById('alert-box-{{$library_id}}').style.visibility='visible';">
+            
+            @if(auth()->check())
+            @if(auth()->user()->id == $creator_id || auth()->user()->is_admin)
+                <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem; top:1rem;   height: 2.3rem; position: relative; left: 0.5rem;"
+                onClick="document.getElementById('alert-box-{{$library_id}}').style.visibility='visible';">
+            @endif
+            @endif
             <x-alert-box :new-library-id="$library_id" :library-name="$name" />
         </div>
     </div>

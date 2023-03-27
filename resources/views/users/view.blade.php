@@ -27,7 +27,9 @@
                 <hr class="hr"></hr>
             </div>
 @endsection
-@section('content3')
+
+<!--
+section('content3')
             <div style="font-family: 'Roboto', sans-serif; letter-spacing: 0.05rem; font-size: 2rem; font-weight: 900; color: #313D60;">
                 My Libraries
             </div>
@@ -37,4 +39,5 @@
             @endforeach
 
 
-@endsection
+endsection
+-->
