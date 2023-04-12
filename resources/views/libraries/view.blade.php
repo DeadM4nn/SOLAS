@@ -4,7 +4,16 @@
         {{$library->description}}
     </div>
 
+    @php
+        if($bookmark){
+            $bookmark_action = '/user/bookmark/remove';
+            $bookmark_image = 'icons/bookmark_hover.png';
+        }else{
+            $bookmark_action = '/user/bookmark/add';
+            $bookmark_image = 'icons/bookmark.png';
+        }
 
+    @endphp
 
 
     <div class="row my-4">
@@ -92,11 +101,12 @@
             @endif
 
                         
-                <form style="display:inline-block;" action="{{ url('/user/bookmark/add') }}" method="POST">
+                <form style="display:inline-block;" action="{{ url($bookmark_action) }}" method="POST">
                     @csrf
                     <input type="hidden" name="library_id" id="library_id" value="{{$library->library_id}}">
                     <input type="image" class="pt-1 solas-bookmark-icon" style="height:1.7rem;"
-                    src="{{ asset('placeholders/bookmark.png') }}"
+
+                    src="{{ asset($bookmark_image)  }}"
                     >
                 </form>
             @endif

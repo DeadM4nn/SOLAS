@@ -34,4 +34,19 @@ class BookmarkControl extends Controller
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
+
+    public function delete(Request $req){
+
+        $bookmark = Bookmark::select()
+        ->where('library_id', $req->library_id)
+        ->where('account_id', Auth::user()->id)
+        ->first();
+
+        $bookmark->delete();
+
+        $message = "Bookmark has been deleted";
+        $link = "library/request/".$req->library_id;
+
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
 }

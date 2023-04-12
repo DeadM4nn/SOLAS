@@ -75,3 +75,4 @@ Route::view("/dashboard","home")->name("dashboard");
 
 
 Route::post('/user/bookmark/add', [BookmarkControl::class,"add"]);
+Route::post('/user/bookmark/remove', [BookmarkControl::class,"delete"]);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Library;
 use App\Models\Tag;
 use App\Models\Language;
+use App\Models\Bookmark;
 use App\Models\LibraryLanguage;
 use App\Models\LibraryTag;
 use App\Models\Version;
@@ -126,7 +127,17 @@ class LibraryControl extends Controller
         $current_library->save();
 
         $view_library = Library::find($id);
-        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license]);
+
+        $libraryId = 10182;
+        $accountId = 1;
+        
+        $bookmark = Bookmark::select('last_version')
+            ->join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')
+            ->where('libraries.library_id', $id)
+            ->where('bookmarks.account_id', Auth::user()->id)
+            ->first();
+
+        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => $bookmark]);
 
     }
 
