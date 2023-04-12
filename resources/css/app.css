@@ -1,4 +1,6 @@
-
+.solas-bookmark-icon, .solas-bookmark-icon-activated{
+    height: 1.6rem;
+}
 
 .solas-tag-container, .solas-language-container{
 	border: 1px solid #ccccccc4;
