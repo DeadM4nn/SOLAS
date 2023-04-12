@@ -10,42 +10,9 @@
         <div class="w3-cell w3-right-align">
             <image class="solas-rating-card" src="{{ asset('placeholders/stars.png') }}">
 
-            @if(auth()->check())
-            <form style="display:inline-block;" target="_blank" action="{{ url('user/bookmark/add') }}"  method="POST">
-                @csrf
-                <input type="hidden" name="library_id" id="library_id" value="{{$library_id}}">
-                <input type="image" class="pt-1 solas-bookmark-icon"
-                src="{{ asset('icons/bookmark.png') }}"
-
-                @if(!is_null($bookmark))
-                    style="display:none;"
-                @else
-                    style="display:inline-block;"
-                @endif
-
-                >
-            </form>
-
-            <form style="display:inline-block;" >
-                @csrf
-                <input type="hidden" name="library_id" id="library_id" value="{{$library_id}}">
-                <input type="image" class="pt-1 solas-bookmark-icon-activated"
-                src="{{ asset('icons/bookmark_hover.png') }}"
-                
-                @if(!is_null($bookmark))
-                    style="display:inline-block;"
-                @else
-                    style="display:none;"
-                @endif
-                
-                >
-            </form>
-
-
             @if(auth()->user()->id == $creator_id || auth()->user()->is_admin)
                 <input class="trash-button" type="image" class="ml-5" src="{{ asset('icons/delete.png') }}" style="height: 2.3rem; top:1rem;   height: 2.3rem; position: relative; left: 0.5rem;"
                 onClick="document.getElementById('alert-box-{{$library_id}}').style.visibility='visible';">
-            @endif
             @endif
             <x-alert-box :new-library-id="$library_id" :library-name="$name" />
         </div>

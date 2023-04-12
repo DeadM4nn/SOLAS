@@ -128,7 +128,7 @@ class LibraryControl extends Controller
         $current_library->save();
 
         $view_library = Library::find($id);
-        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license]);
+        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => null]);
 
     }
 
@@ -182,24 +182,9 @@ class LibraryControl extends Controller
 
 
     public function search(Request $req){
-        $user_id = -1;
 
-        // if user is logged in
-        if(Auth::user()){
-            $user_id = Auth::user()->id;
-        }
-        
         $searchKey = $req->searchKey;
-        $results = 
-
-        $searchKey = Library::query()
-        ->select('libraries.*')
-        ->leftJoin('bookmarks', function($join) use ($user_id) {
-            $join->on('bookmarks.library_id', '=', 'libraries.library_id')
-                ->where('bookmarks.account_id', '=', $user_id);
-        })
-        ->addSelect('bookmarks.date_created as bookmark_created_at')
-        ->search($searchKey)
+        $results = Library::search($searchKey)
         ->paginate(10);
         $amount=count($results);
 

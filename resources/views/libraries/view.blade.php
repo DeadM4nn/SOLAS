@@ -91,9 +91,45 @@
             </a>
             @endif
              @endif
-            <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
+             @if(auth()->check())
+                <form style="display:inline-block;" target="_blank" action="{{ url('user/bookmark/add') }}"  method="POST">
+                    @csrf
+                    <input type="hidden" name="library_id" id="library_id" value="{{$library->library_id}}">
+                    <input type="image" class="pt-1 solas-bookmark-icon"
+                    src="{{ asset('icons/bookmark.png') }}"
+
+                    @if(!is_null($bookmark))
+                        style="display:none;"
+                    @else
+                        style="display:inline-block;"
+                    @endif
+
+                    >
+                </form>
+
+                <form style="display:inline-block;" >
+                    @csrf
+                    <input type="hidden" name="library_id" id="library_id" value="{{$library->library_id}}">
+                    <input type="image" class="pt-1 solas-bookmark-icon-activated"
+                    src="{{ asset('icons/bookmark_hover.png') }}"
+                    
+                    @if(!is_null($bookmark))
+                        style="display:inline-block;"
+                    @else
+                        style="display:none;"
+                    @endif
+                    
+                    >
+                </form>
+            @endif
         </div>
 
 
     </div>
+    <script>
+    window.assetBaseUrl = "{{ asset('/') }}";
+</script>
+
+<!-- Load your external JavaScript file -->
+<script src="{{ asset('js/bookmark.js') }}"></script>
 @endsection
