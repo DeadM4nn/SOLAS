@@ -90,8 +90,18 @@
                     <img style="height: 1.6rem;" src="{{ asset('icons/edit.png') }}">
             </a>
             @endif
-             @endif
-            <image src="{{ asset('placeholders/bookmark.png') }}" style="height: 1.6rem;">
+
+                        
+                <form style="display:inline-block;" action="{{ url('/user/bookmark/add') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="library_id" id="library_id" value="{{$library->library_id}}">
+                    <input type="image" class="pt-1 solas-bookmark-icon" style="height:1.7rem;"
+                    src="{{ asset('placeholders/bookmark.png') }}"
+                    >
+                </form>
+            @endif
+            
+
         </div>
 
 

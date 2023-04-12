@@ -29,5 +29,9 @@ class BookmarkControl extends Controller
         $new_bookmark->save();
 
 
+        $message = "The library is bookmarked";
+        $link = "library/request/".$req->library_id;
+
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 }
