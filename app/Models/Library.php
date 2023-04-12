@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\LibraryTag;
 use App\Models\Language;
 use App\Models\LibraryLanguage;
+use App\Models\Bookmark;
 
 
 class Library extends Model
@@ -30,6 +31,12 @@ class Library extends Model
     public function languages()
     {
         return $this->belongsToMany(Language::class, 'library_languages', 'library_id', 'language_id');
+    }
+
+    
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Bookmark::class, 'bookmarks', 'library_id', 'library_id');
     }
 
 }

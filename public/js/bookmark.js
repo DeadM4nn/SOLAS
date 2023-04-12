@@ -32,8 +32,6 @@ for (var i = 0; i < bookmark_icon.length; i++) {
     bookmark_icon_activated[i].addEventListener("click", toggleElements1.bind(null, bookmark_icon[i], bookmark_icon_activated[i]));
 
 
-    bookmark_icon_activated[i].style.display = "none";
-
 
 }
 

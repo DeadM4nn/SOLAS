@@ -17,6 +17,7 @@ class displayHorizontal extends Component
     public $library_id;
     public $id;
     public $creator_id;
+    public $bookmark;
 
     public function __construct($data)
     {
@@ -24,6 +25,7 @@ class displayHorizontal extends Component
         $this->desc = $data->description;
         $this->library_id = $data->library_id;
         $this->creator_id = $data->creator_id;
+        $this->bookmark = $data->bookmark_created_at;
     }
 
     /**

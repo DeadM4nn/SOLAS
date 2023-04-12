@@ -1,6 +1,7 @@
 <?php
 
 use App\HTTP\Controllers\LibraryControl;
+use App\HTTP\Controllers\BookmarkControl;
 use App\HTTP\Controllers\UserControl;
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Middleware\AdminMiddleware;
@@ -73,3 +74,4 @@ Route::get('/home', function () {return view('home');})->name('home');
 Route::view("/dashboard","home")->name("dashboard");
 
 
+Route::post('user/bookmark/add', [BookmarkControl::class,"add"]);

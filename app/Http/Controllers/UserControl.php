@@ -34,6 +34,7 @@ class UserControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
+    
     public function show_all(){
         $results = User::all();
         $amount=count(User::all());
@@ -79,6 +80,7 @@ class UserControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
+
     public function search(Request $req){
         $searchKey = $req->searchKey;
         $results = User::search($searchKey)->paginate(20000);
@@ -99,6 +101,7 @@ class UserControl extends Controller
 
         return view('users/update', ["user"=>$user]);
     }
+
 
     public function user_view(){
 

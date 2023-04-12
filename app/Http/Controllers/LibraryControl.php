@@ -45,6 +45,7 @@ class LibraryControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
+
     public function view_library_update($id){
         $library = Library::findOrFail($id);
         $tag_names = Tag::select("name")->get();
@@ -83,6 +84,7 @@ class LibraryControl extends Controller
 
         return view('libraries/update', ["library"=>$library,"tag_names"=>$tag_names,"language_names"=>$language_names, "tags"=>$tags, "languages"=>$languages]);
     }
+
 
     public function view_library($id){
         $current_library = Library::find($id);
@@ -130,6 +132,7 @@ class LibraryControl extends Controller
 
     }
 
+
     public function delete(Request $req){
         $id = $req->library_id;
 
@@ -159,21 +162,47 @@ class LibraryControl extends Controller
     }
 
     public function show_all(){
-        $results=Library::paginate(10);
+        $user_id = -1;
+
+        // if user is logged in
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+        }
+
+        $results= Library::select('libraries.*', 'bookmarks.date_created as bookmark_created_at')
+        ->leftJoin('bookmarks', function($join) use ($user_id) {
+            $join->on('bookmarks.library_id', '=', 'libraries.library_id')
+                ->where('bookmarks.account_id', '=', $user_id);
+        })
+        ->paginate(10);
+
         $amount=count(Library::all());
         return view('libraries/search_result', ["results"=>$results, "amount"=>$amount]);
     }
 
+
     public function search(Request $req){
-        /*
-        $results = DB::table('library')
-        ->where('name', $req->searchKey)
-        ->select('name', 'description')
-        ->get();
-        */
+        $user_id = -1;
+
+        // if user is logged in
+        if(Auth::user()){
+            $user_id = Auth::user()->id;
+        }
+        
         $searchKey = $req->searchKey;
-        $results = Library::search($searchKey)->paginate(20000);
+        $results = 
+
+        $searchKey = Library::query()
+        ->select('libraries.*')
+        ->leftJoin('bookmarks', function($join) use ($user_id) {
+            $join->on('bookmarks.library_id', '=', 'libraries.library_id')
+                ->where('bookmarks.account_id', '=', $user_id);
+        })
+        ->addSelect('bookmarks.date_created as bookmark_created_at')
+        ->search($searchKey)
+        ->paginate(10);
         $amount=count($results);
+
 
         return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);
     } 
@@ -224,6 +253,7 @@ class LibraryControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
+
     // This function is used to register the tag to the library
     public function add_tag_to_account($tagName, $library_id){
         $tag_existance = Tag::where('name', $tagName)->first();
@@ -247,6 +277,7 @@ class LibraryControl extends Controller
 
     }
 
+
     // This function is used to register the Language to the account
     public function add_language_to_account($languageName, $library_id){
         $language_existance = Language::where('name', $languageName)->first();
@@ -269,6 +300,7 @@ class LibraryControl extends Controller
         $library_language_new->save();
         
     }
+
 
     public function add(Request $req){
         
@@ -347,6 +379,7 @@ class LibraryControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
+
     public function all_downloads($id){
         $library = Library::find($id);
         $results = Version::where('library_id', $id)
@@ -357,6 +390,7 @@ class LibraryControl extends Controller
         return view('libraries/all_download', ["library"=>$library, "results"=>$results]);
     }
 
+
     public function view_add_library(){
         # Get all the Tag names
         $tag_names = Tag::select("name")->get();
@@ -364,6 +398,7 @@ class LibraryControl extends Controller
         return view('libraries/add', ["tag_names"=>$tag_names, "language_names"=>$language_names]);
     }
 
+    
     public function view_my_libraries(){
         $id = Auth::user()->id;
         $results = Library::where("creator_id",'=',$id)->get();
