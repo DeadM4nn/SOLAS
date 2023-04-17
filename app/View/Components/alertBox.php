@@ -13,11 +13,13 @@ class alertBox extends Component
      */
     public $library_id;
     public $name;
+    public $link;
 
-    public function __construct($newLibraryId, $libraryName = "names")
+    public function __construct($newLibraryId, $libraryName = "names", $link)
     {
         $this->library_id = $newLibraryId;
         $this->name = $libraryName;
+        $this->link = $link;
     }
 
     /**

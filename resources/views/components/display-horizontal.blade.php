@@ -1,6 +1,11 @@
 <div class="solas-horizontal-display card w3-card mt-3">
     <div class="card-body solas-padding">
 
+    @php
+    $name = $name." record";
+    $link = "/library/delete";
+    @endphp
+
     <div class="w3-cell-row">
         
         <div class="w3-cell">
@@ -17,7 +22,8 @@
                 onClick="document.getElementById('alert-box-{{$library_id}}').style.visibility='visible';">
             @endif
             @endif
-            <x-alert-box :new-library-id="$library_id" :library-name="$name" />
+
+            <x-alert-box :new-library-id="$library_id" :library-name="$name" :link="$link"/>
         </div>
     </div>
 
