@@ -27,6 +27,11 @@
 @foreach($results as $data)
     <x-display-horizontal :data="$data" />
 @endforeach
+<script>
+    window.assetBaseUrl = "{{ asset('/') }}";
+</script>
 
+<!-- Load your external JavaScript file -->
+<script src="{{ asset('js/bookmark.js') }}"></script>
 {{ $results->links('paginations/solas-pagination') }}
 @endsection

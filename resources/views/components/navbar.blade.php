@@ -46,7 +46,8 @@
     $navbar['admin']=array(
         array("Home","/home"),
         array("Libraries", "/library/all"),
-        array("Accounts", "/admin/users/all"),      
+        array("Accounts", "/admin/users/all"),
+        array("My Libraries", "/user/libraries"),
         array("My Account", "/user")
     );
 
