@@ -1,9 +1,23 @@
+@php
+    if(isset($update_data)==1){
+        $action = url('user/rating/update');
+        $title_addon = "Update Rating";
+        $button_message = "Update";
+        $rating_id = $update_data->id;
+    } else {
+        $action = url('user/rating/add');
+        $title_addon = "Rate";
+        $button_message = "Submit";
+        $rating_id = -1;
+    }
+
+@endphp
 <div id="solas-ratings-panel" class="solas-alert-bg">
     <div class="w3-display-container w3-display-middle">
         <div class="w3-card p-3 mb-3 solas-confirmation  bg-white">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="solas-title-3">
-                    Rate {{$library_name}}
+                    {{$title_addon}} {{$library_name}}
                 </div>
                 <div class="d-flex">
                     <button class="btn btn-light" onclick="hide_panel()">
@@ -49,16 +63,20 @@
             </div>
 
             <p class="card-text">
-                <form method="POST" action="{{ url('user/rating/add') }}">
+                <form method="POST" action="{{ $action }}">
                     @csrf
                     <label for="comment" class="fs-5 fw-normal form-label">Comment (Optional)</label>
-                    <textarea class="form-control mb-4" name="comment" id="comment" placeholder="e.g. This library is great!"></textarea>
+                    <textarea class="form-control mb-4" name="comment" id="comment" placeholder="e.g. This library is great!">@if(isset($update_data)==1){{$update_data->comment}}@endif</textarea>
                     <input type="hidden" name="library_id" value="{{$library_id}}">
                     <input type="hidden" id="rating" name="rating" value=0>
-                    <input class="btn btn-primary " type="submit" value="Submit" style="width:100%">
+                    <input type="hidden" id="rating_id" name="rating_id" value="{{$rating_id}}">
+                    <input class="btn btn-primary " type="submit" value="{{$button_message}}" style="width:100%">
                 </form>
             </p>
         </div>
     </div>
+
+    
+
 
 </div>

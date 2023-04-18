@@ -99,7 +99,7 @@
                 Your Rating
             </div>
 
-            <div class="card me-5 mb-3"  onclick="show_panel()">
+            <div class="card me-5 mb-3">
                 <div class="card-body">
                     <div class="card-title mb-2 d-flex justify-content-between">
                         <div class="text-wrap text-break fw-bold fs-4" style="width: 60%">
@@ -114,12 +114,28 @@
                                 <img src="{{ asset('icons/star.png') }}" style="height:1.5rem" />
                             @endfor
                             </div>
-                            <h5 class="card-subtitle mb-2 mt-2 text-muted text-end">
+                            <h5 class="card-subtitle mb-1 mt-2 text-muted text-end">
                                 {{$user_rating->rating}}/5
                             </h5>
                         </div>
                     </div>
                     <p class="card-text ps-5 pb-2">"{{$user_rating->comment}}"</p>
+                </div>
+                <div>
+                </div>
+                <div class="m-2 text-end">
+                    <form method="POST" action="{{ url('user/rating/delete') }}" style="display:inline-block;">
+                        @csrf
+                        <input type="hidden" name="rating_id" value="{{ $user_rating->id }}">
+                        <input type="hidden" name="library_id" value="{{ $library->library_id }}">
+                        <button type="submit" class="btn btn-light p-2">
+                            <img src="{{ url('icons/delete.png') }}" style="height:1rem" />
+                        </button>
+                    </form>
+
+                    <button class="btn btn-light p-2" onclick="show_panel()">
+                        <img src="{{ url('icons/edit.png') }}" style="height:1rem" />
+                    </button>
                 </div>
             </div>
 
@@ -187,7 +203,9 @@
 
         </div>
 
-    <x-ratings-panel :data="$library" />
+        <x-ratings-panel :data="$library"/>
+
+    
 
     </div>
 @endsection
@@ -212,5 +230,16 @@
     <script>
         window.assetUrl = '{{ asset('') }}';
     </script>
-    <script src="{{ asset('js/ratings.js') }}"></script>
+    <script src="{{ asset('js/ratings.js') }}">
+
+    </script>
+
+    @if(isset($user_rating))
+        <script>
+            change_star({{ $user_rating->rating }});
+        </script>
+    @endif
+
+        
+
 @endsection

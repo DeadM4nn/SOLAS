@@ -79,3 +79,5 @@ Route::post('/user/bookmark/add', [BookmarkControl::class,"add"]);
 Route::post('/user/bookmark/remove', [BookmarkControl::class,"delete"]);
 
 Route::post('/user/rating/add', [RatingControl::class, "add"]);
+Route::post('/user/rating/update', [RatingControl::class, "update"]);
+Route::post('/user/rating/delete', [RatingControl::class, "delete"]);

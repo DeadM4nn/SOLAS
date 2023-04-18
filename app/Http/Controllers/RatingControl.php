@@ -19,4 +19,24 @@ class RatingControl extends Controller
         $message = "You have successfully rated this library.";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
+
+    public function update(Request $req){
+        $curr_rating = Rating::find($req->rating_id);
+        $curr_rating->comment = $req->comment;
+        $curr_rating->rating = $req->rating;
+        $curr_rating->save();
+
+        $link = "library/request/".$req->library_id;
+        $message = "You have successfully updated the rating for this library.";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
+    public function delete(Request $req){
+        $curr_rating = Rating::find($req->rating_id);
+        $curr_rating->delete();
+
+        $link = "library/request/".$req->library_id;
+        $message = "You have successfully removed your rating for this library.";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
 }
