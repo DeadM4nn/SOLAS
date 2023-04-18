@@ -7,8 +7,8 @@
 </head>
 <body>
     <x-header />
-    <div class="d-flex justify-content-between">
-        <div class="justify-content-start" style="width:60%">
+    <div class="d-flex justify-content-start">
+        <div style="width:80%">
             <div class="solas-content">  
                 <div class="mb-3" style="font-family: 'Roboto', sans-serif; letter-spacing: 0.05rem; font-size: 2rem; font-weight: 900; color: #313D60;">
                     @yield('page_title')
@@ -20,7 +20,7 @@
             @yield('content3')
         </div>
 
-        <div class="justify-content-end">
+        <div>
             @yield('content2')
         </div>
            

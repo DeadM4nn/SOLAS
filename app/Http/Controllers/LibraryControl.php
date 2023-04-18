@@ -9,6 +9,7 @@ use App\Models\LibraryLanguage;
 use App\Models\LibraryTag;
 use App\Models\Version;
 use Illuminate\Http\Request;
+use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -128,9 +129,6 @@ class LibraryControl extends Controller
 
         $view_library = Library::find($id);
 
-        $libraryId = 10182;
-        $accountId = 1;
-        
         $bookmark = null;
         
         if(Auth::user()){
@@ -141,8 +139,19 @@ class LibraryControl extends Controller
             ->first();
         }
 
+        $avg_rating = round(Rating::where('library_id', $id)->avg('rating'));
+        $avg_rating_count = Rating::where('library_id', $id)->count();
+        $ratings = Rating::select('ratings.*', 'users.username')
+        ->join('users', 'ratings.account_id', '=', 'users.id')
+        ->where('library_id', $id)
+        ->get();
+        $user_rating = Rating::select('ratings.*', 'users.username')
+        ->join('users', 'ratings.account_id', '=', 'users.id')
+        ->where('library_id', $id)
+        ->where("account_id", Auth::user()->id)
+        ->first();
 
-        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => $bookmark]);
+        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => $bookmark,"avg_rating"=>$avg_rating, "avg_rating_count"=>$avg_rating_count,"ratings"=>$ratings,"user_rating"=>$user_rating]);
 
     }
 

@@ -2,6 +2,7 @@
 
 use App\HTTP\Controllers\LibraryControl;
 use App\HTTP\Controllers\UserControl;
+use App\HTTP\Controllers\RatingControl;
 use App\HTTP\Controllers\BookmarkControl;
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Middleware\AdminMiddleware;
@@ -69,10 +70,14 @@ Route::middleware([UserMiddleware::class])->group(function () {
 //User Specific Pages
 
 Route::get('/home', function () {return view('home');})->name('home');
-
+Route::view('test','ratings-panel');
 //Route::get("/home","home")->name("home");
 Route::view("/dashboard","home")->name("dashboard");
 
 
 Route::post('/user/bookmark/add', [BookmarkControl::class,"add"]);
 Route::post('/user/bookmark/remove', [BookmarkControl::class,"delete"]);
+
+Route::post('/user/rating/add', [RatingControl::class, "add"]);
+Route::post('/user/rating/update', [RatingControl::class, "update"]);
+Route::post('/user/rating/delete', [RatingControl::class, "delete"]);
