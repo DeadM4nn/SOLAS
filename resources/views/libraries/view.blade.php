@@ -114,6 +114,7 @@
 
         </div>
 
+    <x-ratings-panel />
 
     </div>
 @endsection

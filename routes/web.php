@@ -69,7 +69,7 @@ Route::middleware([UserMiddleware::class])->group(function () {
 //User Specific Pages
 
 Route::get('/home', function () {return view('home');})->name('home');
-
+Route::view('test','ratings-panel');
 //Route::get("/home","home")->name("home");
 Route::view("/dashboard","home")->name("dashboard");
 
