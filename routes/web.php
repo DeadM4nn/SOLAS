@@ -2,6 +2,7 @@
 
 use App\HTTP\Controllers\LibraryControl;
 use App\HTTP\Controllers\UserControl;
+use App\HTTP\Controllers\RatingControl;
 use App\HTTP\Controllers\BookmarkControl;
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Middleware\AdminMiddleware;
@@ -76,3 +77,5 @@ Route::view("/dashboard","home")->name("dashboard");
 
 Route::post('/user/bookmark/add', [BookmarkControl::class,"add"]);
 Route::post('/user/bookmark/remove', [BookmarkControl::class,"delete"]);
+
+Route::post('/user/rating/add', [RatingControl::class, "add"]);

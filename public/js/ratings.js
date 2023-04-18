@@ -26,7 +26,11 @@ let solidStarImg = new Image();
 solidStarImg.src = assetUrl + '/icons/star_solid.png';
 
 function hide_panel(){
-    panel.style.visibility = "hidden";
+    panel.hidden = true;
+}
+
+function show_panel(){
+    panel.hidden = false;
 }
 
 function change_star(value){
@@ -54,3 +58,4 @@ function change_star(value){
 
 //Init
 change_star(1);
+panel.hidden = true;

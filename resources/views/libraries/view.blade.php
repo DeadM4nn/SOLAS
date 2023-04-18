@@ -5,6 +5,8 @@
     </div>
 
     @php
+        $star_avg = 3;
+
         if($bookmark){
             $bookmark_action = '/user/bookmark/remove';
             $bookmark_image = 'icons/bookmark_hover.png';
@@ -84,10 +86,81 @@
     </div>
     @endif
 
+<!-- Horizontal Divider -->
+<div class="col-12" style="margin-top:3rem;">
+    <hr class="hr"></hr>
+</div>
+
+<div style="margin-top:2rem">
+
+        @if(isset($user_rating))
+
+            <div class="solas-title-3">
+                Your Rating
+            </div>
+
+            <div class="card me-5 mb-3"  onclick="show_panel()">
+                <div class="card-body">
+                    <div class="card-title mb-2 d-flex justify-content-between">
+                        <div class="text-wrap text-break fw-bold fs-4" style="width: 60%">
+                            {{$user_rating->username}}
+                        </div>
+                        <div>
+                            <div>
+                            @for($x = 0; $x < $user_rating->rating; $x++)
+                                <img src="{{ asset('icons/star_solid.png') }}" style="height:1.5rem" />
+                                @endfor
+                                @for($x = $user_rating->rating; $x < 5; $x++)
+                                <img src="{{ asset('icons/star.png') }}" style="height:1.5rem" />
+                            @endfor
+                            </div>
+                            <h5 class="card-subtitle mb-2 mt-2 text-muted text-end">
+                                {{$user_rating->rating}}/5
+                            </h5>
+                        </div>
+                    </div>
+                    <p class="card-text ps-5 pb-2">"{{$user_rating->comment}}"</p>
+                </div>
+            </div>
+
+        @endif
+
+        <div class="solas-title-3 mb-3">
+            Ratings
+        </div>
+
+        @foreach($ratings as $rating)
+        <div class="card me-5 mb-3">
+            <div class="card-body">
+                <div class="card-title mb-2 d-flex justify-content-between">
+                    <div class="text-wrap text-break fw-bold fs-4" style="width: 60%">
+                        {{$rating->username}}
+                    </div>
+                    <div>
+                        <div>
+                        @for($x = 0; $x < $rating->rating; $x++)
+                            <img src="{{ asset('icons/star_solid.png') }}" style="height:1.5rem" />
+                            @endfor
+                            @for($x = $rating->rating; $x < 5; $x++)
+                            <img src="{{ asset('icons/star.png') }}" style="height:1.5rem" />
+                        @endfor
+                        </div>
+                        <h5 class="card-subtitle mb-1 mt-2 text-muted text-end">
+                            {{$rating->rating}}/5
+                        </h5>
+                    </div>
+                </div>
+                <p class="card-text ps-5 pb-2">"{{$rating->comment}}"</p>
+            </div>
+        </div>
+    @endforeach
+        
+    </div>
+
 @endsection
 @section('page_title')
     <div class="d-flex justify-content-between">
-        <div class="justify-content-start">
+        <div class="">
             {{$library->name}}
         </div>
 
@@ -114,7 +187,30 @@
 
         </div>
 
-    <x-ratings-panel />
+    <x-ratings-panel :data="$library" />
 
     </div>
+@endsection
+@section("content2")
+
+    <div class="mb-5 mt-4">
+        <button class="btn btn-light" onclick="show_panel()">
+            @for($x = 0; $x < $avg_rating; $x++)
+            <img src="{{ asset('icons/star_solid.png') }}" style="height:2.5rem" />
+            @endfor
+            @for($x = $avg_rating; $x < 5; $x++)
+            <img src="{{ asset('icons/star.png') }}" style="height:2.5rem" />
+            @endfor
+
+            <div class="text-end mt-1 text-muted">
+                {{$avg_rating_count}} Reviews
+            </div>
+        </button>
+    </div>
+
+
+    <script>
+        window.assetUrl = '{{ asset('') }}';
+    </script>
+    <script src="{{ asset('js/ratings.js') }}"></script>
 @endsection

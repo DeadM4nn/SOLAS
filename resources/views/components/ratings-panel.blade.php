@@ -1,9 +1,9 @@
-<div id="solas-ratings-panel" class="solas-alert-bg" >
+<div id="solas-ratings-panel" class="solas-alert-bg">
     <div class="w3-display-container w3-display-middle">
         <div class="w3-card p-3 mb-3 solas-confirmation  bg-white">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="solas-title-3">
-                    Rate Library
+                    Rate {{$library_name}}
                 </div>
                 <div class="d-flex">
                     <button class="btn btn-light" onclick="hide_panel()">
@@ -49,11 +49,11 @@
             </div>
 
             <p class="card-text">
-                <form method="POST" action="">
+                <form method="POST" action="{{ url('user/rating/add') }}">
                     @csrf
                     <label for="comment" class="fs-5 fw-normal form-label">Comment (Optional)</label>
                     <textarea class="form-control mb-4" name="comment" id="comment" placeholder="e.g. This library is great!"></textarea>
-                    <input type="hidden" name="library_id" value="">
+                    <input type="hidden" name="library_id" value="{{$library_id}}">
                     <input type="hidden" id="rating" name="rating" value=0>
                     <input class="btn btn-primary " type="submit" value="Submit" style="width:100%">
                 </form>
@@ -61,8 +61,4 @@
         </div>
     </div>
 
-    <script>
-        window.assetUrl = '{{ asset('') }}';
-    </script>
-    <script src="{{ asset('js/ratings.js') }}"></script>
 </div>
