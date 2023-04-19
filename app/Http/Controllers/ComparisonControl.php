@@ -1,0 +1,50 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Models\Comparison;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class ComparisonControl extends Controller
+{
+    public function add(Request $req){
+        $new_compare = new Comparison;
+        $new_compare->library_id = $req->library_id;
+        $new_compare->library_id = $req->Auth::user()->id;
+        $new_compare->save();
+
+
+        $link = "user/compare";
+        $link = "Library added to comparison";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
+    public function update(Request $req){
+        $curr_compare = Comparison::find($req->comparison_id);
+        $curr_compare->library_id = $req->library_id;
+        $curr_compare->library_id = $req->Auth::user()->id;
+        $curr_compare->save();
+
+
+        $link = "user/compare";
+        $link = "Changes saved";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
+    public function delete(Request $req){
+        $curr_compare = Comparison::find($req->comparison_id);
+        $curr_compare->delete();
+
+        $link = "user/compare";
+        $link = "Library removed from comparison list.";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
+    public function view_comparisons(){
+        $data = Comparison::join('libraries', 'libraries.library_id', '=', 'comparisons.library_id')
+        ->where('comparisons.account_id', '=', Auth::user()->id)
+        ->get();
+
+        return view("compare/comparison_table", ["data"=>$data]);
+    }
+}

@@ -4,6 +4,7 @@ use App\HTTP\Controllers\LibraryControl;
 use App\HTTP\Controllers\UserControl;
 use App\HTTP\Controllers\RatingControl;
 use App\HTTP\Controllers\BookmarkControl;
+use App\HTTP\Controllers\ComparisonControl;
 use Illuminate\Support\Facades\Route;
 use App\HTTP\Middleware\AdminMiddleware;
 use App\HTTP\Middleware\UserMiddleware;
@@ -81,3 +82,8 @@ Route::post('/user/bookmark/remove', [BookmarkControl::class,"delete"]);
 Route::post('/user/rating/add', [RatingControl::class, "add"]);
 Route::post('/user/rating/update', [RatingControl::class, "update"]);
 Route::post('/user/rating/delete', [RatingControl::class, "delete"]);
+
+Route::post('/user/compare/add', [ComparisonControl::class, "add"]);
+Route::post('/user/compare/update', [ComparisonControl::class, "update"]);
+Route::post('/user/compare/delete', [ComparisonControl::class, "delete"]);
+Route::get('/user/compare', [ComparisonControl::class, "view_comparisons"]);

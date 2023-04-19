@@ -78,6 +78,7 @@
                 <div class="d-flex align-items-end" style="height:100%">
                     <button type="button" class="btn btn-outline-dark text-wrap" style="width: 6.5rem; ">Add to Comparison</button>       
                 </div>
+                <x-button-comparison :library-id="$library_id" />
             </div>
 
         </div>
