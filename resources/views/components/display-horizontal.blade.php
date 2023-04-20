@@ -55,8 +55,8 @@
 
     
     
-        <div class="d-flex bd-highlight">
-            <div class="p-2 w-100"><p>
+        <div class="d-flex justify-content-between">
+            <div class="me-3"><p>
             
             @php
                 $max_length = 350;
@@ -74,11 +74,8 @@
             </p>
             </div>
             
-            <div class="p-2 flex-shrink-1">
-                <div class="d-flex align-items-end" style="height:100%">
-                    <button type="button" class="btn btn-outline-dark text-wrap" style="width: 6.5rem; ">Add to Comparison</button>       
-                </div>
-                <x-button-comparison :library-id="$library_id" />
+            <div class="d-flex align-items-end text-end mb-1">
+                <x-button-comparison :id="$library_id" />
             </div>
 
         </div>

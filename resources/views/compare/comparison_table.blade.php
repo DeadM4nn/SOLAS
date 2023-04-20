@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between">
         <div>Comparison table</div>
         <div>
-            <button class="btn btn-outline-danger">Clear Table</button>
+            <a class="btn btn-outline-danger" href="{{ url('user/compare/clear') }}">Clear Table</a>
         </div>
     </div>
 @endsection
@@ -15,14 +15,20 @@
             <col style="width: 400rem;">
         @endforeach
     </colgroup>
-    <tr>
+    <tr style="vertical-align: top;">
         @foreach($data as $curr_data)
             <td>
                 <div class="d-flex justify-content-between">
                     <h5>{{ $curr_data->name }}</h5>
-                    <button  class="btn btn-light me-2">
-                        <img src=" {{ asset('icons/delete.png') }} " style="height:1.6rem;">
-                    </button>
+                    <div>
+                        <form method="POST" action="{{ url('user/compare/delete') }}">
+                            @csrf
+                            <input type="hidden" name="compare_id" value="{{ $curr_data->id }}">
+                            <button  class="btn btn-light me-2" type="submit">
+                                <img src=" {{ asset('icons/delete.png') }} " style="height:1.6rem;">
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </td>
         @endforeach
@@ -30,7 +36,7 @@
 
     <tr>
         @foreach($data as $curr_data)
-            <td><hr style="width:90%"></td>
+            <td><div class="text-center"><hr style="width:90%"></td></td>
         @endforeach
     </tr>
     <tr>
@@ -44,8 +50,8 @@
     </tr>
     <tr>
         @foreach($data as $curr_data)
-            <td>
-                <x-widget-tag />
+            <td style="vertical-align:top;">
+                <x-widget-tag :id="$curr_data->library_id" />
             </td>
         @endforeach
     </tr>
@@ -85,15 +91,28 @@
             <td>
                 <div class="w3-card m-4 p-2">
                     <div class="fw-bold mb-1">
-                        <img class="me-3 " src="{{ asset('icons/yes.png') }}" style="height:1.5rem;">
+                        @if(isset($curr_data->command))
+                            <img class="me-3" src="{{ asset('icons/yes.png') }}" style="height:1.5rem;">
+                        @else
+                            <img class="me-3" src="{{ asset('icons/no.png') }}" style="height:1.5rem;">
+                        @endif
                         Install Command
                     </div>
                     <div class="fw-bold mb-1">
-                        <img class="me-3" src="{{ asset('icons/yes.png') }}" style="height:1.5rem;">
+                        
+                        @if(isset($curr_data->link))
+                            <img class="me-3" src="{{ asset('icons/yes.png') }}" style="height:1.5rem;">
+                        @else
+                            <img class="me-3" src="{{ asset('icons/no.png') }}" style="height:1.5rem;">
+                        @endif
                         Source
                     </div>
                     <div class="fw-bold mb-1">
-                        <img class="me-3" src="{{ asset('icons/no.png') }}" style="height:1.5rem;">
+                        @if($curr_data->is_file == 1)
+                            <img class="me-3" src="{{ asset('icons/yes.png') }}" style="height:1.5rem;">
+                        @else
+                            <img class="me-3" src="{{ asset('icons/no.png') }}" style="height:1.5rem;">
+                        @endif
                         File
                     </div>
                 </div>
@@ -103,9 +122,11 @@
     <tr>
         @foreach($data as $curr_data)
             <td>
-                <form class=" m-3">
+                <form class="m-3" method="POST" action="{{ url('user/compare/update') }}">
+                    @csrf
+                    <input type="hidden" name="compare_id" value="{{ $curr_data->id }}">
                     <label for="notes" class=" form-label">notes</label>
-                    <textarea name="notes" class="form-control"></textarea>
+                    <textarea name="notes" class="form-control">{{ $curr_data->note }}</textarea>
                     <div class="d-grid gap-2 mt-3" >
                         <button class="btn btn-primary " type="submit">Save</button>
                     </div>

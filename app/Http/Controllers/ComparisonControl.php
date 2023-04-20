@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Comparison;
+
 use Illuminate\Http\Request;
+use App\Models\Comparison;
 use Illuminate\Support\Facades\Auth;
 
 class ComparisonControl extends Controller
@@ -10,33 +11,31 @@ class ComparisonControl extends Controller
     public function add(Request $req){
         $new_compare = new Comparison;
         $new_compare->library_id = $req->library_id;
-        $new_compare->library_id = $req->Auth::user()->id;
+        $new_compare->account_id = Auth::user()->id;
         $new_compare->save();
 
 
         $link = "user/compare";
-        $link = "Library added to comparison";
+        $message = "Library added to comparison";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
     public function update(Request $req){
-        $curr_compare = Comparison::find($req->comparison_id);
-        $curr_compare->library_id = $req->library_id;
-        $curr_compare->library_id = $req->Auth::user()->id;
+        $curr_compare = Comparison::find($req->compare_id);
+        $curr_compare->note = $req->notes;
         $curr_compare->save();
 
 
         $link = "user/compare";
-        $link = "Changes saved";
+        $message = "Changes saved";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
     public function delete(Request $req){
-        $curr_compare = Comparison::find($req->comparison_id);
-        $curr_compare->delete();
+        $curr_compare = Comparison::find($req->compare_id)->delete();
 
         $link = "user/compare";
-        $link = "Library removed from comparison list.";
+        $message = "Library removed from comparison list.";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
@@ -46,5 +45,13 @@ class ComparisonControl extends Controller
         ->get();
 
         return view("compare/comparison_table", ["data"=>$data]);
+    }
+
+    public function clear_all(){
+        $data = Comparison::where('account_id', Auth::user()->id)->delete();
+
+        $link = "user/compare";
+        $message = "Cleared out the comparison list";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 }

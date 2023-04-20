@@ -1,12 +1,13 @@
 <div>
     <div class="text-end">
-    <img style="height:1.2rem;" src=" {{ asset('icons/star_solid.png') }} ">
-    <img style="height:1.2rem;" src=" {{ asset('icons/star_solid.png') }} ">
-    <img style="height:1.2rem;" src=" {{ asset('icons/star_solid.png') }} ">
-    <img style="height:1.2rem;" src=" {{ asset('icons/star.png') }} ">
-    <img style="height:1.2rem;" src=" {{ asset('icons/star.png') }} ">
+        @for($x = 0; $x < $rating; $x++)
+        <img src="{{ asset('icons/star_solid.png') }}" style="height:1.2rem" />
+        @endfor
+        @for($x = $rating; $x < 5; $x++)
+        <img src="{{ asset('icons/star.png') }}" style="height:1.2rem" />
+        @endfor
     </div>
     <div class="fs-5 fw-light text-end">
-        (3/5)
+        ({{ $rating }}/5)
     </div>
 </div>

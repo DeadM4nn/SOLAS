@@ -5,14 +5,20 @@ namespace App\View\Components;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
+use App\Models\Comparison;
+use Illuminate\Support\Facades\Auth;
 
 class buttonComparison extends Component
 {
     public $library_id;
+    public $is_exist;
 
-    public function __construct($library_id)
+    public function __construct($id)
     {
-        $this->library_id = $library_id;
+        $this->library_id = $id;
+        $this->is_exist = Comparison::where('account_id', '=', Auth::user()->id)
+        ->where('library_id', '=', $id)
+        ->exists();
     }
 
     /**

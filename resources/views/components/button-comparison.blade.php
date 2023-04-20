@@ -1,7 +1,9 @@
-<div>
-    <form method="POST">
-        <input type="hidden" value="">
-        <button type="submit" class="btn btn-outline-dark">Compare +</button>
-        <button type="submit" class="btn btn-outline-dark" disabled>Added to compare list</button>
-    </form>
-</div>
+<form method="POST" action="{{ url('user/compare/add') }}" target="_blank">
+    @csrf
+    <input type="hidden" name="library_id" value="{{ $library_id }}">
+    @if($is_exist)
+        <button type="submit" class="btn btn-outline-dark text-nowrap" disabled>Added</button>
+    @else
+        <button type="submit" class="btn btn-outline-dark text-nowrap" onclick="compare_toggle(this)">Compare +</button>
+    @endif
+</form>
