@@ -231,7 +231,7 @@
         window.assetUrl = '{{ asset('') }}';
     </script>
     <script src="{{ asset('js/ratings.js') }}">
-    <script src="{{ asset('js/button_compare.js') }}">
+
 
     </script>
 

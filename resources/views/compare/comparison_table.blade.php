@@ -8,6 +8,8 @@
     </div>
 @endsection
 @section("content")
+<form class="m-3" method="POST" action="{{ url('user/compare/update') }}">
+@csrf
 <div style="overflow: auto;">
 <table>
     <colgroup>
@@ -121,21 +123,20 @@
     </tr>
     <tr>
         @foreach($data as $curr_data)
-            <td>
-                <form class="m-3" method="POST" action="{{ url('user/compare/update') }}">
-                    @csrf
-                    <input type="hidden" name="compare_id" value="{{ $curr_data->id }}">
-                    <label for="notes" class=" form-label">notes</label>
-                    <textarea name="notes" class="form-control">{{ $curr_data->note }}</textarea>
-                    <div class="d-grid gap-2 mt-3" >
-                        <button class="btn btn-primary " type="submit">Save</button>
-                    </div>
-                </form>
+            <td class="m-3">
+                <input type="hidden" name="compare_ids[]" value="{{ $curr_data->id }}">
+                <label for="notes" class=" form-label">notes</label>
+                <textarea oninput="reveal_button()" name="notes[]" class="form-control">{{ $curr_data->note }}</textarea>
             </td>
         @endforeach
     </tr>
 </table>
+<div class="d-grid gap-2 mt-3">
+    <button class="btn btn-primary" id="save_button" type="submit">Save</button>
 </div>
+</div>
+</form>
+<script src="{{ asset('js/button_compare.js') }}"></script>
 @endsection
 
 

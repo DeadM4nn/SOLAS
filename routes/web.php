@@ -84,7 +84,7 @@ Route::post('/user/rating/update', [RatingControl::class, "update"]);
 Route::post('/user/rating/delete', [RatingControl::class, "delete"]);
 
 Route::post('/user/compare/add', [ComparisonControl::class, "add"]);
-Route::post('/user/compare/update', [ComparisonControl::class, "update"]);
+Route::post('/user/compare/update', [ComparisonControl::class, "update_all"]);
 Route::post('/user/compare/delete', [ComparisonControl::class, "delete"]);
 Route::get('/user/compare', [ComparisonControl::class, "view_comparisons"]);
 Route::get('/user/compare/clear', [ComparisonControl::class, "clear_all"]);

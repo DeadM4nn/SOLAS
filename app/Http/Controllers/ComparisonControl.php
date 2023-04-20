@@ -54,4 +54,16 @@ class ComparisonControl extends Controller
         $message = "Cleared out the comparison list";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
+
+    public function update_all(Request $req){
+        for($i = 0; $i < count($req->notes); $i++){
+            $curr_compare = Comparison::find($req->compare_ids[$i]);
+            $curr_compare->note = $req->notes[$i];
+            $curr_compare->save();
+        }
+
+        $link = "user/compare";
+        $message = "Changes saved";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
 }
