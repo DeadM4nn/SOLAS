@@ -34,5 +34,7 @@
 <!-- Load your external JavaScript file -->
 <script src="{{ asset('js/bookmark.js') }}"></script>
 <script src="{{ asset('js/button_compare.js') }}"></script>
-{{ $results->links('paginations/solas-pagination') }}
+@if(isset($pagination))
+    {{ $results->links('paginations/solas-pagination') }}
+@endif
 @endsection

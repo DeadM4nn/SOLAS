@@ -39,6 +39,9 @@
     $navbar['user']=array(
         array("Home","/home"),
         array("My Libraries", "/user/libraries"),
+        array("Discover", "/discover"),
+        array("Bookmarks", "/user/bookmark"),
+        array("Compare", "/user/compare"),
         array("My Profile", "/user")
     );
 
@@ -67,7 +70,13 @@
 
         <form method="POST" action="{{ route('logout') }}" style="">
             @foreach($navbar[$group] as $items)
-                    <a class="solas-navbar-items" style="" href="{{ url($items[1]) }}">{{$items[0]}}</a>
+
+                <a class="solas-navbar-items btn btn-light" style="" href="{{ url($items[1]) }}">
+                    {{$items[0]}}
+                    @if($items[0] == 'Bookmarks')
+                        <img src="{{ asset('icons/alert.png') }}" style="height: 0.8rem;position: relative;bottom: 0.5rem;" />
+                    @endif
+                </a>
             @endforeach
             @csrf
             <button class="ms-3 btn btn-secondary" type="submit">Logout</button>

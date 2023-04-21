@@ -28,18 +28,7 @@ Route::get('/library/all', [LibraryControl::class,"show_all"]);
 Route::get('/library/request/{id}', [LibraryControl::class,"view_library"]);
 Route::get('library/{id}/downloads', [LibraryControl::class,"all_downloads"]);
 
-Route::get('/downloads/{filename}', function ($filename) {
-    $path = storage_path('app/uploads/' . $filename);
-    if (!File::exists($path)) {
-        abort(404);
-    }
-    $file = File::get($path);
-    $type = File::mimeType($path);
-    $response = Response::make($file, 200);
-    $response->header("Content-Type", $type);
-    $response->header("Content-Disposition", "attachment; filename=$filename");
-    return $response;
-})->name('download');
+Route::get('/downloads/{filename}', [LibraryControl::class,"download"])->name('download');
 
 Route::redirect("/","home");
 
@@ -76,6 +65,7 @@ Route::view('test','ratings-panel');
 Route::view("/dashboard","home")->name("dashboard");
 
 
+
 Route::post('/user/bookmark/add', [BookmarkControl::class,"add"]);
 Route::post('/user/bookmark/remove', [BookmarkControl::class,"delete"]);
 
@@ -85,6 +75,8 @@ Route::post('/user/rating/delete', [RatingControl::class, "delete"]);
 
 Route::post('/user/compare/add', [ComparisonControl::class, "add"]);
 Route::post('/user/compare/update', [ComparisonControl::class, "update_all"]);
-Route::post('/user/compare/delete', [ComparisonControl::class, "delete"]);
+Route::get('/user/compare/delete/{id}', [ComparisonControl::class, "delete"]);
 Route::get('/user/compare', [ComparisonControl::class, "view_comparisons"]);
 Route::get('/user/compare/clear', [ComparisonControl::class, "clear_all"]);
+
+Route::get('/discover', [LibraryControl::class,"show_all"]);

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ url('user/compare/add') }}" target="_blank">
+<form method="POST" action="{{ url('user/compare/add') }}">
     @csrf
     <input type="hidden" name="library_id" value="{{ $library_id }}">
     @if($is_exist)

@@ -1,5 +1,5 @@
 <div>
-    <div class="text-end">
+    <div>
         @for($x = 0; $x < $rating; $x++)
         <img src="{{ asset('icons/star_solid.png') }}" style="height:1.2rem" />
         @endfor

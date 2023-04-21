@@ -3,8 +3,10 @@
     <div class="solas-description" style="margin-bottom:2rem;">
         {{$library->description}}
     </div>
-
     @php
+        $name = $library->name." record";
+        $link = "/library/delete";
+
         $star_avg = 3;
 
         if($bookmark){
@@ -27,7 +29,11 @@
                 {{$license}}
             </div>
         </div>
+
+        @if(count($languages) != 0)
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Language</div>
+        @endif
+
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
         @foreach($languages as $language)    
         <div class="badge solas-tag solas-bg-language text-wrap" style="font-size:0.7rem">
@@ -35,8 +41,10 @@
         </div>
         @endforeach
         </div>
-        
+    
+    @if(count($tags) != 0)
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Tags</div>
+    @endif
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
     @foreach( $tags as $tag)
             <div class="badge solas-tag solas-bg-category text-wrap" style="font-size:0.7rem">
@@ -78,7 +86,7 @@
         <div class="col-3 solas-library-column-title col-form-label align-items-center">File</div>
         <div class="col-9 align-items-center" style="">
             <div class="badge text-wrap solas-library-column-title" style="width:100%; text-align:left;">
-                <a target="_blank" href="{{ url('/downloads/'.$download) }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;" download>Download ⭳
+                <a href="{{ url('/downloads/'.$download) }}" class="btn btn-outline-dark shadow-sm" style="border: 1px solid #00000029;">Download ⭳
                 </a>
             </div>
             <a class="text-muted p-3" href="{{ url('library/'.$library->library_id.'/downloads') }}">All Versions...</a>
@@ -86,10 +94,12 @@
     </div>
     @endif
 
+@if(isset($user_rating))
 <!-- Horizontal Divider -->
 <div class="col-12" style="margin-top:3rem;">
     <hr class="hr"></hr>
 </div>
+@endif
 
 <div style="margin-top:2rem">
 
@@ -136,6 +146,9 @@
                     <button class="btn btn-light p-2" onclick="show_panel()">
                         <img src="{{ url('icons/edit.png') }}" style="height:1rem" />
                     </button>
+
+
+
                 </div>
             </div>
 
@@ -183,19 +196,23 @@
         </div>
 
 
-        <div class="justify-content-end">
+        <div>
             @if(auth()->check())
             @if(auth()->user()->id == $library->creator_id || auth()->user()->is_admin)
-            <a class="me-3" href="{{ url('library/update/'.$library->library_id) }}">
+            <a class="btn btn-light" href="{{ url('library/update/'.$library->library_id) }}">
                     <img style="height: 1.6rem;" src="{{ asset('icons/edit.png') }}">
             </a>
+            <a class="btn btn-light" onClick="document.getElementById('alert-box-{{$library->library_id}}').style.visibility='visible';" class="me-3">
+                    <img style="height: 1.6rem;" src="{{ asset('icons/delete.png') }}">
+            </a>
+            <x-alert-box :new-library-id="$library->library_id" :library-name="$name" :link="$link"/>
             @endif
 
                         
                 <form style="display:inline-block;" action="{{ url($bookmark_action) }}" method="POST">
                     @csrf
                     <input type="hidden" name="library_id" id="library_id" value="{{$library->library_id}}">
-                    <input type="image" class="pt-1 solas-bookmark-icon" style="height:1.7rem;"
+                    <input class="btn btn-light" type="image" class="pt-1 solas-bookmark-icon" style="height:2.3rem;"
 
                     src="{{ asset($bookmark_image)  }}"
                     >

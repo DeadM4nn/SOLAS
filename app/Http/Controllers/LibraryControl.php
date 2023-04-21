@@ -17,22 +17,54 @@ use App\Models\Rating;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\File;
+use Carbon\Carbon;
 
 class LibraryControl extends Controller
 {
+    public function download($filename){
+        $data = Version::findorfail($filename);
+        $data_extension = $data->file_extension;
+        $path = storage_path('app/uploads/'.$filename.".".$data_extension);
+
+        
+        $timestamp = $data->created_at;
+        $date = Carbon::parse($timestamp)->format('dmy');
+
+        
+
+        if (!File::exists($path)) {
+            abort(404);
+        }
+
+        $headers = [
+            'Content-Type' => File::mimeType($path),
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ];
+
+        return response()->download($path, $filename."_".$date.".".$data_extension, $headers);
+    }
+
     public function upload(Request $req){
         //validation
         $req->validate([
             'library_file' => 'required|mimes:zip,rar|max:2048'
         ]);
 
+        //Uploading the file
+        $file=$req->file('library_file');
+
+
         //Storing information
         $new_version = new Version;
         $new_version->library_id = $req->library_id;
         $new_version->version_number = $req->version;
         $new_version->description = $req->file_description;
+        $new_version->file_extension = $file->getClientOriginalExtension();
         $new_version->save();
+
+        $filename = $new_version->version_id.".".$file->getClientOriginalExtension();
+        $file->storeAs('/uploads', $filename);
 
         //Check if is_file empty
         $current_library = Library::find($req->library_id);
@@ -40,11 +72,13 @@ class LibraryControl extends Controller
             $current_library->is_file = 1;
             $current_library->save();
         }
+        // Updates library also
+        $current_library->touch();
 
         //Uploading the file
         $file=$req->file('library_file');
         $filename = $new_version->version_id.".".$file->getClientOriginalExtension();
-        $file->storeAs('uploads', $filename);
+        $file->storeAs('/uploads', $filename);
 
         $message= "File has been successfully added to".$current_library->name;
         $link = "library/request/".$current_library->library_id;
@@ -189,6 +223,7 @@ class LibraryControl extends Controller
             $version_archive->description = $version->description;
             $version_archive->created_at = $version->created_at;
             $version_archive->updated_at = $version->updated_at;
+            $version_archive->file_extension = $version->file_extension;
             $version_archive->save();
         }
 
@@ -260,6 +295,7 @@ class LibraryControl extends Controller
             $version_archive->description = $version->description;
             $version_archive->created_at = $version->created_at;
             $version_archive->updated_at = $version->updated_at;
+            $version_archive->file_extension = $version->file_extension;
             $version_archive->save();
         }
 
@@ -305,8 +341,9 @@ class LibraryControl extends Controller
 
     public function show_all(){
         $results=Library::paginate(10);
+        $pagination = true;
         $amount=count(Library::all());
-        return view('libraries/search_result', ["results"=>$results, "amount"=>$amount]);
+        return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, "pagination"=>$pagination]);
     }
 
     public function search(Request $req){
@@ -317,7 +354,39 @@ class LibraryControl extends Controller
         ->get();
         */
         $searchKey = $req->searchKey;
-        $results = Library::search($searchKey)->paginate(20000);
+
+        $tagQuery = Library::whereHas('tags', function ($query) use ($searchKey) {
+            $query->where('name', 'like', '%'.$searchKey.'%');
+        });
+        
+        $languageQuery = Library::whereHas('languages', function ($query) use ($searchKey) {
+            $query->where('name', 'like', '%'.$searchKey.'%');
+        });
+        
+        $results = $tagQuery->union($languageQuery)->get();
+
+        $search_results = Library::search($searchKey)->get();
+
+        foreach($search_results as $sr){
+            $curr_library = new Library();
+
+            $curr_library->library_id = $sr->library_id;
+            $curr_library->name = $sr->name;
+            $curr_library->description = $sr->description;
+            $curr_library->license = $sr->license;
+            $curr_library->views = $sr->views;
+            $curr_library->command = $sr->command;
+            $curr_library->link = $sr->link;
+            $curr_library->is_file = $sr->is_file;
+            $curr_library->creator_id = $sr->creator_id;
+            $curr_library->updated_at = $sr->updated_at;
+            $curr_library->created_at = $sr->created_at;
+
+            $results->push($curr_library);
+        }
+        
+        $results = $results->unique('library_id')->sortByDesc('views');
+
         $amount=count($results);
 
         return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);

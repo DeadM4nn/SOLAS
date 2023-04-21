@@ -20,19 +20,9 @@ class ComparisonControl extends Controller
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
-    public function update(Request $req){
-        $curr_compare = Comparison::find($req->compare_id);
-        $curr_compare->note = $req->notes;
-        $curr_compare->save();
 
-
-        $link = "user/compare";
-        $message = "Changes saved";
-        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
-    }
-
-    public function delete(Request $req){
-        $curr_compare = Comparison::find($req->compare_id)->delete();
+    public function delete($id){
+        $curr_compare = Comparison::find($id)->delete();
 
         $link = "user/compare";
         $message = "Library removed from comparison list.";
@@ -58,7 +48,12 @@ class ComparisonControl extends Controller
     public function update_all(Request $req){
         for($i = 0; $i < count($req->notes); $i++){
             $curr_compare = Comparison::find($req->compare_ids[$i]);
-            $curr_compare->note = $req->notes[$i];
+            if($req->notes[$i] == null){
+                $curr_compare->note = "";
+            } else {
+                $curr_compare->note = $req->notes[$i];
+            }
+
             $curr_compare->save();
         }
 
