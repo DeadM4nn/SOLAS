@@ -1,8 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\LibraryControl;
+use App\Http\Controllers\BookmarkControl;
+use App\Http\Controllers\RatingControl;
+use App\Models\Bookmark;
+use App\Models\Rating;
 use App\Models\User;
+use App\Models\A_User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -62,19 +67,55 @@ class UserControl extends Controller
         ->where('creator_id', '=', $record->id)
         ->delete();
 
-        //Delete version
-        Version::join('libraries', 'versions.library_id', '=', 'libraries.library_id')
-        ->where('creator_id', '=', $record->id)
-        ->delete();
-
-        //Delete Library
-        Library::where('creator_id', '=', $record->id)
-        ->delete();
  
+        $libraryControl = new LibraryControl;
+
+        foreach($libraries as $library){
+            $request = new Request([
+                'library_id' => $library->library_id,
+            ]);
+
+            $libraryControl->delete_pure($request);
+        }
+
+        // Bookmark delete
+        $bookmarks = Bookmark::where('account_id', '=', $id)->get();
+        $bookmark_control = new BookmarkControl;
+
+        foreach($bookmarks as $bookmark){
+            $bookmark_control->delete_pure($bookmark->id);
+        }
+
+        // Rating Delete
+        $ratings = Rating::where('account_id', '=', $id)->get();
+        $rating_control = new RatingControl;
+
+        foreach($ratings as $rating){
+            $rating_control->delete_pure($rating->id);
+        }
+
+
+        // Archiving
+        $record_archive = new A_User;
+        $record_archive->id = $record->id;
+        $record_archive->username = $record->username;
+        $record_archive->email = $record->email;
+        $record_archive->email_verified_at = $record->email_verified_at;
+        $record_archive->password = $record->password;
+        $record_archive->two_factor_secret = $record->two_factor_secret;
+        $record_archive->two_factor_recovery_codes = $record->two_factor_recovery_codes;
+        $record_archive->two_factor_confirmed_at = $record->two_factor_confirmed_at;
+        $record_archive->remember_token = $record->remember_token;
+        $record_archive->current_team_id = $record->current_team_id;
+        $record_archive->profile_photo_path = $record->profile_photo_path;
+        $record_archive->created_at = $record->created_at;
+        $record_archive->updated_at = $record->updated_at;
+        $record_archive->is_admin = $record->is_admin;
+        
+        $record_archive->save();
 
         // Delete Record
         $record->delete();
-
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }

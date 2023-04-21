@@ -4,7 +4,7 @@ All Downloads - {{$library->name}}
 @endsection
 @section('content')
 <div class="d-flex justify-content-between mb-3">
-    <a class="justify-content-start btn btn-outline-primary">
+    <a class="justify-content-start btn btn-outline-primary" href="{{ url('library/request/'.$library->library_id) }}">
         < Back
     </a>
     <a class="justify-content-end btn btn-primary" href="{{ url('library/update/'.$library->library_id) }}#upload">

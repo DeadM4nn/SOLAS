@@ -141,9 +141,11 @@
 
         @endif
 
+        @if(count($ratings) != 0)
         <div class="solas-title-3 mb-3">
             Ratings
         </div>
+        @endif
 
         @foreach($ratings as $rating)
         <div class="card me-5 mb-3">

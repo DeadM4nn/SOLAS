@@ -1,10 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Controllers\BookmarkControl;
+use App\Http\Controllers\RatingControl;
 use App\Models\Library;
+use App\Models\Bookmark;
+use App\Models\A_Library;
+use App\Models\A_Version;
 use App\Models\Tag;
 use App\Models\Language;
-use App\Models\Bookmark;
 use App\Models\LibraryLanguage;
 use App\Models\LibraryTag;
 use App\Models\Version;
@@ -42,8 +46,8 @@ class LibraryControl extends Controller
         $filename = $new_version->version_id.".".$file->getClientOriginalExtension();
         $file->storeAs('uploads', $filename);
 
-        $message=$req->version_number." has been successfully added";
-        $link="library/all";
+        $message= "File has been successfully added to".$current_library->name;
+        $link = "library/request/".$current_library->library_id;
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
@@ -157,6 +161,36 @@ class LibraryControl extends Controller
 
     public function delete(Request $req){
         $id = $req->library_id;
+        
+        // Bookmark delete
+        $bookmarks = Bookmark::where('library_id', '=', $id)->get();
+        $bookmark_control = new BookmarkControl;
+
+        foreach($bookmarks as $bookmark){
+            $bookmark_control->delete_pure($bookmark->id);
+        }
+
+        // Rating Delete
+        $ratings = Rating::where('library_id', '=', $id)->get();
+        $rating_control = new RatingControl;
+
+        foreach($ratings as $rating){
+            $rating_control->delete_pure($rating->id);
+        }
+
+        // Version delete
+        $curr_versions = Version::where('library_id', $id)->get();
+
+        foreach($curr_versions as $version){
+            $version_archive = new A_Version;
+            $version_archive->version_id = $version->version_id;
+            $version_archive->library_id = $version->library_id;
+            $version_archive->version_number = $version->version_number;
+            $version_archive->description = $version->description;
+            $version_archive->created_at = $version->created_at;
+            $version_archive->updated_at = $version->updated_at;
+            $version_archive->save();
+        }
 
         Version::where('library_id', $id)->delete();
 
@@ -177,10 +211,96 @@ class LibraryControl extends Controller
         //Delete Language
         LibraryLanguage::where('library_id', $id)->delete();
 
+        $archive_record = new A_Library;
+        $archive_record->library_id = $record->library_id;
+        $archive_record->name = $record->name;
+        $archive_record->description = $record->description;
+        $archive_record->license = $record->license;
+        $archive_record->views = $record->views;
+        $archive_record->command = $record->command;
+        $archive_record->link = $record->link;
+        $archive_record->is_file = $record->is_file;
+        $archive_record->creator_id = $record->creator_id;
+        $archive_record->updated_at = $record->updated_at;
+        $archive_record->created_at = $record->created_at;
+        $archive_record->save();
+
         // Delete Record
         $record->delete();
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
+
+    public function delete_pure(Request $req){
+        $id = $req->library_id;
+
+        $bookmarks = Bookmark::where('library_id', '=', $id)->get();
+        $bookmark_control = new BookmarkControl;
+
+        foreach($bookmarks as $bookmark){
+            $bookmark_control->delete_pure($bookmark->id);
+        }
+
+        $ratings = Rating::where('library_id', '=', $id)->get();
+        $rating_control = new RatingControl;
+
+        foreach($ratings as $rating){
+            $rating_control->delete_pure($rating->id);
+        }
+
+        // Version delete
+        $curr_versions = Version::where('library_id', $id)->get();
+
+        foreach($curr_versions as $version){
+            $version_archive = new A_Version;
+            $version_archive->version_id = $version->version_id;
+            $version_archive->library_id = $version->library_id;
+            $version_archive->version_number = $version->version_number;
+            $version_archive->description = $version->description;
+            $version_archive->created_at = $version->created_at;
+            $version_archive->updated_at = $version->updated_at;
+            $version_archive->save();
+        }
+
+        Version::where('library_id', $id)->delete();
+
+
+
+        $user = Auth::user();
+        $record = Library::find($id);
+        $name = $record->name;
+        $message = $name." has been deleted";
+        $link = "/library/all";
+
+        if ($user->is_admin) {
+            $link="library/all";
+        } else {
+            $link="user/libraries";
+        }
+
+        //Delete Tags
+        LibraryTag::where('library_id', $id)->delete();
+        //Delete Language
+        LibraryLanguage::where('library_id', $id)->delete();
+
+        $archive_record = new A_Library;
+        $archive_record->library_id = $record->library_id;
+        $archive_record->name = $record->name;
+        $archive_record->description = $record->description;
+        $archive_record->license = $record->license;
+        $archive_record->views = $record->views;
+        $archive_record->command = $record->command;
+        $archive_record->link = $record->link;
+        $archive_record->is_file = $record->is_file;
+        $archive_record->creator_id = $record->creator_id;
+        $archive_record->updated_at = $record->updated_at;
+        $archive_record->created_at = $record->created_at;
+        $archive_record->save();
+
+        // Delete Record
+        $record->delete();
+
     }
 
     public function show_all(){
@@ -213,7 +333,7 @@ class LibraryControl extends Controller
 
         $current_library->save();
         $message = $current_library->name." has been successfully update";
-        $link = "library/all";
+        $link = "library/request/".$current_library->library_id;
 
         // Delete all occurances of tags and library so that they may get renew
         LibraryTag::where('library_id', $current_library->library_id)->delete();

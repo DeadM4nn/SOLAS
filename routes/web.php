@@ -1,5 +1,5 @@
 <?php
-
+//php artisan optimize:clear -> If components aint working right.
 use App\HTTP\Controllers\LibraryControl;
 use App\HTTP\Controllers\UserControl;
 use App\HTTP\Controllers\RatingControl;
