@@ -68,6 +68,7 @@ Route::view("/dashboard","home")->name("dashboard");
 
 Route::post('/user/bookmark/add', [BookmarkControl::class,"add"]);
 Route::post('/user/bookmark/remove', [BookmarkControl::class,"delete"]);
+Route::get('/user/bookmark', [BookmarkControl::class, "view"]);
 
 Route::post('/user/rating/add', [RatingControl::class, "add"]);
 Route::post('/user/rating/update', [RatingControl::class, "update"]);
@@ -80,3 +81,5 @@ Route::get('/user/compare', [ComparisonControl::class, "view_comparisons"]);
 Route::get('/user/compare/clear', [ComparisonControl::class, "clear_all"]);
 
 Route::get('/discover', [LibraryControl::class,"show_all"]);
+
+Route::get('user/bookmark/libraryupdate/{id}', [BookmarkControl::class,"update_latest_version"]);

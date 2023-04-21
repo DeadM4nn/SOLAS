@@ -1,8 +1,10 @@
 <?php
 
 namespace App\View\Components;
-
+use App\HTTP\Controllers\BookmarkControl;
 use Illuminate\View\Component;
+use Illuminate\Support\Facades\Auth;
+
 
 class navbar extends Component
 {
@@ -11,9 +13,15 @@ class navbar extends Component
      *
      * @return void
      */
+    public $has_notif;
+
     public function __construct()
     {
-        //
+        if(Auth::user()){
+            $bookmark_control = new BookmarkControl;
+            $this->has_notif = $bookmark_control->check_for_updates();
+        }
+
     }
 
     /**

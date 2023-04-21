@@ -73,7 +73,7 @@
 
                 <a class="solas-navbar-items btn btn-light" style="" href="{{ url($items[1]) }}">
                     {{$items[0]}}
-                    @if($items[0] == 'Bookmarks')
+                    @if($items[0] == 'Bookmarks' && $has_notif)
                         <img src="{{ asset('icons/alert.png') }}" style="height: 0.8rem;position: relative;bottom: 0.5rem;" />
                     @endif
                 </a>
