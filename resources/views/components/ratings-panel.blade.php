@@ -12,7 +12,7 @@
     }
 
 @endphp
-<div id="solas-ratings-panel-{{$rating_id}}" class="solas-alert-bg" style="display:none;">
+<div id="solas-ratings-panel" class="solas-alert-bg">
     <div class="w3-display-container w3-display-middle">
         <div class="w3-card p-3 mb-3 solas-confirmation  bg-white">
             <div class="d-flex justify-content-between align-items-center">
@@ -20,7 +20,7 @@
                     {{$title_addon}} {{$library_name}}
                 </div>
                 <div class="d-flex">
-                    <button class="btn btn-light" onclick="hide_panel({{$rating_id}})">
+                    <button class="btn btn-light" onclick="hide_panel()">
                         <img src="{{ url('icons/x.png') }}" style="height:1rem" />
                     </button>
                 </div>
