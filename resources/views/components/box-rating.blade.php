@@ -55,6 +55,7 @@
 
     </div>
 </div>
+
 <!-- alert-box -->
 <div id="alert-box-rating-{{$rating_id}}" class="solas-alert-bg" hidden>
     <div class="w3-display-container w3-display-middle">
