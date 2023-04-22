@@ -3,6 +3,12 @@
 namespace App\Http\Controllers;
 use App\Models\Rating;
 use App\Models\A_Rating;
+use App\Http\Controllers\LibraryControl;
+use App\Models\Library;
+use App\Models\Version;
+use App\Models\Bookmark;
+use App\Models\Tag;
+use App\Models\Language;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -83,5 +89,76 @@ class RatingControl extends Controller
         $rating_archive->save();
 
         $curr_rating->delete();
+    }
+
+    public function go_to_update($id){
+
+        $current_library = Library::find($id);
+        $download = Version::where('library_id', $id)->latest()->first();
+
+        //Getting all tags
+        $tags = Tag::select('tags.name', 'tags.tag_id')
+        ->distinct()
+        ->join('library_tags', 'library_tags.tag_id', '=', 'tags.tag_id')
+        ->where('library_tags.library_id', '=', $id)
+        ->get();
+
+        //Getting all languages
+        $languages = Language::select('languages.name', 'languages.language_id')
+        ->distinct()
+        ->join('library_languages', 'library_languages.language_id', '=', 'languages.language_id')
+        ->where('library_languages.library_id', '=', $id)
+        ->get();
+
+        //Setting license
+        if(empty($current_library->license)){
+            $license = "Unspecified";
+        } else {
+            $license = $current_library->license;
+        }
+
+        if(is_null($download)){
+            $download = "";
+        } else {
+            $download = $download->version_id;
+        }
+
+        //Checks if the record exists
+        if(is_null($current_library)){
+            $message = "We have no record of that library.";
+            $link = "/home";
+            return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+        }
+
+        $current_library->views = $current_library->views+1;
+        $current_library->save();
+
+        $view_library = Library::find($id);
+
+        $bookmark = null;
+        
+        if(Auth::user()){
+            $bookmark = Bookmark::select('last_version')
+            ->join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')
+            ->where('libraries.library_id', $id)
+            ->where('bookmarks.account_id', Auth::user()->id)
+            ->first();
+        }
+
+        $avg_rating = round(Rating::where('library_id', $id)->avg('rating'));
+        $avg_rating_count = Rating::where('library_id', $id)->count();
+        $ratings = Rating::select('ratings.*', 'users.username', 'users.picture')
+        ->join('users', 'ratings.account_id', '=', 'users.id')
+        ->where('library_id', $id)
+        ->get();
+        $user_rating = Rating::select('ratings.*', 'users.username', 'users.picture')
+        ->join('users', 'ratings.account_id', '=', 'users.id')
+        ->where('library_id', $id)
+        ->where("account_id", Auth::user()->id)
+        ->first();
+
+        $show_update = true;
+        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => $bookmark,"avg_rating"=>$avg_rating, "avg_rating_count"=>$avg_rating_count,"ratings"=>$ratings,"user_rating"=>$user_rating, "show_update"=>$show_update]);
+
     }
 }

@@ -112,9 +112,12 @@
             <div class="card me-5 mb-3">
                 <div class="card-body">
                     <div class="card-title mb-2 d-flex justify-content-between">
-                        <div class="text-wrap text-break fw-bold fs-4" style="width: 60%">
-                            {{$user_rating->username}}
-                        </div>
+
+
+                            <div class="text-wrap text-break fw-bold fs-4" style="width: 60%">
+                            <img src=" {{ url('profile_pic/'.$user_rating->picture.'.png') }} " class="rounded-circle me-3" style="height:40px;" /> {{$user_rating->username}}
+                            </div>
+
                         <div>
                             <div>
                             @for($x = 0; $x < $user_rating->rating; $x++)
@@ -143,6 +146,7 @@
                         </button>
                     </form>
 
+
                     <button class="btn btn-light p-2" onclick="show_panel()">
                         <img src="{{ url('icons/edit.png') }}" style="height:1rem" />
                     </button>
@@ -165,7 +169,7 @@
             <div class="card-body">
                 <div class="card-title mb-2 d-flex justify-content-between">
                     <div class="text-wrap text-break fw-bold fs-4" style="width: 60%">
-                        {{$rating->username}}
+                        <img src=" {{ url('profile_pic/'.$rating->picture.'.png') }} " class="rounded-circle me-3" style="height:40px;" /> {{$rating->username}}
                     </div>
                     <div>
                         <div>
@@ -221,8 +225,9 @@
             
 
         </div>
+    
 
-        <x-ratings-panel :data="$library"/>
+
 
     
 
@@ -231,7 +236,10 @@
 @section("content2")
 
     <div class="mb-5 mt-4">
+        @if(auth()->user() && !auth()->user()->is_admin)
+        <x-ratings-panel :data="$library"/>
         <button class="btn btn-light" onclick="show_panel()">
+        @endif
             @for($x = 0; $x < $avg_rating; $x++)
             <img src="{{ asset('icons/star_solid.png') }}" style="height:2.5rem" />
             @endfor
@@ -242,7 +250,10 @@
             <div class="text-end mt-1 text-muted">
                 {{$avg_rating_count}} Reviews
             </div>
-        </button>
+
+        @if(auth()->user() || !auth()->user()->is_admin)
+        </button> 
+        @endif
     </div>
 
 
@@ -260,6 +271,11 @@
         </script>
     @endif
 
-        
+    @if($show_update)
+    <script>
+        show_panel();
+    </script>
+@endif
+
 
 @endsection

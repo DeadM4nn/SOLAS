@@ -12,16 +12,15 @@
             <form method="POST" action="{{ url('user/rating/delete') }}" style="display:inline-block;">
                 @csrf
                 <input type="hidden" name="rating_id" value="{{ $rating_id }}">
-                <input type="hidden" name="link" value="/user">
                 <input type="hidden" name="library_id" value="{{ $library_id }}">
                 <button type="submit" class="btn btn-light p-2">
                     <img src="{{ url('icons/delete.png') }}" style="height:1.2rem" />
                 </button>
             </form>
 
-            <button class="btn btn-light p-2" onclick="show_panel({{$rating_id}})">
+            <a class="btn btn-light p-2" href="{{ url('user/rating/update/'.$library_id) }}">
                 <img src="{{ url('icons/edit.png') }}" style="height:1.2rem" />
-            </button>
+            </a>
         </div>
 
         <div class="col-12">

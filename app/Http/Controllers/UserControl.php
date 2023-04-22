@@ -141,6 +141,20 @@ class UserControl extends Controller
         return view('users/update', ["user"=>$user]);
     }
 
+    public function view_update(){
+        $id = Auth::user()->id;
+        $user = USER::findOrFail($id);
+
+        if($user->is_admin && Auth::user()->id != $id){
+            $message = "Updating a Admin User is prohibited";
+            $link = "/admin/users/all";
+            return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+        }
+
+        return view('users/update', ["user"=>$user]);
+    }
+
+
     public function user_view(){
 
         $username = Auth::user()->username;

@@ -124,7 +124,7 @@ class LibraryControl extends Controller
         return view('libraries/update', ["library"=>$library,"tag_names"=>$tag_names,"language_names"=>$language_names, "tags"=>$tags, "languages"=>$languages]);
     }
 
-    public function view_library($id){
+    public function view_library($id, $show_update=false){
         $current_library = Library::find($id);
         $download = Version::where('library_id', $id)->latest()->first();
 
@@ -179,17 +179,17 @@ class LibraryControl extends Controller
 
         $avg_rating = round(Rating::where('library_id', $id)->avg('rating'));
         $avg_rating_count = Rating::where('library_id', $id)->count();
-        $ratings = Rating::select('ratings.*', 'users.username')
+        $ratings = Rating::select('ratings.*', 'users.username', 'users.picture')
         ->join('users', 'ratings.account_id', '=', 'users.id')
         ->where('library_id', $id)
         ->get();
-        $user_rating = Rating::select('ratings.*', 'users.username')
+        $user_rating = Rating::select('ratings.*', 'users.username', 'users.picture')
         ->join('users', 'ratings.account_id', '=', 'users.id')
         ->where('library_id', $id)
         ->where("account_id", Auth::user()->id)
         ->first();
 
-        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => $bookmark,"avg_rating"=>$avg_rating, "avg_rating_count"=>$avg_rating_count,"ratings"=>$ratings,"user_rating"=>$user_rating]);
+        return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => $bookmark,"avg_rating"=>$avg_rating, "avg_rating_count"=>$avg_rating_count,"ratings"=>$ratings,"user_rating"=>$user_rating, "show_update"=>$show_update]);
 
     }
 

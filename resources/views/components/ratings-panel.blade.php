@@ -12,7 +12,7 @@
     }
 
 @endphp
-<div id="solas-ratings-panel" class="solas-alert-bg">
+<div id="solas-ratings-panel" class="solas-alert-bg" hidden>
     <div class="w3-display-container w3-display-middle">
         <div class="w3-card p-3 mb-3 solas-confirmation  bg-white">
             <div class="d-flex justify-content-between align-items-center">
@@ -75,8 +75,5 @@
             </p>
         </div>
     </div>
-
-    
-
 
 </div>

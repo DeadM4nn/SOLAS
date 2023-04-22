@@ -53,7 +53,8 @@ Route::middleware([UserMiddleware::class])->group(function () {
 
     // User Personal Pages
     Route::get('/user', [UserControl::class,"user_view"]);
-    Route::get('user/update/{id}', [UserControl::class,"admin_view_update"]);
+    Route::get('user/update/', [UserControl::class,"view_update"]);
+    Route::post('user/update_process/', [UserControl::class,"update"]);
     Route::get('user/libraries', [LibraryControl::class, 'view_my_libraries']);
 });
 
@@ -85,3 +86,6 @@ Route::get('/discover', [LibraryControl::class,"show_all"]);
 Route::get('user/bookmark/libraryupdate/{id}', [BookmarkControl::class,"update_latest_version"]);
 
 Route::post('user/picture/update/process', [UserControl::class, "update_picture"]);
+
+
+Route::get('user/rating/update/{id}', [RatingControl::class, "go_to_update"]);

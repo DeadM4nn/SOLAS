@@ -5,6 +5,8 @@
 @section('content')
 <div class="container">
 <div class="mt-5 d-flex flex-row mb-4 text-center">
+
+
     <a class="me-5 btn btn-light" href="{{ url('user/picture/update') }}">       
         <img class="rounded-circle" style="height:15rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
         <div class="text-center fw-bold mt-2 text-gray">Change Image</div>
@@ -53,7 +55,7 @@
             </div>
 
             <div class="col-12">
-                <a href="{{url('/user/update/'.(string)$account_id)}}" type="button" class="btn btn-outline-dark w-100" style="width:100%">Edit</a>
+                <a href="{{ url('/user/update/')}}" type="button" class="btn btn-outline-dark w-100" style="width:100%">Edit</a>
             </div>
             <!-- Horizontal Divider -->
             <div class="mb-5 col-12">
@@ -76,7 +78,6 @@
         @foreach($ratings as $rating)
         <div class="col-5 m-3">
             <x-box-rating :id="$rating->id" :show="true" />
-            <x-ratings-panel :id="$rating->library_id"/>
         </div>
         @endforeach
     </div>
@@ -86,5 +87,7 @@
         window.assetUrl = '{{ asset('') }}';
     </script>
 <script src="{{ asset('js/ratings.js') }}">
+
+
 @endsection
 

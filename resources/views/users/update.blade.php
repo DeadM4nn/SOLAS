@@ -3,7 +3,17 @@
 Update {{$user->username}}
 @endsection
 @section('content')
-<form action="{{url( '/admin/users/update_process' )}}" method="POST">
+
+@php
+        if(auth()->user()->is_admin){
+                $link = '/admin/users/update_process';
+        }else{
+                $link = 'user/update_process/';
+        }
+
+@endphp
+
+<form action="{{url( $link )}}" method="POST">
     @csrf
     <!-- id -->
     <input name="id" id="id" type="hidden" value="{{$user->id}}" >
