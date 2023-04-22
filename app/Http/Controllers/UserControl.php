@@ -146,11 +146,19 @@ class UserControl extends Controller
         $username = Auth::user()->username;
         $id = Auth::user()->id;
         $email = Auth::user()->email;
+        $picture = Auth::user()->picture;
 
         $libraries = Library::where("creator_id",'=',$id)->get();
 
-        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries, "account_id"=>$id]);
+        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries, "account_id"=>$id, "picture"=>$picture]);
     }
 
+    public function update_picture(Request $req){
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        $user->picture = $req->picture;
+        $user->save();
 
+        return redirect('/user');
+    }
 }

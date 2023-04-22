@@ -1,15 +1,26 @@
 <div class="card w3-card mt-3">
     <div class="card-body solas-padding">
-        <div class="d-flex justify-content-between" style="padding-top:1.2rem;">                
+
+        <div class="d-flex justify-content-between" style="padding-top:1.2rem;">        
+      
+        <div class="d-flex flex-row"">
+            <div>
+                <img class="rounded-circle me-4" style="height:4.5rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
+            </div>
             <div class="w3-cell w3-align">
-                <h2 style="display: inline;"><b>{{$username}}                 
-                </b></h2>
+                <div style="display:block-inline">
+                <b class="fs-4">{{$username}}</b>
                 @if($is_admin)
-                    <div class="badge solas-tag solas-language bg-success text-wrap" style="width: 6rem;">
+                    <div class="d-inline badge solas-tag solas-language bg-success text-wrap" style="width: 6rem;">
                         Admin
                     </div>
-                @endif         
+                @endif
+                <div>
+                    {{$email}}
+                </div>
+                </div>
             </div>
+        </div>
 
             <div class="w3-cell w3-right-align">
             @if(!$is_admin)
@@ -24,10 +35,8 @@
             </div>
         </div>
 
-        <div class="d-flex bd-highlight">
-            <div class="w-100">
-                {{$email}}
-            </div>
-        </div>
+    </div>
+    <div class="text-end fw-light fs-7 pe-4  pb-2">
+        {{$date_created}}
     </div>
 </div>

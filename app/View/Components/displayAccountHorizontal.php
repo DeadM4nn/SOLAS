@@ -16,6 +16,8 @@ class displayAccountHorizontal extends Component
     public $is_admin;
     public $email;
     public $account_id;
+    public $picture;
+    public $date_created;
 
     public function __construct($data)
     {
@@ -23,6 +25,8 @@ class displayAccountHorizontal extends Component
         $this->username = $data->username;
         $this->email = $data->email;
         $this->is_admin = $data->is_admin;
+        $this->picture = $data->picture;
+        $this->date_created = "created on " . date('m/d/Y', strtotime($data->created_at));
     }
 
     /**

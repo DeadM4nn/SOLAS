@@ -71,7 +71,12 @@
         <form method="POST" action="{{ route('logout') }}" style="">
             @foreach($navbar[$group] as $items)
 
-                <a class="solas-navbar-items btn btn-light" style="" href="{{ url($items[1]) }}">
+                @if(auth()->user()->is_admin)
+                    <a class="solas-navbar-items btn btn-primary" style="background-color: #1483C3;" href="{{ url($items[1]) }}">
+                @else
+                    <a class="solas-navbar-items btn btn-light" style="" href="{{ url($items[1]) }}">
+                @endif
+                
                     {{$items[0]}}
                     @if($items[0] == 'Bookmarks' && $has_notif)
                         <img src="{{ asset('icons/alert.png') }}" style="height: 0.8rem;position: relative;bottom: 0.5rem;" />
