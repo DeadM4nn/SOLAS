@@ -1,3 +1,4 @@
+@if(auth()->user() && !auth()->user()->is_admin)
 <form method="POST" action="{{ url('user/compare/add') }}">
     @csrf
     <input type="hidden" name="library_id" value="{{ $library_id }}">
@@ -7,3 +8,4 @@
         <button type="submit" class="btn btn-outline-dark text-nowrap" onclick="compare_toggle(this)">Compare +</button>
     @endif
 </form>
+@endif

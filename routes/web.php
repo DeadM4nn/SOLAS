@@ -46,13 +46,12 @@ Route::middleware([UserMiddleware::class])->group(function () {
     Route::post('/library/upload', [LibraryControl::class,"upload"]);
     Route::get('library/update/{id}', [LibraryControl::class,"view_library_update"]);
     Route::post('/library/delete', [LibraryControl::class,"delete"]);
-    Route::post('/library/search', [LibraryControl::class,"search"]);
     Route::get('/library/add', [LibraryControl::class,"view_add_library"]);
     Route::post('/library/add/process', [LibraryControl::class,"add"]);
     Route::post('/library/update/process', [LibraryControl::class,"update"]);
 
     // User Personal Pages
-    Route::get('/user', [UserControl::class,"user_view"]);
+    Route::get('/user/view/{id}', [UserControl::class,"user_view"]);
     Route::get('user/update/', [UserControl::class,"view_update"]);
     Route::post('user/update_process/', [UserControl::class,"update"]);
     Route::get('user/libraries', [LibraryControl::class, 'view_my_libraries']);
@@ -89,3 +88,6 @@ Route::post('user/picture/update/process', [UserControl::class, "update_picture"
 
 
 Route::get('user/rating/update/{id}', [RatingControl::class, "go_to_update"]);
+
+//Actually no middleware
+Route::post('/library/search', [LibraryControl::class,"search"]);

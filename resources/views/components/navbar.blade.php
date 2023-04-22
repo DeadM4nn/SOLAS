@@ -18,6 +18,12 @@
 
 
 @php
+    if(auth()->user()){
+        $user_id = auth()->user()->id;
+    } else {
+        $user_id = "";
+    }
+    
 
     //For the current navbar settings
     $logged_in = auth()->check();
@@ -42,7 +48,7 @@
         array("Discover", "/discover"),
         array("Bookmarks", "/user/bookmark"),
         array("Compare", "/user/compare"),
-        array("My Profile", "/user")
+        array("My Profile", "/user/view/".$user_id)
     );
 
 
@@ -51,7 +57,7 @@
         array("Libraries", "/library/all"),
         array("Accounts", "/admin/users/all"),
         array("My Libraries", "/user/libraries"),
-        array("My Account", "/user")
+        array("My Account", "/user/view/".$user_id)
     );
 
 
@@ -87,7 +93,11 @@
             <button class="ms-3 btn btn-secondary" type="submit">Logout</button>
         </form>
     @else
-        <a href="{{ route('login') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500 me-3">Log in</a>
+        <a class="solas-navbar-items btn btn-light" style="" href="{{ url('/discover') }}">
+            Discover
+        </a>
+        
+        <a href="{{ route('login') }}" class="solas-navbar-items btn btn-light me-1" style="">Log in</a>
 
         @if (Route::has('register'))
             <a href="{{ route('register') }}" class="btn btn-outline-dark me-3">Register</a>

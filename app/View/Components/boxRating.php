@@ -20,6 +20,7 @@ class boxRating extends Component
     public $picture;
     public $username;
     public $rating_id;
+    public $account_id;
     
 
     public function __construct($id, $show = false)
@@ -38,6 +39,7 @@ class boxRating extends Component
         $this->comment = $data->comment;
         $this->rating = $data->rating;
         $this->show = $show;
+        $this->account_id = $data->account_id;
         $this->date = $data->created_at->format('m/d/Y');
 
     }

@@ -9,14 +9,9 @@
         @endif
 
         <div class="text-end col-3">
-            <form method="POST" action="{{ url('user/rating/delete') }}" style="display:inline-block;">
-                @csrf
-                <input type="hidden" name="rating_id" value="{{ $rating_id }}">
-                <input type="hidden" name="library_id" value="{{ $library_id }}">
-                <button type="submit" class="btn btn-light p-2">
-                    <img src="{{ url('icons/delete.png') }}" style="height:1.2rem" />
-                </button>
-            </form>
+            <button class="btn btn-light p-2" onclick="document.getElementById('alert-box-rating-{{$rating_id}}').hidden = false;">
+                <img src="{{ url('icons/delete.png') }}" style="height:1.2rem" />
+            </button>
 
             <a class="btn btn-light p-2" href="{{ url('user/rating/update/'.$library_id) }}">
                 <img src="{{ url('icons/edit.png') }}" style="height:1.2rem" />
@@ -60,3 +55,32 @@
 
     </div>
 </div>
+<!-- alert-box -->
+<div id="alert-box-rating-{{$rating_id}}" class="solas-alert-bg" hidden>
+    <div class="w3-display-container w3-display-middle">
+        <div class="w3-card p-3 mb-3 solas-confirmation bg-white">
+            <div style="text-align:center;">
+                <b>Are you sure? This this change is permenant</b>.
+            </div>
+            <p class="card-text">
+
+                    <div class="text-end">
+                        <button class="btn btn-outline-dark" onclick="document.getElementById('alert-box-rating-{{$rating_id}}').hidden = true;">
+                            No
+                        </button>
+                        <form method="POST" action="{{ url('user/rating/delete') }}" class="d-inline">
+                            @csrf
+                            <input type="hidden" name="rating_id" value="{{ $rating_id }}">
+                            <input type="hidden" name="goto" value=" {{ url('user/'.$account_id) }} ">
+                            <input type="hidden" name="library_id" value="{{ $library_id }}">
+                            <button type="submit" class="btn btn-primary">
+                                Yes
+                            </button>
+                        </form>
+                    </div>
+
+            </p>
+        </div>
+    </div>
+</div>
+

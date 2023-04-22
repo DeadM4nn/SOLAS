@@ -12,7 +12,7 @@ Bookmarks
                 Updated
             </div>
             @endif
-            <div class="card w3-card  h-100 ">
+            <div class="card w3-card  h-100  mb-3">
             <a class="btn btn-light mb-1 h-100 " href="{{ url('/user/bookmark/libraryupdate/'.$curr_data->library_id) }}">
 
                 <div class="d-flex justify-content-between p-3">

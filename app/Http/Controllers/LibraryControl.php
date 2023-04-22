@@ -183,11 +183,17 @@ class LibraryControl extends Controller
         ->join('users', 'ratings.account_id', '=', 'users.id')
         ->where('library_id', $id)
         ->get();
-        $user_rating = Rating::select('ratings.*', 'users.username', 'users.picture')
-        ->join('users', 'ratings.account_id', '=', 'users.id')
-        ->where('library_id', $id)
-        ->where("account_id", Auth::user()->id)
-        ->first();
+
+        if(Auth::user()){
+            $user_rating = Rating::select('ratings.*', 'users.username', 'users.picture')
+            ->join('users', 'ratings.account_id', '=', 'users.id')
+            ->where('library_id', $id)
+            ->where("account_id", Auth::user()->id)
+            ->first();
+        } else {
+            $user_rating = null;
+        }
+
 
         return view('libraries/view', ["library"=>$view_library,"download"=>$download, "tags" => $tags, "languages" => $languages, "license" => $license, "bookmark" => $bookmark,"avg_rating"=>$avg_rating, "avg_rating_count"=>$avg_rating_count,"ratings"=>$ratings,"user_rating"=>$user_rating, "show_update"=>$show_update]);
 

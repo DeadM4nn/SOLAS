@@ -41,10 +41,12 @@
 
                 </p>
             </div>
-                
+            
+            @if(auth()->user())
             <div class="d-flex align-items-end text-end mb-1">
                 <x-button-comparison :id="$library_id" />
             </div>
+            @endif
 
         </div>
     </div>

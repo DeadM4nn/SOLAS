@@ -155,12 +155,14 @@ class UserControl extends Controller
     }
 
 
-    public function user_view(){
+    public function user_view($id){
 
-        $username = Auth::user()->username;
-        $id = Auth::user()->id;
-        $email = Auth::user()->email;
-        $picture = Auth::user()->picture;
+        $user = User::find($id);
+
+        $username = $user->username;
+
+        $email = $user->email;
+        $picture = $user->picture;
 
         $libraries = Library::where("creator_id",'=',$id)->get();
 
