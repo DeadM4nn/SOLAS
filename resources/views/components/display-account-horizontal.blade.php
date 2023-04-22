@@ -7,9 +7,13 @@
             <div>
                 <img class="rounded-circle me-4" style="height:4.5rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
             </div>
+
             <div class="w3-cell w3-align">
                 <div style="display:block-inline">
-                <b class="fs-4">{{$username}}</b>
+                <a class="btn btn-light" href="{{ url('user/view/'.$account_id) }}">
+                    <b class="fs-4">{{$username}}</b>
+                </a>
+                
                 @if($is_admin)
                     <div class="d-inline badge solas-tag solas-language bg-success text-wrap" style="width: 6rem;">
                         Admin
@@ -20,6 +24,7 @@
                 </div>
                 </div>
             </div>
+
         </div>
 
             <div class="w3-cell w3-right-align">
@@ -30,7 +35,6 @@
                 <x-account-alert-box :username="$username" :account_id='$account_id'  />
                 <a href="{{url('/admin/users/update/'.(string)$account_id)}}" type="button" class="btn btn-success" style="width:8rem;" 
                 >Edit</a>
-                <button type="button" class="btn btn-outline-dark" style="width:8rem;">Ratings</button>
                 @endif
             </div>
         </div>

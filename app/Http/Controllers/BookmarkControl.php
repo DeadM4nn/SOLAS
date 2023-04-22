@@ -44,10 +44,14 @@ class BookmarkControl extends Controller
 
     public function delete(Request $req){
 
-        $bookmark = Bookmark::select()
-        ->where('library_id', $req->library_id)
-        ->where('account_id', Auth::user()->id)
-        ->first();
+        if(isset($req->bookmark_id)){
+            $bookmark = Bookmark::find($req->bookmark_id);
+        }else{
+            $bookmark = Bookmark::select()
+            ->where('library_id', $req->library_id)
+            ->where('account_id', Auth::user()->id)
+            ->first();
+        }
 
         $bookmark_archived = new A_Bookmark;
 
@@ -62,6 +66,11 @@ class BookmarkControl extends Controller
 
         $message = "Bookmark has been deleted";
         $link = "library/request/".$req->library_id;
+
+        if(isset($req->goto)){
+            $link = $req->goto;
+        }
+
 
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
