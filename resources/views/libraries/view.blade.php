@@ -221,7 +221,8 @@
             
 
         </div>
-        <x-ratings-panel :id="$library->library_id"/>
+
+        <x-ratings-panel :data="$library"/>
 
     
 
@@ -230,7 +231,7 @@
 @section("content2")
 
     <div class="mb-5 mt-4">
-        <button class="btn btn-light" onclick="show_panel(-1)">
+        <button class="btn btn-light" onclick="show_panel()">
             @for($x = 0; $x < $avg_rating; $x++)
             <img src="{{ asset('icons/star_solid.png') }}" style="height:2.5rem" />
             @endfor
