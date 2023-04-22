@@ -22,6 +22,13 @@ class RatingControl extends Controller
     }
 
     public function update(Request $req){
+
+        if(isset($req->link)){
+            $link = $req->link;
+        } else {
+            $link = "library/request/".$req->library_id;
+        }
+
         $curr_rating = Rating::find($req->rating_id);
         $curr_rating->comment = $req->comment;
         $curr_rating->rating = $req->rating;
@@ -33,6 +40,7 @@ class RatingControl extends Controller
     }
 
     public function delete(Request $req){
+
         $curr_rating = Rating::find($req->rating_id);
 
         // Archiving purposes
@@ -48,7 +56,14 @@ class RatingControl extends Controller
 
         $curr_rating->delete();
 
-        $link = "library/request/".$req->library_id;
+        if(isset($req->link)){
+            $link = $req->link;
+        } else {
+            $link = "library/request/".$req->library_id;
+        }
+        
+
+
         $message = "You have successfully removed your rating for this library.";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }

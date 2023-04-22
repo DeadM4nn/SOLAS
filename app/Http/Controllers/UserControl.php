@@ -150,7 +150,9 @@ class UserControl extends Controller
 
         $libraries = Library::where("creator_id",'=',$id)->get();
 
-        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries, "account_id"=>$id, "picture"=>$picture]);
+        $ratings = Rating::where("account_id",'=',$id)->get();
+
+        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries, "account_id"=>$id, "picture"=>$picture,'ratings'=>$ratings]);
     }
 
     public function update_picture(Request $req){

@@ -1,5 +1,4 @@
 
-let panel = document.getElementById("solas-ratings-panel");
 let rate_value = document.getElementById("rate-value");
 let rate_value_form = document.getElementById("rating");
 let stars = [
@@ -25,16 +24,18 @@ starImg.src = assetUrl + '/icons/star.png';
 let solidStarImg = new Image();
 solidStarImg.src = assetUrl + '/icons/star_solid.png';
 
-function hide_panel(){
+function hide_panel(id = -1){
+    let panel = document.getElementById("solas-ratings-panel-"+id);
     panel.hidden = true;
 }
 
-function show_panel(){
+function show_panel(id = -1){
+    let panel = document.getElementById("solas-ratings-panel-"+id);
+    console.log(id);
     panel.hidden = false;
 }
 
 function change_star(value){
-    console.log("hit");
 
     // Hide all stars
     for(let i=0; i<5; i++){
@@ -58,4 +59,3 @@ function change_star(value){
 
 //Init
 change_star(1);
-panel.hidden = true;

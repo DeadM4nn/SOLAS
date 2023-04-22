@@ -21,6 +21,5 @@
         <x-searchBar/>
     </div>
 </form>
-
 </body>
-
+<x-footer />
