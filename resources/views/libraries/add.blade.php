@@ -18,7 +18,7 @@ Add Library
 @endsection
 @section('content')
 <div class="ms-5 me-5">
-    <form action="../library/add/process" method="POST" enctype="multipart/form-data">
+    <form id="library-form" action="../library/add/process" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3 mt-5">
             <label for="name" class="form-label">Title<span class="text-danger">*</span></label>
@@ -98,7 +98,7 @@ Add Library
 
 
         <div class="mb-3">
-            <label for="name" class="form-label">Version Number</label>
+            <label for="name" class="form-label">Version Number<span class="text-danger">*</span></label>
             <input type="text" placeholder="e.g. 1.90.2 (Only required if uploading a file)" value="{{ old('version') }}" name="version" id="version" class="form-control" required>
         </div>
 
@@ -108,8 +108,8 @@ Add Library
 
 
         <div class="mb-5">
-            <label for="file_description" class="form-label">Version Description</label>
-            <textarea class="form-control" placeholder="Briefly describe what is updated or what is in the file (Only required if uploading a file)" name="file_description" id="file_description" rows="3" >{{ old('file_description') }}</textarea>
+            <label for="file_description" class="form-label">Version Description<span class="text-danger">*</span></label>
+            <textarea class="form-control" placeholder="Briefly describe what is updated or what is in the file (Only required if uploading a file)" name="file_description" id="file_description" rows="3" required>{{ old('file_description') }}</textarea>
         </div>
 
         @error('file_description')
@@ -117,10 +117,153 @@ Add Library
         @enderror
 
         <div>
-            <x-button class="mt-4 btn btn-primary" style="width:100%; background:#0E7FC0;">
+            <button type="button" onclick="show_confirmation()" class="mt-4 btn btn-primary" style="width:100%; background:#0E7FC0;">
                 Add
-            </x-button>
+            </button>
         </div>
+
+<!-- Confirmation box -->
+<div id="confirmation-panel" class="solas-alert-bg p-5" hidden>
+<div class="container bg-white w3-card p-5">
+    <h1 class="col-12 mb-5">
+        Please confirm submission.
+    </h1>
+
+	<div class="row mb-3">
+		<div class="col-6">Title<span class="text-danger">*</span></div>
+		<input class="col-6 required-input" type="text" value="" placeholder="REQUIRED" id="name-confirmation" disabled>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">Description<span class="text-danger">*</span></div>
+		<textarea class="col-6 required-input" placeholder="REQUIRED" id="description-confirmation" rows="3" disabled></textarea>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">Tag(s)</div>
+		<div class="col-6" id="tag-confirmation">None</div>
+		<a id="tag-list-confirmation"></a>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">License</div>
+		<input class="col-6" type="text" id="license-confirmation" value="" placeholder="Unspecified" disabled/>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">Language(s) used</div>
+		<div class="col-6" id="language-confirmation" >
+            None
+        </div>
+	</div>
+
+
+	<div class="row mb-3">
+		<div class="col-6">Command</div>
+		<input class="col-6" type="text" id="command-confirmation" placeholder="Unspecified" value="" disabled/>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">Source</div>
+		<input class="col-6" type="text" id="link-confirmation" placeholder="Unspecified" value="" disabled/>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">File Upload<span class="text-danger">*</span></div>
+        <div class="col-6" id="library_file-confirmation">
+            <div class="text-danger fw-bold">
+                FILE MISSING. PLEASE UPLOAD A .rar OR .zip
+            </div>
+        </div>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">Version Number<span class="text-danger">*</span></div>
+		<input class="col-6 required-input" type="text" placeholder="REQUIRED" value="" id="version-confirmation" disabled>
+	</div>
+
+	<div class="row mb-3">
+		<div class="col-6">Version Description<span class="text-danger">*</span></div>
+		<textarea class="col-6 required-input" placeholder="REQUIRED" id="file_description-confirmation" rows="3" disabled></textarea>
+	</div>
+
+    <div class="row">
+        <button type="button" class="mt-4 btn me-5 btn-outline-dark col-5" onclick="hide_confirmation()">
+            Continue filling form
+        </button>
+        <button id="submit-button" type="submit" class="mt-4 btn btn-primary col-6" disabled>
+            Add
+        </button>
+    </div>
+    
+</div>
+</div>
+
+
+<script>
+    let confirmation_panel = document.getElementById('confirmation-panel');
+
+    let confirmation_ids = [
+        'name',
+        'license',
+        'command',
+        'link',
+        'version',
+        'file_description',
+        'description',
+    ];
+
+
+
+    function hide_confirmation(){
+        confirmation_panel.hidden = true; 
+    }
+
+    function show_confirmation(){
+        confirmation_panel.hidden = false;
+        let fileInput = document.getElementById('library_file');
+
+        if (fileInput.files && fileInput.files.length > 0) {
+            document.getElementById('library_file-confirmation').innerHTML = fileInput.files[0].name;
+        }
+
+        // Handling Tags
+        let tag_list_confirmation = document.getElementById('tag').value.split('<=>').map(item => `<div class="text-wrap d-inline badge bg-primary m-1">${item}</div>`).join("");
+
+        // Handling Tags
+        let lang_list_confirmation = document.getElementById('language').value.split('<=>').map(item => `<div class="text-wrap d-inline badge bg-success m-1">${item}</div>`).join("");
+
+        if(document.getElementById('tag').value != ""){
+            document.getElementById('tag-confirmation').innerHTML = tag_list_confirmation;
+        } 
+
+        if(document.getElementById('language').value != ""){
+            document.getElementById('language-confirmation').innerHTML = lang_list_confirmation;
+        }
+
+        //Updating the values
+        for(let i = 0; i < confirmation_ids.length; i++){
+            document.getElementById(confirmation_ids[i]+"-confirmation").value = document.getElementById(confirmation_ids[i]).value;
+        }
+
+        //Check validity
+        let form = document.getElementById('library-form');
+        let submit_btn = document.getElementById('submit-button');
+
+        submit_btn.disabled = !form.checkValidity();
+    }
+</script>
+
+<style>
+    .required-input::placeholder{
+        color: #dc3545;
+        font-weight: bold;
+    }
+</style>
+
+<!-- confirmation box -->
+
+
     </form>
 </div>
 
