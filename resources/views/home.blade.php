@@ -29,7 +29,7 @@
             Libraries
         </h5>
         <div style="width=70%;" class="text-center">
-            There are 2,050,093 Libraries
+            There are {{$library_count}} Libraries
         </div>
     </div>
     </a>
@@ -40,7 +40,7 @@
             Accounts
         </h5>
         <div style="width=70%;" class="text-center">
-            There are 2,050,093 users
+            There are {{$user_count}} users
         </div>
     </div>
     </a>
