@@ -1,16 +1,25 @@
 @extends("layouts.app")
 @section('page_title')
-    My Profile
+    @if(auth()->user()->is_admin && auth()->user()->id != $account_id)
+        {{$username}}'s Profile
+    @else
+        My Profile
+    @endif
+    
 @endsection
 @section('content')
 <div class="container">
 <div class="mt-5 d-flex flex-row mb-4 text-center">
 
+    @if(auth()->user()->is_admin && auth()->user()->id != $account_id)
+        <img class="rounded-circle me-5" style="height:15rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
+    @else
+        <a class="me-5 btn btn-light" href="{{ url('user/picture/update') }}">       
+            <img class="rounded-circle" style="height:15rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
+            <div class="text-center fw-bold mt-2 text-gray">Change Image</div>
+        </a>
+    @endif
 
-    <a class="me-5 btn btn-light" href="{{ url('user/picture/update') }}">       
-        <img class="rounded-circle" style="height:15rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
-        <div class="text-center fw-bold mt-2 text-gray">Change Image</div>
-    </a>
     <div class="container ms-4 flex-grow-1">
         <div class="row">
 
@@ -55,7 +64,11 @@
             </div>
 
             <div class="col-12">
-                <a href="{{ url('/user/update/')}}" type="button" class="btn btn-outline-dark w-100" style="width:100%">Edit</a>
+                @if(auth()->user()->is_admin && auth()->user()->id != $account_id)
+                    <a href="{{url('/admin/users/update/'.$account_id)}}" type="button" class="btn btn-outline-dark w-100" style="width:100%">Edit</a>
+                @else
+                    <a href="{{ url('/user/update/')}}" type="button" class="btn btn-outline-dark w-100" style="width:100%">Edit</a>
+                @endif
             </div>
             <!-- Horizontal Divider -->
             <div class="mb-5 col-12">

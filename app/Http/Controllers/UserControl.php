@@ -32,7 +32,7 @@ class UserControl extends Controller
         if(Auth::user()->is_admin){
             $link = "admin/users/all";
         } else {
-            $link = "/user";
+            $link = "/user/view/".$current_user->id;
         };
 
     
@@ -177,6 +177,6 @@ class UserControl extends Controller
         $user->picture = $req->picture;
         $user->save();
 
-        return redirect('/user');
+        return redirect("/user/view/".$id);
     }
 }

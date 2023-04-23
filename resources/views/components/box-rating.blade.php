@@ -13,9 +13,12 @@
                 <img src="{{ url('icons/delete.png') }}" style="height:1.2rem" />
             </button>
 
+            <!-- Only show if the user is not admin -->
+            @if(!auth()->user()->is_admin)
             <a class="btn btn-light p-2" href="{{ url('user/rating/update/'.$library_id) }}">
                 <img src="{{ url('icons/edit.png') }}" style="height:1.2rem" />
             </a>
+            @endif
         </div>
 
         <div class="col-12">
@@ -57,13 +60,18 @@
 </div>
 
 <!-- alert-box -->
+
+
+<!-- Only show if the user is not admin -->
+
 <div id="alert-box-rating-{{$rating_id}}" class="solas-alert-bg" hidden>
     <div class="w3-display-container w3-display-middle">
         <div class="w3-card p-3 mb-3 solas-confirmation bg-white">
-            <div style="text-align:center;">
+
+            <div class="text-center mb-2">
                 <b>Are you sure? This this change is permenant</b>.
             </div>
-            <p class="card-text">
+
 
                     <div class="text-end">
                         <button class="btn btn-outline-dark" onclick="document.getElementById('alert-box-rating-{{$rating_id}}').hidden = true;">
@@ -80,8 +88,7 @@
                         </form>
                     </div>
 
-            </p>
+
         </div>
     </div>
 </div>
-
