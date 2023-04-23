@@ -590,6 +590,33 @@ class LibraryControl extends Controller
         $amount = count($results);
         return view('libraries/user/my_libraries', ['results'=>$results, "amount"=>$amount]);
     }
+
+    public function search_by_tag($id){
+        $tag = Tag::find($id);
+        $results =  $tag->librariesWithTagId($id);
+        $amount = $results->count();
+        $searchKey = null;
+
+        return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);
+    }
+
+    public function search_by_lang($id){
+        $language = Language::find($id);
+        $results =  $language->librariesWithLanguageId($id);
+        $amount = $results->count();
+        $searchKey = null;
+    
+        return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);
+    }
+
+    public function search_by_license(Request $req){
+        $results = Library::where('license','=',$req->license)->get();
+        $amount = $results->count();
+        $searchKey = null;
+    
+        return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);
+    }
+    
 }
 
 

@@ -25,9 +25,7 @@
         <!-- Tags -->
         <div class="col-3 solas-library-column-title col-form-label align-items-center">License</div>
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
-            <div class="badge solas-tag solas-bg-license solas-bg-license text-wrap" style="font-size:0.7rem">
-                {{$license}}
-            </div>
+            <x-widget-license :id="$library->library_id" />
         </div>
 
         @if(count($languages) != 0)
@@ -35,22 +33,14 @@
         @endif
 
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
-        @foreach($languages as $language)    
-        <div class="badge solas-tag solas-bg-language text-wrap" style="font-size:0.7rem">
-                {{$language["name"]}}
-        </div>
-        @endforeach
+            <x-widget-language :id="$library->library_id" />
         </div>
     
     @if(count($tags) != 0)
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Tags</div>
     @endif
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
-    @foreach( $tags as $tag)
-            <div class="badge solas-tag solas-bg-category text-wrap" style="font-size:0.7rem">
-                {{$tag['name']}}
-            </div>
-    @endforeach
+            <x-widget-tag :id="$library->library_id" />
         </div>
 
         <!-- Horizontal Divider -->

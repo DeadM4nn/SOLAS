@@ -16,4 +16,9 @@ class Language extends Model
         return $this->belongsToMany(Library::class, 'library_languages', 'language_id', 'library_id');
     }
 
+    public function librariesWithLanguageId($id)
+    {
+        return $this->libraries()->where('language_id', $id)->get();
+    }
+
 }

@@ -36,4 +36,9 @@ class Tag extends Model
         ];
     }
 
+    public function librariesWithTagId($id)
+    {
+        return $this->libraries()->where('tag_id', $id)->get();
+    }
+
 }

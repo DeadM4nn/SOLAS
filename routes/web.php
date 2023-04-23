@@ -2,6 +2,7 @@
 //php artisan optimize:clear -> If components aint working right.
 use App\HTTP\Controllers\LibraryControl;
 use App\HTTP\Controllers\UserControl;
+use App\HTTP\Controllers\HomeControl;
 use App\Models\Library;
 use App\Models\User;
 use App\HTTP\Controllers\RatingControl;
@@ -64,15 +65,13 @@ Route::middleware([UserMiddleware::class])->group(function () {
     Route::get('user/libraries', [LibraryControl::class, 'view_my_libraries']);
 });
 
+Route::get('tag/search/{id}', [LibraryControl::class, 'search_by_tag']);
+Route::get('language/search/{id}', [LibraryControl::class, 'search_by_lang']);
+Route::post('license/search/', [LibraryControl::class, 'search_by_license']);
+
 //User Specific Pages
 
-Route::get('/home', function () {
-    
-    $library_count = Library::count();
-    $user_count = User::count();
-
-    return view('home', ['library_count'=>$library_count, 'user_count'=>$user_count]);}
-    )->name('home');
+Route::get('/home', [HomeControl::class, 'view_home'])->name('home');
 Route::view('test','ratings-panel');
 //Route::get("/home","home")->name("home");
 Route::view("/dashboard","home")->name("dashboard");

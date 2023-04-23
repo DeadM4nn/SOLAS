@@ -1,5 +1,5 @@
 <div>
-    <div>
+    <div style="display: inline-block; white-space: nowrap; max-width: 100%;">
         @for($x = 0; $x < $rating; $x++)
         <img src="{{ asset('icons/star_solid.png') }}" style="height:1.2rem" />
         @endfor
