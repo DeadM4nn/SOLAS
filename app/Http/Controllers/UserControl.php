@@ -19,6 +19,7 @@ use App\Models\Version;
 use App\Models\Language;
 use App\Models\LibraryLanguage;
 use App\Models\LibraryTag;
+use Illuminate\Support\Facades\Hash;
 
 class UserControl extends Controller
 {
@@ -179,12 +180,16 @@ class UserControl extends Controller
 
         $email = $user->email;
         $picture = $user->picture;
-
+        $is_admin = $user->is_admin;
         $libraries = Library::where("creator_id",'=',$id)->get();
 
         $ratings = Rating::where("account_id",'=',$id)->get();
+        
+        $rating_count = Rating::where('account_id', '=', $id)->count();
+        $bookmark_count = Bookmark::where('account_id', '=', $id)->count();
+        $library_count = Library::where('creator_id', '=', $id)->count();
 
-        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries, "account_id"=>$id, "picture"=>$picture,'ratings'=>$ratings]);
+        return view('users/view', ["username"=>$username, "email"=>$email, "libraries"=>$libraries, "account_id"=>$id, "picture"=>$picture,'ratings'=>$ratings,"is_admin"=>$is_admin, "rating_count"=>$rating_count, "bookmark_count"=>$bookmark_count, "library_count"=>$library_count]);
     }
 
     public function update_picture(Request $req){
@@ -205,5 +210,35 @@ class UserControl extends Controller
            return redirect('/home');
         }
 
+    }
+
+    public function register(Request $req){
+        $req->validate([
+            'username' => [
+                'required',
+                'unique:users,username',
+                'regex:/^[a-zA-Z0-9]+$/',
+            ],
+            'email' => [
+                'required',
+                'email',
+                'unique:users,email',
+            ],
+            'password' => 'required',
+            'password_confirmation' => 'required|same:password',
+        ], [
+            'username.regex' => 'Username can only contain alphanumeric characters.',
+        ]);
+
+        $new_user = new User;
+        $new_user->username = $req->username;
+        $new_user->email = $req->email;
+        $new_user->password = Hash::make($req->password);
+        $new_user->is_admin = $req->has('is_admin') ? 1 : 0;
+        $new_user->save();
+
+        $link = "user/view/".$new_user->id;
+        $message = $new_user->username." has been created";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 }

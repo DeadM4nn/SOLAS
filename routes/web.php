@@ -41,6 +41,8 @@ Route::middleware([AdminMiddleware::class])->group(function () {
     Route::post('/admin/users/search', [UserControl::class,"search"]);
     Route::get('/admin/users/update/{id}', [UserControl::class,"admin_view_update"]);
     Route::post('/admin/users/update_process', [UserControl::class,"update"]);
+    Route::view('/admin/users/add', 'users.register');
+    Route::post('/admin/users/add/process', [UserControl::class,"register"]);
 });
 
 Route::middleware([UserMiddleware::class])->group(function () {

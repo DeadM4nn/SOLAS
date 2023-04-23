@@ -24,7 +24,11 @@
 @endsection
 
 @section('content')
-
+<div class="solas-add-button">
+    <div class="fab-container">
+    <a href="{{ url('admin/users/add') }}" class="fab">+</a>
+    </div>
+</div>
 
 <style>
     .solas-tag{
