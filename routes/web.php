@@ -53,6 +53,9 @@ Route::middleware([UserMiddleware::class])->group(function () {
     Route::get('/library/add', [LibraryControl::class,"view_add_library"]);
     Route::post('/library/add/process', [LibraryControl::class,"add"]);
     Route::post('/library/update/process', [LibraryControl::class,"update"]);
+    Route::view('/user/password/change', 'users.change_password');
+    Route::post('/user/password/change/process',  [UserControl::class,"change_password"]);
+    
 
     // User Personal Pages
     Route::get('/user/view/{id}', [UserControl::class,"user_view"]);

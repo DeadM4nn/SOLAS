@@ -224,7 +224,7 @@ class UserControl extends Controller
                 'email',
                 'unique:users,email',
             ],
-            'password' => 'required',
+            'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password',
         ], [
             'username.regex' => 'Username can only contain alphanumeric characters.',
@@ -239,6 +239,30 @@ class UserControl extends Controller
 
         $link = "user/view/".$new_user->id;
         $message = $new_user->username." has been created";
+        return view("confirmations/after", ["message"=>$message, "link"=>$link]);
+    }
+
+    public function change_password(Request $req){
+        $user = Auth::user();
+        $req->validate([
+            'old_password' => [
+                'required',
+                function ($attribute, $value, $fail) use ($user) {
+                    if (!Hash::check($value, $user->password)) {
+                        return $fail('The old password you entered is incorrect.');
+                    }
+                },
+            ],
+            'password' => 'required|min:8',
+            'password_confirmation' => 'required|same:password',
+        ]);
+
+        $curr_user = User::find(Auth::user()->id);
+        $curr_user->password = Hash::make($req->password);
+        $curr_user->save();
+
+        $link = "user/view/".Auth::user()->id;
+        $message = "Password successfully changed.";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 }
