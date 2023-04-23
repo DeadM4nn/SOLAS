@@ -14,7 +14,7 @@
     @if(auth()->user()->is_admin && auth()->user()->id != $account_id)
         <img class="rounded-circle me-5" style="height:15rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
     @else
-        <a class="me-5 btn btn-light" href="{{ url('user/picture/update') }}">       
+        <a class="me-5 btn btn-light" href="{{ url('user/picture/update/'.$account_id) }}">       
             <img class="rounded-circle" style="height:15rem;" src="{{ asset('profile_pic/' . $picture . '.png') }}" />
             <div class="text-center fw-bold mt-2 text-gray">Change Image</div>
         </a>

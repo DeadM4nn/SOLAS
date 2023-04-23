@@ -79,13 +79,13 @@ Route::post('/user/compare/update', [ComparisonControl::class, "update_all"]);
 Route::get('/user/compare/delete/{id}', [ComparisonControl::class, "delete"]);
 Route::get('/user/compare', [ComparisonControl::class, "view_comparisons"]);
 Route::get('/user/compare/clear', [ComparisonControl::class, "clear_all"]);
-Route::view('user/picture/update', 'users.profile_change');
+
 Route::get('/discover', [LibraryControl::class,"show_all"]);
 
 Route::get('user/bookmark/libraryupdate/{id}', [BookmarkControl::class,"update_latest_version"]);
 
 Route::post('user/picture/update/process', [UserControl::class, "update_picture"]);
-
+Route::get('/user/picture/update/{id}', [UserControl::class, "view_update_picture"]);
 
 Route::get('user/rating/update/{id}', [RatingControl::class, "go_to_update"]);
 

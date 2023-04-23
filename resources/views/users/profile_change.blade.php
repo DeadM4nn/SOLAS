@@ -2,7 +2,7 @@
 @section('page_title')
     <div class="d-flex justify-content-around">
         <div>Change Profile Picture</div>
-        <div><a class="btn btn-outline-dark" href=" {{ url('/user') }} ">Back <</a></div>
+        <div><a class="btn btn-outline-dark" href=" {{ url($link) }} ">Back <</a></div>
     </div>
 @endsection
 @section('content')

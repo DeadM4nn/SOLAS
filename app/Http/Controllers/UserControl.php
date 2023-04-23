@@ -1,6 +1,7 @@
 <?php
-
 namespace App\Http\Controllers;
+
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\LibraryControl;
 use App\Http\Controllers\BookmarkControl;
 use App\Http\Controllers\RatingControl;
@@ -23,6 +24,21 @@ class UserControl extends Controller
 {
     public function update(Request $req){
         $current_user = User::findOrFail($req->id);
+
+        $validatedData = $req->validate([
+            'username' => [
+                'required',
+                'string',
+                Rule::unique('users')->ignore($current_user->id),
+            ],
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($current_user->id),
+            ],
+        ]);
+
+
         $current_user->username = $req->username;
         $current_user->email = $req->email;
         $current_user->save();
@@ -178,5 +194,16 @@ class UserControl extends Controller
         $user->save();
 
         return redirect("/user/view/".$id);
+    }
+
+    public function view_update_picture($id){
+        // User NEEDS to be admin or the currently logged in
+        if(Auth::user()->id == $id){
+            $link = "/user/view/".$id;
+            return view('users.profile_change', ["link" => $link]);
+        } else {
+           return redirect('/home');
+        }
+
     }
 }
