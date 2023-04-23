@@ -251,7 +251,7 @@
                 {{$avg_rating_count}} Reviews
             </div>
 
-        @if(auth()->user() && !auth()->user()->is_admin !)
+        @if(auth()->user() && !auth()->user()->is_admin)
         </button> 
         @endif
     </div>

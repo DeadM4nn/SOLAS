@@ -92,6 +92,8 @@ Update {{$library->name}}
             </x-button>
         </div>
     </form>
+
+@if(!auth()->user()->is_admin)
     <section id="upload">
     <form method="POST" action="{{ url('library/upload') }}" enctype="multipart/form-data">
         @csrf
@@ -136,6 +138,7 @@ Update {{$library->name}}
         </div>
     </form>
     </section>
+@endif
 </div>
 <script src="{{ asset('js\tags_lang.js') }}"></script>
 
