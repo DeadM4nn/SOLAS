@@ -122,7 +122,9 @@
                             </h5>
                         </div>
                     </div>
+                    @if($user_rating->comment != null)
                     <p class="card-text ps-5 pb-2">"{{$user_rating->comment}}"</p>
+                    @endif
                 </div>
                 <div>
                 </div>
@@ -159,7 +161,17 @@
             <div class="card-body">
                 <div class="card-title mb-2 d-flex justify-content-between">
                     <div class="text-wrap text-break fw-bold fs-4" style="width: 60%">
-                        <img src=" {{ url('profile_pic/'.$rating->picture.'.png') }} " class="rounded-circle me-3" style="height:40px;" /> {{$rating->username}}
+                        <img src=" {{ url('profile_pic/'.$rating->picture.'.png') }} " class="rounded-circle me-3" style="height:40px;" /> 
+                        
+                    @if(auth()->user() && auth()->user()->is_admin)    
+                    <a class="btn btn-light" href="{{ url('user/view/'.$rating->account_id) }}">
+                        <b>{{$rating->username}}</b>
+                    </a>
+                    @else
+                        {{$rating->username}}
+                    @endif
+                    
+                    
                     </div>
                     <div>
                         <div>
@@ -175,7 +187,9 @@
                         </h5>
                     </div>
                 </div>
+                @if($rating->comment != null)
                 <p class="card-text ps-5 pb-2">"{{$rating->comment}}"</p>
+                @endif
             </div>
         </div>
     @endforeach
@@ -192,6 +206,8 @@
 
         <div>
             @if(auth()->check())
+            
+
             @if(auth()->user()->id == $library->creator_id || auth()->user()->is_admin)
             <a class="btn btn-light" href="{{ url('library/update/'.$library->library_id) }}">
                     <img style="height: 1.6rem;" src="{{ asset('icons/edit.png') }}">
@@ -201,7 +217,7 @@
             </a>
             <x-alert-box :new-library-id="$library->library_id" :library-name="$name" :link="$link"/>
             @endif
-
+                
                         
                 <form style="display:inline-block;" action="{{ url($bookmark_action) }}" method="POST">
                     @csrf
@@ -211,6 +227,9 @@
                     src="{{ asset($bookmark_image)  }}"
                     >
                 </form>
+                <div  style="display:inline-block; text-align: end;">
+                    <x-button-comparison :id="$library->library_id" />
+                </div>
             @endif
             
 

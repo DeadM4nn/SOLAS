@@ -1,7 +1,7 @@
 <div class="card w3-card mt-3">
     <div class="card-body solas-padding">
         @php
-        $name = $name." record";
+        $name = $name;
         $link = "/library/delete";
         @endphp
         <div class="d-flex justify-content-between">

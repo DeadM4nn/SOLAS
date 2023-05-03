@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 21, 2023 at 07:40 PM
+-- Generation Time: May 03, 2023 at 02:06 PM
 -- Server version: 8.0.29
 -- PHP Version: 7.4.26
 
@@ -35,17 +35,15 @@ CREATE TABLE IF NOT EXISTS `bookmarks` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_version` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `bookmarks`
 --
 
 INSERT INTO `bookmarks` (`id`, `account_id`, `library_id`, `date_created`, `last_version`) VALUES
-(9, 20, 10183, '2023-04-22 00:42:13', NULL),
-(10, 21, 10186, '2023-04-22 00:42:24', 'Newest Update'),
-(11, 21, 10190, '2023-04-22 00:42:34', NULL),
-(12, 21, 10205, '2023-04-22 00:42:52', '1.23.3245.5');
+(14, 25, 10186, '2023-04-24 04:08:24', 'Newest Update'),
+(15, 25, 10188, '2023-04-24 04:09:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -61,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `bookmarks_archived` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_version` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `bookmarks_archived`
@@ -70,7 +68,12 @@ CREATE TABLE IF NOT EXISTS `bookmarks_archived` (
 INSERT INTO `bookmarks_archived` (`id`, `account_id`, `library_id`, `date_created`, `last_version`) VALUES
 (6, 1, 10183, '2023-04-21 12:38:41', '6.1.4'),
 (7, 20, 10194, '2023-04-21 14:23:17', '1.4'),
-(8, 20, 10194, '2023-04-21 14:23:18', '1.4');
+(8, 20, 10194, '2023-04-21 14:23:18', '1.4'),
+(9, 20, 10183, '2023-04-22 00:42:13', NULL),
+(10, 21, 10186, '2023-04-22 00:42:24', 'Newest Update'),
+(11, 21, 10190, '2023-04-22 00:42:34', NULL),
+(12, 21, 10205, '2023-04-22 00:42:52', '1.23.3245.5'),
+(13, 21, 10192, '2023-04-23 02:37:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -87,15 +90,15 @@ CREATE TABLE IF NOT EXISTS `comparisons` (
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `comparisons`
 --
 
 INSERT INTO `comparisons` (`id`, `library_id`, `account_id`, `note`, `updated_at`, `created_at`) VALUES
-(51, 10183, 1, 'What Ok2123234asd', '2023-04-20 09:05:23', '2023-04-20 06:14:43'),
-(52, 10186, 1, 'ok?', '2023-04-20 06:25:49', '2023-04-20 06:14:57');
+(56, 10183, 13, '', '2023-04-30 17:01:43', '2023-04-30 17:01:43'),
+(57, 10186, 13, '', '2023-04-30 17:15:57', '2023-04-30 17:15:57');
 
 -- --------------------------------------------------------
 
@@ -170,24 +173,22 @@ CREATE TABLE IF NOT EXISTS `libraries` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`library_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10206 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10212 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `libraries`
 --
 
 INSERT INTO `libraries` (`library_id`, `name`, `description`, `license`, `views`, `command`, `link`, `is_file`, `creator_id`, `updated_at`, `created_at`) VALUES
-(10183, 'The SHOGUN machine learning toolbox', 'Shogun is a free, open-source machine learning software library written in C++. It offers numerous algorithms and data structures for machine learning problems. It offers interfaces for Octave, Python, R, Java, Lua, Ruby and C# using SWIG.\r\n\r\nIt is licensed under the terms of the GNU General Public License version 3 or later.', 'GNU General Public License (GPL) Version 3 or later', 143, NULL, 'https://github.com/shogun-toolbox/shogun', 0, 13, '2023-04-21 09:26:18', NULL),
-(10186, 'CryptoCompare', 'Python3 wrapper to query cryptocurrency prices (and more) using the CryptoCompare API.', 'MIT License', 358, 'pip3 install cryptocompare', NULL, 1, 14, '2023-04-21 11:40:21', NULL),
-(10187, 'Cryptocurrency Exchange Feed Handler', 'Handles multiple cryptocurrency exchange data feeds and returns normalized and standardized results to client registered callbacks for events like trades, book updates, ticker updates, etc. Utilizes websockets when possible, but can also poll data via REST endpoints if a websocket is not provided.', 'XFree86', 5, 'pip install cryptofeed', 'https://github.com/bmoscon/cryptofeed', 0, 14, '2023-04-20 23:14:51', NULL),
-(10188, 'Asio C++ library', 'Asio is a freely available, open-source, cross-platform C++ library for network programming. It provides developers with a consistent asynchronous I/O model using a modern C++ approach. Boost.Asio was accepted into the Boost library on 30 December 2005 after a 20-day review. The library has been developed by Christopher M. Kohlhoff since 2003. A networking proposal based on Asio was submitted to the C++ standards committee in 2006 for possible inclusion in the second Technical Report on C++ Library Extensions (TR2).', 'Boost Software License', 6, NULL, 'https://think-async.com/Asio/', 0, 15, '2023-04-21 00:45:12', NULL),
-(10189, 'cryptography', 'cryptography is a package which provides cryptographic recipes and primitives to Python developers. Our goal is for it to be your “cryptographic standard library”. It supports Python 3.6+ and PyPy3 7.3.10+.', 'Apache Software License, BSD License ((Apache-2.0 OR BSD-3-Clause) AND PSF-2.0)', 5, 'pip install cryptography', 'https://pypi.org/project/cryptography/', 0, 15, '2023-04-20 22:29:34', NULL),
+(10186, 'CryptoCompare', 'Python3 wrapper to query cryptocurrency prices (and more) using the CryptoCompare API.', 'MIT License', 641, 'pip3 install cryptocompare', NULL, 1, 14, '2023-04-30 15:02:46', NULL),
+(10187, 'Cryptocurrency Exchange Feed Handler', 'Handles multiple cryptocurrency exchange data feeds and returns normalized and standardized results to client registered callbacks for events like trades, book updates, ticker updates, etc. Utilizes websockets when possible, but can also poll data via REST endpoints if a websocket is not provided.', 'XFree86', 8, 'pip install cryptofeed', 'https://github.com/bmoscon/cryptofeed', 0, 14, '2023-04-30 13:36:35', NULL),
+(10188, 'Asio C++ library', 'Asio is a freely available, open-source, cross-platform C++ library for network programming. It provides developers with a consistent asynchronous I/O model using a modern C++ approach. Boost.Asio was accepted into the Boost library on 30 December 2005 after a 20-day review. The library has been developed by Christopher M. Kohlhoff since 2003. A networking proposal based on Asio was submitted to the C++ standards committee in 2006 for possible inclusion in the second Technical Report on C++ Library Extensions (TR2).', 'Boost Software License', 7, NULL, 'https://think-async.com/Asio/', 0, 15, '2023-04-23 12:09:02', NULL),
+(10189, 'cryptography', 'cryptography is a package which provides cryptographic recipes and primitives to Python developers. Our goal is for it to be your “cryptographic standard library”. It supports Python 3.6+ and PyPy3 7.3.10+.', 'Apache Software License, BSD License ((Apache-2.0 OR BSD-3-Clause) AND PSF-2.0)', 10, 'pip install cryptography', 'https://pypi.org/project/cryptography/', 0, 15, '2023-04-30 08:59:19', NULL),
 (10190, 'Hypatia', 'Hypatia, a Greek mathematician, 355-415 C.E. Considered by many to be the first female mathematician of note.\r\n\r\nHypatia is a single-file-header, pure-C math library. It is almost 100% C89/C90 compliant. This library is intended for use in 2d/3d graphics program (such as games). Since it is not a general purpose math library, but a library meant for 3d graphics, certain opinions have been expressed in its design. One of those design choices, intended to help with speed, is that all objects (quaternions, matrices, vectors) are mutable. (That means that the objects change their values.) This was a purposeful design choice. Construct your program around this choice.', 'open source license', 3, NULL, 'https://dagostinelli.github.io/hypatia/', 0, 16, '2023-04-21 08:42:35', NULL),
-(10191, 'MathFu', 'MathFu is a C++ math library developed primarily for games focused on simplicity and efficiency.\r\n\r\nIt provides a suite of vector, matrix and quaternion classes to perform basic geometry suitable for game developers. This functionality can be used to construct geometry for graphics libraries like OpenGL or perform calculations for animation or physics systems.', 'Apache License 2.0', 3, NULL, 'https://google.github.io/mathfu/', 0, 16, NULL, '2023-04-20 23:18:42'),
-(10192, 'astar-algorithm', 'This code is an efficient implementation in C++ and C# of the A* algorithm, designed to be used from high performance realtime applications (video games) and with an optional fast memory allocation scheme.\r\n\r\nIt accompanies this A* tutorial: https://www.heyes-jones.com/astar.php\r\n\r\nThe A* algorithm was described in the paper https://ieeexplore.ieee.org/document/4082128 by Hart, Nillson and Raphael.\r\n\r\nSadly Nils Nillson passed away in 2019, his work is much appreciated.', 'MIT License', 0, NULL, 'https://github.com/justinhj/astar-algorithm-cpp', 0, 17, NULL, '2023-04-20 23:18:42'),
-(10193, 'Pygame', 'Over the next weeks we have plenty of game jams that people from the pygame communities take part in.\r\n\r\nThe pygames hackathon runs from March 20th, 2023 to April 17th 2023, and is open to people in USA and Canada. For this one there\'s $12,700 in prizes. \"If you love programming and gaming, this is the perfect opportunity to showcase your skills and have some fun!\"\r\n\r\nThen the must-use-python PyWeek challenge \"Invites entrants to write a game in one week from scratch either as an individual or in a team. Is intended to be challenging and fun. Will hopefully increase the public body of python game tools, code and expertise. Will let a lot of people actually finish a game, and may inspire new projects (with ready made teams!).\" PyWeek runs from March 26nd, 2023 to April 2nd 2023, and theme voting is already on.\r\n\r\nFinally, Ludum Dare is an event where you create a game from scratch in a weekend based on a theme. April 28th, 2023. Starts at 3:00 AM CEST *. Ludumdare is the oldest online game jam, and has the largest number of participants. There is a Jam (72h, less restrictive rules), and a compo (48h more rules). The Jam now lets people submit paper board games, and even things like crafts that aren\'t games at all!', 'GNU LGPL version 2.1,', 1, 'python -m pip install -U pygame==2.3.0 --user', 'https://www.pygame.org/news', 0, 17, '2023-04-20 21:01:01', NULL),
-(10204, '123123', 'asdasd', NULL, 232, NULL, NULL, 0, 1, '2023-04-21 11:01:49', '2023-04-21 05:34:24'),
-(10205, 'asdasdasdf', 'sdfsdf', NULL, 19, NULL, NULL, 1, 21, '2023-04-21 10:24:48', '2023-04-21 08:22:19');
+(10191, 'MathFu', 'MathFu is a C++ math library developed primarily for games focused on simplicity and efficiency.\r\n\r\nIt provides a suite of vector, matrix and quaternion classes to perform basic geometry suitable for game developers. This functionality can be used to construct geometry for graphics libraries like OpenGL or perform calculations for animation or physics systems.', 'Apache License 2.0', 9, NULL, 'https://google.github.io/mathfu/', 0, 16, '2023-04-30 09:06:58', '2023-04-20 23:18:42'),
+(10192, 'astar-algorithm', 'This code is an efficient implementation in C++ and C# of the A* algorithm, designed to be used from high performance realtime applications (video games) and with an optional fast memory allocation scheme.\r\n\r\nIt accompanies this A* tutorial: https://www.heyes-jones.com/astar.php\r\n\r\nThe A* algorithm was described in the paper https://ieeexplore.ieee.org/document/4082128 by Hart, Nillson and Raphael.\r\n\r\nSadly Nils Nillson passed away in 2019, his work is much appreciated.', 'MIT License', 11, NULL, 'https://github.com/justinhj/astar-algorithm-cpp', 0, 17, '2023-04-30 09:04:37', '2023-04-20 23:18:42'),
+(10193, 'Pygame', 'Over the next weeks we have plenty of game jams that people from the pygame communities take part in.\r\n\r\nThe pygames hackathon runs from March 20th, 2023 to April 17th 2023, and is open to people in USA and Canada. For this one there\'s $12,700 in prizes. \"If you love programming and gaming, this is the perfect opportunity to showcase your skills and have some fun!\"\r\n\r\nThen the must-use-python PyWeek challenge \"Invites entrants to write a game in one week from scratch either as an individual or in a team. Is intended to be challenging and fun. Will hopefully increase the public body of python game tools, code and expertise. Will let a lot of people actually finish a game, and may inspire new projects (with ready made teams!).\" PyWeek runs from March 26nd, 2023 to April 2nd 2023, and theme voting is already on.\r\n\r\nFinally, Ludum Dare is an event where you create a game from scratch in a weekend based on a theme. April 28th, 2023. Starts at 3:00 AM CEST *. Ludumdare is the oldest online game jam, and has the largest number of participants. There is a Jam (72h, less restrictive rules), and a compo (48h more rules). The Jam now lets people submit paper board games, and even things like crafts that aren\'t games at all!', 'GNU LGPL version 2.1,', 2, 'python -m pip install -U pygame==2.3.0 --user', 'https://www.pygame.org/news', 0, 17, '2023-04-30 09:19:22', NULL),
+(10209, 'R-LearnPro', 'R-LearnPro is an all-in-one machine learning library for R programming language. It provides a comprehensive set of tools and algorithms for data preprocessing, feature engineering, model selection, and performance evaluation. With R-LearnPro, you can easily build and deploy machine learning models for various domains, such as finance, healthcare, and marketing. R-LearnPro also supports advanced techniques like deep learning and reinforcement learning, making it a versatile library for complex machine learning projects.', 'GNU Affero General Public License Version 3 (AGPLv3)', 0, 'npm install rlearnpro', 'https://github.com/rlearnpro/rlearnpro', 1, 25, '2023-04-23 12:07:23', '2023-04-23 12:07:23');
 
 -- --------------------------------------------------------
 
@@ -209,13 +210,14 @@ CREATE TABLE IF NOT EXISTS `libraries_archived` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`library_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10204 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10212 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `libraries_archived`
 --
 
 INSERT INTO `libraries_archived` (`library_id`, `name`, `description`, `license`, `views`, `command`, `link`, `is_file`, `creator_id`, `updated_at`, `created_at`) VALUES
+(10183, 'The SHOGUN machine learning toolbox', 'Shogun is a free, open-source machine learning software library written in C++. It offers numerous algorithms and data structures for machine learning problems. It offers interfaces for Octave, Python, R, Java, Lua, Ruby and C# using SWIG.\r\n\r\nIt is licensed under the terms of the GNU General Public License version 3 or later.', 'GNU General Public License (GPL) Version 3 or later', 405, NULL, 'https://github.com/shogun-toolbox/shogun', 0, 13, '2023-04-30 14:48:16', NULL),
 (10194, 'OpenAI baselines', 'OpenAI Baselines is a set of high-quality implementations of reinforcement learning algorithms.\r\nThese algorithms will make it easier for the research community to replicate, refine, and identify new ideas, and will create good baselines to build research on top of. Our DQN implementation and its variants are roughly on par with the scores in published papers. We expect they will be used as a base around which new ideas can be added, and as a tool for comparing a new approach against existing ones.', 'MIT License', 10, 'pip install virtualenv', 'https://github.com/openai/baselines', 1, 18, '2023-04-20 22:23:50', NULL),
 (10197, 'asdasd Huh', 'asdasd', NULL, 7, NULL, NULL, 1, 19, '2023-04-20 21:11:29', '2023-04-20 21:04:49'),
 (10198, 'Should be 1', '1', NULL, 0, NULL, NULL, 1, 19, '2023-04-20 21:29:08', '2023-04-20 21:29:08'),
@@ -223,7 +225,14 @@ INSERT INTO `libraries_archived` (`library_id`, `name`, `description`, `license`
 (10200, 'Should be 3', 'asdasd', NULL, 4, NULL, NULL, 1, 19, '2023-04-20 21:31:03', '2023-04-20 21:30:24'),
 (10201, 'sadasd', 'asdasd', NULL, 15, 'asdasd', 'asdasd', 1, 21, '2023-04-20 22:49:13', '2023-04-20 22:42:06'),
 (10202, 'asdasd', 'asdasd', NULL, 6, NULL, NULL, 1, 21, '2023-04-20 22:55:36', '2023-04-20 22:54:07'),
-(10203, 'wat', 'gfhfhg', NULL, 9, NULL, NULL, 1, 1, '2023-04-21 05:59:38', '2023-04-21 03:14:27');
+(10203, 'wat', 'gfhfhg', NULL, 9, NULL, NULL, 1, 1, '2023-04-21 05:59:38', '2023-04-21 03:14:27'),
+(10204, '123123', 'asdasd', NULL, 235, NULL, NULL, 0, 1, '2023-04-23 03:34:25', '2023-04-21 05:34:24'),
+(10205, 'asdasdasdf', 'sdfsdf', NULL, 27, NULL, NULL, 1, 21, '2023-04-23 11:44:02', '2023-04-21 08:22:19'),
+(10206, '123132', 'asdasdasd', NULL, 1, NULL, NULL, 1, 1, '2023-04-23 21:19:17', '2023-04-22 22:45:07'),
+(10207, 'Laravel2', 'Hey', 'GNU Affero General Public License Version 3 (AGPLv3)', 3, 'Whatsup', 'asdsdfsdf', 1, 21, '2023-04-30 07:04:49', '2023-04-23 00:30:31'),
+(10208, 'PyNetMind', 'PyNetMind is a powerful machine learning library written in Python that provides a wide range of algorithms and tools for neural network development. With PyNetMind, you can easily build, train, and deploy neural networks for various tasks, such as image recognition, natural language processing, and anomaly detection. PyNetMind is highly optimized for speed and memory efficiency, making it an ideal choice for large-scale machine learning projects.', 'GNU General Public License (GPL)', 2, 'npm install pynetmind', 'https://github.com/pnetmind/pnetmind', 1, 25, '2023-04-30 13:21:42', '2023-04-23 12:05:58'),
+(10210, 'SuperMachine', 'This is a library on Machine Learning', 'GNU Affero General Public License Version 3 (AGPLv3)', 2, 'npm install superMachine', 'www.github.com/library/SuperMachine', 1, 25, '2023-04-30 13:21:09', '2023-04-30 11:49:44'),
+(10211, 'SuperMachine Kit', 'Best one', NULL, 1, NULL, NULL, 1, 25, '2023-04-30 11:56:04', '2023-04-30 11:51:15');
 
 -- --------------------------------------------------------
 
@@ -244,15 +253,6 @@ CREATE TABLE IF NOT EXISTS `library_languages` (
 --
 
 INSERT INTO `library_languages` (`library_id`, `language_id`) VALUES
-(10183, 20),
-(10183, 21),
-(10183, 22),
-(10183, 23),
-(10183, 24),
-(10183, 19),
-(10183, 25),
-(10183, 18),
-(10186, 19),
 (10187, 26),
 (10187, 19),
 (10188, 18),
@@ -260,7 +260,9 @@ INSERT INTO `library_languages` (`library_id`, `language_id`) VALUES
 (10190, 27),
 (10191, 18),
 (10192, 18),
-(10193, 19);
+(10193, 19),
+(10209, 24),
+(10186, 19);
 
 -- --------------------------------------------------------
 
@@ -279,10 +281,6 @@ CREATE TABLE IF NOT EXISTS `library_tags` (
 --
 
 INSERT INTO `library_tags` (`library_id`, `tag_id`) VALUES
-(10183, 22),
-(10183, 19),
-(10186, 24),
-(10186, 21),
 (10187, 24),
 (10188, 25),
 (10188, 22),
@@ -297,7 +295,10 @@ INSERT INTO `library_tags` (`library_id`, `tag_id`) VALUES
 (10191, 33),
 (10192, 34),
 (10193, 35),
-(10193, 36);
+(10193, 36),
+(10209, 19),
+(10186, 21),
+(10186, 24);
 
 -- --------------------------------------------------------
 
@@ -384,17 +385,16 @@ CREATE TABLE IF NOT EXISTS `ratings` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `ratings`
 --
 
 INSERT INTO `ratings` (`id`, `library_id`, `account_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
-(5, 10186, 15, 5, 'Really useful for my project', '2023-04-18 09:31:00', '2023-04-18 09:31:00'),
 (6, 10186, 14, 1, 'Actually Unusable. Installation instruction not clear', '2023-04-18 09:31:46', '2023-04-18 09:31:46'),
-(7, 10186, 13, 4, 'It was fine until it stopped working. Tried to contact support. no response so far. Would recommend once its up again. :)', '2023-04-18 09:32:53', '2023-04-18 09:32:53'),
-(9, 10189, 1, 4, 'This is the best library eva!!!!!', '2023-04-20 06:13:52', '2023-04-20 06:13:52');
+(26, 10186, 25, 4, 'Not bad. Poor documentation but its a great library once you get used to it.', '2023-04-23 20:08:18', '2023-04-23 20:08:18'),
+(28, 10191, 25, 5, 'This is pretty good!', '2023-04-30 15:21:09', '2023-04-30 15:21:09');
 
 -- --------------------------------------------------------
 
@@ -412,20 +412,34 @@ CREATE TABLE IF NOT EXISTS `ratings_archived` (
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `ratings_archived`
 --
 
 INSERT INTO `ratings_archived` (`id`, `library_id`, `account_id`, `rating`, `comment`, `created_at`, `updated_at`) VALUES
+(5, 10186, 15, 5, 'Really useful for my project', '2023-04-18 09:31:00', '2023-04-18 09:31:00'),
+(7, 10186, 13, 4, 'It was fine until it stopped working. Tried to contact support. no response so far. Would recommend once its up again. :)', '2023-04-18 09:32:53', '2023-04-18 09:32:53'),
+(9, 10189, 1, 4, 'This is the best library eva!!!!!', '2023-04-20 06:13:52', '2023-04-20 06:13:52'),
 (10, 10183, 19, 3, 'This Is a subpar library', '2023-04-21 04:48:57', '2023-04-21 04:48:57'),
 (11, 10194, 20, 3, 'Pretty Good', '2023-04-21 06:23:12', '2023-04-21 06:23:12'),
 (12, 10183, 20, 1, 'Made this for the test (1/5)', '2023-04-21 06:27:47', '2023-04-21 06:27:47'),
 (13, 10186, 20, 2, 'made this as a test (2/5)', '2023-04-21 06:28:12', '2023-04-21 06:28:12'),
 (14, 10187, 20, 3, 'Made this as a test (3/5)', '2023-04-21 06:28:46', '2023-04-21 06:28:46'),
 (15, 10188, 20, 4, 'Made this as a test (4/5)', '2023-04-21 06:29:14', '2023-04-21 06:29:14'),
-(16, 10189, 20, 5, 'Made this as a test (5/5)', '2023-04-21 06:29:33', '2023-04-21 06:29:33');
+(16, 10189, 20, 5, 'Made this as a test (5/5)', '2023-04-21 06:29:33', '2023-04-21 06:29:33'),
+(17, 10183, 21, 5, 'Not a bad Library Honestly', '2023-04-22 11:37:16', '2023-04-22 11:37:16'),
+(18, 10186, 21, 4, 'Subpar but possible', '2023-04-22 11:37:30', '2023-04-22 11:37:30'),
+(19, 10187, 21, 3, 'Do what we can', '2023-04-22 11:37:57', '2023-04-22 11:37:57'),
+(20, 10192, 21, 1, 'Hmm, bad', '2023-04-22 12:19:36', '2023-04-22 12:19:36'),
+(21, 10183, 21, 3, 'Pretty Good', '2023-04-22 15:38:33', '2023-04-22 15:38:33'),
+(22, 10183, 21, 1, 'Hey what', '2023-04-22 18:01:34', '2023-04-22 18:01:34'),
+(23, 10183, 21, 1, 'asd', '2023-04-22 18:02:35', '2023-04-22 18:02:35'),
+(24, 10189, 13, 5, 'Wow', '2023-04-23 02:33:50', '2023-04-23 02:33:50'),
+(25, 10183, 25, 5, 'Wow! This is a quite good library.', '2023-04-23 20:07:43', '2023-04-23 20:07:43'),
+(27, 10183, 17, 2, NULL, '2023-04-24 05:35:43', '2023-04-24 05:35:43'),
+(29, 10191, 13, 4, 'Quite good but confusion documentation', '2023-04-30 15:23:35', '2023-04-30 15:23:35');
 
 -- --------------------------------------------------------
 
@@ -451,9 +465,9 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('bmyTm8UuUHgVLG7U6QeHecT8T7WrYyodzf2x1sXA', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiTDRBVm9QOW9lckptQ3duOHkySDlOV2RraHNCSGlHdDI0b0N6bEFFdiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9ob21lIjt9fQ==', 1682106021),
-('YmYvtUvUawBTGA4PztMRKitiG7rvCpE084CNAgRw', 21, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiNU94ZkZXZ3BJVXo2bTA5MHJ4b2ZmQ1k5ZzZVeUdETENJbWdkQUF6MyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9ob21lIjt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MjE7fQ==', 1682106021),
-('ZNs86pzKZuHV5u2NalUbMD9KbHpexWpjPW1lLS7a', 14, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/112.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYkk1eHhUbFh0SkE4QkFPWUhMM1RxdGFGM3ZZek5VYlBDbVBrOHhGdiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9saWJyYXJ5L3JlcXVlc3QvMTAxODYiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxNDt9', 1682106021);
+('Bf5gIFymaOFO8LtGqpxYSc9iKpVQXf0bqga3Q5Nt', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWEJrVnNFZ1J2Qm1VYVp5andnNzJyeDFSZEVZcmxYOWVmaVM1cndzSiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9saWJyYXJ5L3JlcXVlc3QvMTAxODMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1682894896),
+('IH3ayeVlemHCsKfZ4Tt5ZghyqV5HeQqfPJ6htcQu', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoia3EzQmJVSDdVa1BHczRSVkZVMXNFYUxKdmo1dW0yTXFES0tGVnJLMyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDM6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9saWJyYXJ5L3JlcXVlc3QvMTAxODYiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1682895766),
+('MDptTLIQDREWqXXc0BexpnMH7jedf7AYCyo2DD8i', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZ2k0cnVMYjFicDVWc3l4YlY4cFBEYmdmV3hjd3ZwU2FHVkR2clJVTSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9ob21lIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1683113277);
 
 -- --------------------------------------------------------
 
@@ -510,7 +524,7 @@ CREATE TABLE IF NOT EXISTS `teams` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `teams_user_id_index` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `teams`
@@ -537,7 +551,8 @@ INSERT INTO `teams` (`id`, `user_id`, `name`, `personal_team`, `created_at`, `up
 (18, 18, '\'s Team', 1, '2023-03-27 19:56:55', '2023-03-27 19:56:55'),
 (19, 19, '\'s Team', 1, '2023-04-20 20:48:26', '2023-04-20 20:48:26'),
 (20, 20, '\'s Team', 1, '2023-04-20 22:22:37', '2023-04-20 22:22:37'),
-(21, 21, '\'s Team', 1, '2023-04-20 22:41:48', '2023-04-20 22:41:48');
+(21, 21, '\'s Team', 1, '2023-04-20 22:41:48', '2023-04-20 22:41:48'),
+(22, 25, '\'s Team', 1, '2023-04-23 11:50:37', '2023-04-23 11:50:37');
 
 -- --------------------------------------------------------
 
@@ -601,21 +616,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`),
   UNIQUE KEY `users_username_unique` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`, `is_admin`, `picture`) VALUES
-(1, 'Admin', 'Admin@admin.com', NULL, '$2y$10$m6PU/n2IZYj/Lef14GaAEuEelN3jTc3JUnMDHIMA9CuBy0Js1pYVW', NULL, NULL, NULL, NULL, 1, NULL, '2023-02-18 09:34:28', '2023-03-27 14:21:39', 1, 1),
-(13, 'akibble0', 'twilse0@aboutads.info', NULL, '$2y$10$pwWmMEcuKSaSBUulSO8kM.fbUK9iuvCZhmD2ufBSskzlZKM2PTT8.', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 14:26:39', '2023-03-27 14:26:39', 0, 1),
-(14, 'sdevoy1', 'krobinet1@opensource.org', NULL, '$2y$10$iPEyHdLvYvPBhY4p4PtMnOdSKcEEQvwTEtgz/DR5VB5DP1ENYryZ.', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 14:36:22', '2023-03-27 14:36:22', 0, 1),
-(15, 'tmanchester2', 'ngumm2@linkedin.com', NULL, '$2y$10$2ldBAeAqwsDNQr.Z04EjH.Ke5zN3Hr3qqIV.rFBpUiv7/lWLbINwi', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 14:56:58', '2023-03-27 14:56:58', 0, 1),
-(16, 'jgeraldi3', 'lposvner3@fotki.com', NULL, '$2y$10$tRBjqw7dfU1nl9C0NFxOQOC.enUNRqGNRroGSfs3so6yY9RomK2Xe', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 15:02:04', '2023-03-27 15:02:04', 0, 1),
-(17, 'cheustace4', 'dosherin4@wp.com', NULL, '$2y$10$AELBSQ7OmA6j43pB2bTkxe9b4LcbdpHiaMwcs8gBuHkYiMYEF8iyq', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 15:08:37', '2023-03-27 15:08:37', 0, 1),
-(18, 'Muhammad2001', 'muhd.iskndr01@gmail.com', NULL, '$2y$10$2X.8mxokpsGpKDCrmKoRbORP2Z6H4YD4/8SqdatTQG57n1BLJ5aKG', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 19:56:55', '2023-03-27 19:56:55', 0, 1),
-(21, 'user', 'user@user.com', NULL, '$2y$10$fcxPbq9Xiu4NAR66oZ.64uGlK2JG1GA1u9MvDzhrfvYngE0iisUKq', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-20 22:41:48', '2023-04-20 22:41:48', 0, 1);
+(1, 'Admin6', 'Admin@admin.com', NULL, '$2y$10$m6PU/n2IZYj/Lef14GaAEuEelN3jTc3JUnMDHIMA9CuBy0Js1pYVW', NULL, NULL, NULL, NULL, 1, NULL, '2023-02-18 09:34:28', '2023-04-30 14:48:28', 1, 7),
+(14, 'sdevoy1', 'krobinet1@opensource.org', NULL, '$2y$10$iPEyHdLvYvPBhY4p4PtMnOdSKcEEQvwTEtgz/DR5VB5DP1ENYryZ.', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 14:36:22', '2023-03-27 14:36:22', 0, 49),
+(15, 'tmanchester2', 'ngumm2@linkedin.com', NULL, '$2y$10$2ldBAeAqwsDNQr.Z04EjH.Ke5zN3Hr3qqIV.rFBpUiv7/lWLbINwi', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 14:56:58', '2023-03-27 14:56:58', 0, 7),
+(16, 'jgeraldi3', 'lposvner3@fotki.com', NULL, '$2y$10$tRBjqw7dfU1nl9C0NFxOQOC.enUNRqGNRroGSfs3so6yY9RomK2Xe', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 15:02:04', '2023-03-27 15:02:04', 0, 39),
+(17, 'cheustace4', 'dosherin4@wp.com', NULL, '$2y$10$AELBSQ7OmA6j43pB2bTkxe9b4LcbdpHiaMwcs8gBuHkYiMYEF8iyq', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 15:08:37', '2023-03-27 15:08:37', 0, 24),
+(21, 'user', 'user@user2.com', NULL, '$2y$10$sFmCWM3hC5yk5zDqK70SHuoT5eyCNuHbWzaD/KKAuWAag2lpodegq', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-20 22:41:48', '2023-04-23 04:14:45', 0, 8),
+(22, 'user2', 'user2@user.com', NULL, '$2y$10$UmuqbdZydsHatM2CYuICE.AkmI4pHqKyH2P/WAQVMNXBnoP0OdDaK', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-23 03:16:34', '2023-04-23 03:16:34', 0, 1),
+(23, 'admin2', 'admin2@admin.com', NULL, '$2y$10$azfS.hS/vTLS.t1iF3pdauml02nNfNfo1LuCt1kGsxZRN.QeW4y2m', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-23 03:17:28', '2023-04-23 03:17:28', 0, 1),
+(24, 'admin3', 'admin3@admin.com', NULL, '$2y$10$i9SeyHyiJS6MXsDGzhZs1u1MvwoekK.IzpXdxBV1Jtj2xiPh7oIjq', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-23 03:17:57', '2023-04-23 03:17:57', 1, 1),
+(25, 'ManualUser', 'user@manual.com', NULL, '$2y$10$GcTZsg17BsR8NU1h9ZtoUeZR1WIyjPPpSw0/C5MrZybeTZGoIXpUC', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-23 11:50:37', '2023-04-23 12:22:53', 0, 9);
 
 -- --------------------------------------------------------
 
@@ -647,6 +664,8 @@ CREATE TABLE IF NOT EXISTS `users_archived` (
 --
 
 INSERT INTO `users_archived` (`id`, `username`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`, `is_admin`) VALUES
+(13, 'akkible', 'twilse0@aboutads.info', NULL, '$2y$10$pwWmMEcuKSaSBUulSO8kM.fbUK9iuvCZhmD2ufBSskzlZKM2PTT8.', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 14:26:39', '2023-04-22 21:38:37', 0),
+(18, 'Muhammad2001', 'muhd.iskndr01@gmail.com', NULL, '$2y$10$2X.8mxokpsGpKDCrmKoRbORP2Z6H4YD4/8SqdatTQG57n1BLJ5aKG', NULL, NULL, NULL, NULL, NULL, NULL, '2023-03-27 19:56:55', '2023-03-27 19:56:55', 0),
 (19, 'user', 'user@user.com', NULL, '$2y$10$bEVgQWfkrUZ9YBarOWRSc.MPpFS.8H2H0uiBZ36YImZADopVVgkh6', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-20 20:48:26', '2023-04-20 20:48:26', 0),
 (20, 'user', 'user@user.com', NULL, '$2y$10$I2lgv4jk0tiFkxSa5FVm8ulTip4EOztF62KDiAxQ/jLxprhx54W/q', NULL, NULL, NULL, NULL, NULL, NULL, '2023-04-20 22:22:37', '2023-04-20 22:22:37', 0);
 
@@ -667,19 +686,18 @@ CREATE TABLE IF NOT EXISTS `versions` (
   `file_extension` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'rar',
   PRIMARY KEY (`version_id`),
   KEY `version_library_id_foreign` (`library_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `versions`
 --
 
 INSERT INTO `versions` (`version_id`, `library_id`, `version_number`, `description`, `created_at`, `updated_at`, `file_extension`) VALUES
-(94, 10205, 'asdasds', 'sadsdf', '2023-04-21 08:22:19', '2023-04-21 08:22:19', 'rar'),
-(95, 10205, '1.23.3245.5', 'asdasd', '2023-04-21 09:53:34', '2023-04-21 09:53:34', 'rar'),
 (96, 10186, '1.2.22.2', 'New Update', '2023-04-21 10:00:06', '2023-04-21 10:00:06', 'rar'),
 (97, 10186, 'Even Newer', 'asdasd', '2023-04-21 10:24:20', '2023-04-21 10:24:20', 'zip'),
 (98, 10186, 'Absolute Newest', 'Wow so new', '2023-04-21 10:28:09', '2023-04-21 10:28:09', 'rar'),
-(99, 10186, 'Newest Update', 'Whoop', '2023-04-21 10:53:52', '2023-04-21 10:53:52', 'rar');
+(99, 10186, 'Newest Update', 'Whoop', '2023-04-21 10:53:52', '2023-04-21 10:53:52', 'rar'),
+(103, 10209, '0.20.5', 'Entered Beta Stage', '2023-04-23 12:07:23', '2023-04-23 12:07:23', 'rar');
 
 -- --------------------------------------------------------
 
@@ -698,7 +716,7 @@ CREATE TABLE IF NOT EXISTS `versions_archived` (
   `file_extension` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'rar',
   PRIMARY KEY (`version_id`),
   KEY `version_library_id_foreign` (`library_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `versions_archived`
@@ -719,7 +737,16 @@ INSERT INTO `versions_archived` (`version_id`, `library_id`, `version_number`, `
 (84, 10200, 'C_3', 'asdasd', '2023-04-20 21:30:55', '2023-04-20 21:30:55', 'rar'),
 (85, 10201, '1ewsads', 'asdasd', '2023-04-20 22:42:06', '2023-04-20 22:42:06', 'rar'),
 (86, 10202, 'asdasd', 'asdasd', '2023-04-20 22:54:07', '2023-04-20 22:54:07', 'rar'),
-(93, 10203, '1.2345.345', 'asdsdf', '2023-04-21 05:58:57', '2023-04-21 05:58:57', 'zip');
+(93, 10203, '1.2345.345', 'asdsdf', '2023-04-21 05:58:57', '2023-04-21 05:58:57', 'zip'),
+(94, 10205, 'asdasds', 'sadsdf', '2023-04-21 08:22:19', '2023-04-21 08:22:19', 'rar'),
+(95, 10205, '1.23.3245.5', 'asdasd', '2023-04-21 09:53:34', '2023-04-21 09:53:34', 'rar'),
+(100, 10206, 'asdasd', 'asdasd', '2023-04-22 22:45:07', '2023-04-22 22:45:07', 'rar'),
+(101, 10207, 'asdasdasda', 'asdasd', '2023-04-23 00:30:31', '2023-04-23 00:30:31', 'rar'),
+(102, 10208, '1.20.3 GA', 'Fixed Bugs', '2023-04-23 12:05:58', '2023-04-23 12:05:58', 'rar'),
+(104, 10210, '1.90.2', 'Added Feature', '2023-04-30 11:49:44', '2023-04-30 11:49:44', 'rar'),
+(105, 10211, '1.90.2', 'Added Feature', '2023-04-30 11:51:15', '2023-04-30 11:51:15', 'rar'),
+(106, 10210, '1.90.5', 'New one', '2023-04-30 13:12:36', '2023-04-30 13:12:36', 'zip'),
+(107, 10210, '1.90.5', 'New one', '2023-04-30 13:13:20', '2023-04-30 13:13:20', 'zip');
 
 --
 -- Indexes for dumped tables
