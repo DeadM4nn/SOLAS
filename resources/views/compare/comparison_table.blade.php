@@ -33,7 +33,9 @@
         @foreach($data as $curr_data)
             <td>
                 <div class="d-flex justify-content-between">
+                    <a class="btn btn-light" href="{{ url('library/request/'.$curr_data->library_id) }}">
                     <h5>{{ $curr_data->name }}</h5>
+                    </a>
                     <div>
                         <a  class="btn btn-light me-2" href="{{ url('user/compare/delete/'.$curr_data->id) }}">
                             <img src=" {{ asset('icons/delete.png') }} " style="height:1.6rem;">

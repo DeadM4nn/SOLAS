@@ -66,9 +66,9 @@
                 <img style="height: 2rem; opacity:30%;" src="{{ asset('icons/star_solid.png') }}" />
             </div>
 
-            @if($is_admin == 0)
+            @if($is_admin == 0 || true)
             <div class="col-12">
-                @if(auth()->user()->is_admin && auth()->user()->id != $account_id)
+                @if(auth()->user()->is_admin)
                     <a href="{{url('/admin/users/update/'.$account_id)}}" type="button" class="btn btn-outline-dark mb-3 w-100" style="width:100%">Edit</a>
                 @else
                     <a href="{{ url('/user/update/')}}" type="button" class="btn btn-outline-dark mb-3 w-100" style="width:100%">Edit</a>
@@ -76,7 +76,7 @@
             </div>
             @endif
 
-            @if(auth()->user())
+            @if(auth()->user() && auth()->user()->id == $account_id)
             <div class="col-12">
                 <a href="{{url('/user/password/change')}}" type="button" class="btn btn-outline-dark w-100" style="width:100%">Change Password</a>
             </div>

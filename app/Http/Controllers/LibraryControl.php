@@ -80,7 +80,7 @@ class LibraryControl extends Controller
         $filename = $new_version->version_id.".".$file->getClientOriginalExtension();
         $file->storeAs('/uploads', $filename);
 
-        $message= "File has been successfully added to".$current_library->name;
+        $message= "File has been successfully added to ".$current_library->name;
         $link = "library/request/".$current_library->library_id;
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
@@ -615,6 +615,13 @@ class LibraryControl extends Controller
         $searchKey = null;
     
         return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, 'searchKey'=>$searchKey]);
+    }
+
+    public function show_randomize(){
+        $results=Library::inRandomOrder()->paginate(10);
+        $pagination = true;
+        $amount=count(Library::all());
+        return view('libraries/search_result', ["results"=>$results, "amount"=>$amount, "pagination"=>$pagination]);
     }
     
 }

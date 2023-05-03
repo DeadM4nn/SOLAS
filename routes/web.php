@@ -92,7 +92,7 @@ Route::get('/user/compare/delete/{id}', [ComparisonControl::class, "delete"]);
 Route::get('/user/compare', [ComparisonControl::class, "view_comparisons"]);
 Route::get('/user/compare/clear', [ComparisonControl::class, "clear_all"]);
 
-Route::get('/discover', [LibraryControl::class,"show_all"]);
+Route::get('/discover', [LibraryControl::class,"show_randomize"]);
 
 Route::get('user/bookmark/libraryupdate/{id}', [BookmarkControl::class,"update_latest_version"]);
 
