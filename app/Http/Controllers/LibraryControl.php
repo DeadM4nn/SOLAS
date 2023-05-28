@@ -32,7 +32,6 @@ class LibraryControl extends Controller
         $date = Carbon::parse($timestamp)->format('dmy');
 
         
-
         if (!File::exists($path)) {
             abort(404);
         }
@@ -53,7 +52,7 @@ class LibraryControl extends Controller
 
         //Uploading the file
         $file=$req->file('library_file');
-
+        
 
         //Storing information
         $new_version = new Version;
@@ -404,6 +403,7 @@ class LibraryControl extends Controller
         $current_library->name = $req->name;
         $current_library->description = $req->description;
         $current_library->link = $req->link;
+        $current_library->license = $req->license;
         $current_library->command = $req->command;
 
         $current_library->save();
@@ -517,18 +517,21 @@ class LibraryControl extends Controller
 
         $new_library->save();
 
+        //Uploading the file
+        $file=$req->file('library_file');
+
+
+
         //Storing information
         $new_version = new Version;
         $new_version->library_id = $new_library->library_id;
         $new_version->version_number = $req->version;
         $new_version->description = $req->file_description;
+        $new_version->file_extension = $file->getClientOriginalExtension();
         $new_version->save();
 
-        //Uploading the file
-        $file=$req->file('library_file');
         $filename = $new_version->version_id.".".$file->getClientOriginalExtension();
         $file->storeAs('uploads', $filename);
-
 
         if ($user->is_admin) {
             $link="library/all";

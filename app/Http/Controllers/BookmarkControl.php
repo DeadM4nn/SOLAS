@@ -95,7 +95,7 @@ class BookmarkControl extends Controller
     }
 
     public function view(){
-        $data = Bookmark::join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')->get();
+        $data = Bookmark::where('account_id', '=', auth()->user()->id)->join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')->get();
 
         $data = $data->map(function ($item) {
             $download_latest = Version::where('library_id', $item->library_id)
@@ -129,16 +129,16 @@ class BookmarkControl extends Controller
         ->where("account_id",'=',Auth::user()->id)
         ->first();
 
-        if($curr_bookmark->last_version != null){
-            //Take the latest version to be notified later on
-            $last_version = Version::where('library_id', $id)
-            ->orderBy('created_at', 'desc')
-            ->first()->version_number;
+
+        //Take the latest version to be notified later on
+        $last_version = Version::where('library_id', $id)
+        ->orderBy('created_at', 'desc')
+        ->first()->version_number;
 
 
-            $curr_bookmark->last_version = $last_version;
-            $curr_bookmark->save();
-        }
+        $curr_bookmark->last_version = $last_version;
+        $curr_bookmark->save();
+
 
 
         $url = url('/library/request/'.$id);
@@ -147,12 +147,12 @@ class BookmarkControl extends Controller
     }
 
     public function check_for_updates(){
-        if(Auth::user()){
-            
-        }
+//        if(Auth::user()){
+//            
+//        }
         $account = Auth::user()->id;
 
-        $data = Bookmark::join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')->get();
+        $data = Bookmark::where('account_id', '=', auth()->user()->id)->join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')->get();
 
         $data = $data->map(function ($item) {
             $download_latest = Version::where('library_id', $item->library_id)

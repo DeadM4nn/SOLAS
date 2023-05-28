@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="" style="width:60rem;">
             <div class="card">
                 <div class="card-body" style="padding-bottom: 0rem;">
                     <div class="mb-3" style="font-family: 'Roboto', sans-serif; letter-spacing: 0.1rem; font-size: 1.5rem; color: #002B65;">Login</div>
@@ -39,6 +39,7 @@
                                 </label>
                             </div>
 
+                            <!--
                             <div class="flex items-center justify-end mt-4">
                                 @if (Route::has('password.request'))
                                     <a class="text-muted" href="{{ route('password.request') }}">
@@ -46,6 +47,7 @@
                                     </a>
                                 @endif
                             </div>
+                            -->
 
                             <div>
                                 <x-button class="mt-4 btn btn-primary" style="width:100%">
