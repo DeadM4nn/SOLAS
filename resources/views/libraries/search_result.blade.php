@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('page_title')
-<form action="../library/search" method="POST">
+<form action=" {{ url('/library/search') }}" method="POST">
     @csrf
     @if(isset($searchKey))
         <x-searchBar :query="$searchKey" />
