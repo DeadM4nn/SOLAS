@@ -87,7 +87,7 @@ function init_language(input_field_id){
                 curr_language.addEventListener('click', function(){
                 languages_all = get_languages();
                 curr_language.remove();
-
+                
                 console.log(get_languages());
 
                 });

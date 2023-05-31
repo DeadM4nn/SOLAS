@@ -9,6 +9,7 @@ use App\Models\A_Library;
 use App\Models\A_Version;
 use App\Models\Tag;
 use App\Models\Language;
+use App\Models\Comparison;
 use App\Models\LibraryLanguage;
 use App\Models\LibraryTag;
 use App\Models\Version;
@@ -234,6 +235,9 @@ class LibraryControl extends Controller
 
         Version::where('library_id', $id)->delete();
 
+        // Comparison table delete
+        Comparison::where('library_id', $id)->delete();
+
         $user = Auth::user();
         $record = Library::find($id);
         $name = $record->name;
@@ -306,6 +310,8 @@ class LibraryControl extends Controller
 
         Version::where('library_id', $id)->delete();
 
+        // Comparison table delete
+        Comparison::where('library_id', $id)->delete();
 
 
         $user = Auth::user();
