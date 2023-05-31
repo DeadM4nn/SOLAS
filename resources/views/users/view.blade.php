@@ -109,12 +109,12 @@
 </div>
 @endif
 
-<!-- Ratings Section -->
+<!-- Library Section -->
 @if(count($libraries) != 0)
 <div class="container">
     <div class="row">
         <div class="col-12 mb-3">
-            <h1>My Ratings</h1>
+            <h1>My Libraries</h1>
             <hr class="hr w-50"></hr>
         </div>
 
@@ -128,9 +128,10 @@
 @endif
 
 <script>
-        window.assetUrl = '{{ asset('') }}';
-    </script>
+    window.assetUrl = '{{ asset('') }}';
+</script>
 <script src="{{ asset('js/ratings.js') }}">
+</script>
 
 
 @endsection

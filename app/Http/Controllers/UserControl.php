@@ -30,6 +30,7 @@ class UserControl extends Controller
             'username' => [
                 'required',
                 'string',
+                'regex:/^[^\s]+$/u',
                 Rule::unique('users')->ignore($current_user->id),
             ],
             'email' => [
@@ -37,6 +38,8 @@ class UserControl extends Controller
                 'email',
                 Rule::unique('users')->ignore($current_user->id),
             ],
+        ], [
+            'username.regex' => 'Username cannot contain spaces.',
         ]);
 
 
@@ -46,11 +49,8 @@ class UserControl extends Controller
 
         $message = $current_user->username." has been successfully updated";
         
-        if(Auth::user()->is_admin){
-            $link = "admin/users/all";
-        } else {
-            $link = "/user/view/".$current_user->id;
-        };
+        $link = "/user/view/".$current_user->id;
+
 
     
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
@@ -227,7 +227,7 @@ class UserControl extends Controller
             'password' => 'required|min:8',
             'password_confirmation' => 'required|same:password',
         ], [
-            'username.regex' => 'Username can only contain alphanumeric characters.',
+            'username.regex' => "Username can only contain alphanumeric characters. Username can't contain spaces",
         ]);
 
         $new_user = new User;

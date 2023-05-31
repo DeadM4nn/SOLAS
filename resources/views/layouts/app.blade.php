@@ -16,6 +16,8 @@
         <hr class="divider mb-5">
         @yield('content')
     </div>
+
+    <x-footer />
 </body>
-<x-footer />
+
 </html>

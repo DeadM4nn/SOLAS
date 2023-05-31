@@ -36,7 +36,11 @@
         </div>
 
         <div class="col-12 d-flex justify-content-between mb-3">
+
+            @if(isset($comment))
             <div class="fs-5 ms-1">"{{$comment}}"</div>
+            @endif
+
             <div>
             <div class="fs-5 fw-light text-end">
                 ({{ $rating }}/5)

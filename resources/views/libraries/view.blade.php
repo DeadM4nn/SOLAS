@@ -30,18 +30,22 @@
 
         @if(count($languages) != 0)
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Language</div>
-        @endif
-
+        
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
             <x-widget-language :id="$library->library_id" />
         </div>
+        @endif
+
+
     
     @if(count($tags) != 0)
         <div class="col-3 solas-library-column-title col-form-label align-items-center">Tags</div>
-    @endif
+    
         <div class="col-9 align-items-center" style="display:inherit;margin-bottom: 0.7rem;">
             <x-widget-tag :id="$library->library_id" />
         </div>
+    @endif
+
 
         <!-- Horizontal Divider -->
         <div class="col-12">
@@ -242,26 +246,30 @@
 
     </div>
 @endsection
+
+
 @section("content2")
 
     <div class="mb-5 mt-4">
         @if(auth()->user() && !auth()->user()->is_admin)
-        <x-ratings-panel :data="$library"/>
-        <button class="btn btn-light" onclick="show_panel()">
+            <x-ratings-panel :data="$library"/>
+            <button class="btn btn-light" onclick="show_panel()">
         @endif
-            @for($x = 0; $x < $avg_rating; $x++)
-            <img src="{{ asset('icons/star_solid.png') }}" style="height:2.5rem" />
-            @endfor
-            @for($x = $avg_rating; $x < 5; $x++)
-            <img src="{{ asset('icons/star.png') }}" style="height:2.5rem" />
-            @endfor
 
-            <div class="text-end mt-1 text-muted">
-                {{$avg_rating_count}} Reviews
-            </div>
+
+        @for($x = 0; $x < $avg_rating; $x++)
+            <img src="{{ asset('icons/star_solid.png') }}" style="height:2.5rem" />
+        @endfor
+        @for($x = $avg_rating; $x < 5; $x++)
+            <img src="{{ asset('icons/star.png') }}" style="height:2.5rem" />
+        @endfor
+
+        <div class="text-end mt-1 text-muted">
+            {{$avg_rating_count}} Reviews
+        </div>
 
         @if(auth()->user() && !auth()->user()->is_admin)
-        </button> 
+            </button> 
         @endif
     </div>
 
@@ -269,9 +277,8 @@
     <script>
         window.assetUrl = '{{ asset('') }}';
     </script>
+
     <script src="{{ asset('js/ratings.js') }}">
-
-
     </script>
 
     @if(isset($user_rating))
@@ -281,10 +288,9 @@
     @endif
 
     @if($show_update)
-    <script>
-        show_panel();
-    </script>
-@endif
-
+        <script>
+            show_panel();
+        </script>
+    @endif
 
 @endsection

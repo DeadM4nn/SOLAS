@@ -7,7 +7,7 @@
     } else {
         $action = url('user/rating/add');
         $title_addon = "Rate";
-        $button_message = "Submit";
+        $button_message = "Post";
         $rating_id = -1;
     }
 

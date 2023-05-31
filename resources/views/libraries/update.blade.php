@@ -144,7 +144,7 @@ Update {{$library->name}}
             Continue filling form
         </button>
         <button id="submit-button" type="submit" class="mt-4 btn btn-primary col-6" disabled>
-            Add
+            Update
         </button>
     </div>
     

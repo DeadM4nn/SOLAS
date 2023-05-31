@@ -47,7 +47,7 @@
         array("My Libraries", "/user/libraries"),
         array("Discover", "/discover"),
         array("Bookmarks", "/user/bookmark"),
-        array("Compare", "/user/compare"),
+        array("Comparison", "/user/compare"),
         array("My Profile", "/user/view/".$user_id)
     );
 

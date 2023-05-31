@@ -47,7 +47,21 @@ class RatingControl extends Controller
 
     public function delete(Request $req){
 
+
         $curr_rating = Rating::find($req->rating_id);
+
+        if(auth()->user()->is_admin){
+            $link = "user/view/".$curr_rating->account_id;
+            $message = "You have deleted the rating for this account";
+        } else {
+            if(isset($req->link)){
+                $link = $req->link;
+            } else {
+                $link = "library/request/".$req->library_id;
+            }
+    
+            $message = "You have successfully removed your rating for this library.";
+        }
 
         // Archiving purposes
         $rating_archive = new A_Rating;
@@ -62,15 +76,7 @@ class RatingControl extends Controller
 
         $curr_rating->delete();
 
-        if(isset($req->link)){
-            $link = $req->link;
-        } else {
-            $link = "library/request/".$req->library_id;
-        }
-        
 
-
-        $message = "You have successfully removed your rating for this library.";
         return view("confirmations/after", ["message"=>$message, "link"=>$link]);
     }
 
