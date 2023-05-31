@@ -98,11 +98,14 @@ class BookmarkControl extends Controller
         $data = Bookmark::where('account_id', '=', auth()->user()->id)->join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')->get();
 
         $data = $data->map(function ($item) {
+
+            //For each bookmark, get the equivalent version number
             $download_latest = Version::where('library_id', $item->library_id)
                 ->orderBy('created_at', 'desc')
                 ->distinct('library_id')
                 ->first();
             
+            //Check for discrepency
             if($download_latest == null){
                 $item->up_to_date = true;
             } else {
@@ -152,22 +155,31 @@ class BookmarkControl extends Controller
 //        }
         $account = Auth::user()->id;
 
+        // Get all libraries that is bookmarked by the user with the library info
         $data = Bookmark::where('account_id', '=', auth()->user()->id)->join('libraries', 'libraries.library_id', '=', 'bookmarks.library_id')->get();
 
         $data = $data->map(function ($item) {
+
+            //For every bookmark, find the latest download version
             $download_latest = Version::where('library_id', $item->library_id)
                 ->orderBy('created_at', 'desc')
                 ->distinct('library_id')
                 ->first();
             
+            // Check for discrepency
+            // If bookmark contains the same version as latest, then dont notify
             if($download_latest == null){
                 $item->up_to_date = true;
             } else {
+
+
                 if(isset($download_latest->version_number)){
                     if($item->last_version == $download_latest->version_number){
                         $item->up_to_date = true;
                         $item->latest_download = $download_latest->version_number;
                     } else {
+
+                        // Else notify
                         $item->up_to_date = false;
                         $item->latest_download = $download_latest->version_number;
                     }    

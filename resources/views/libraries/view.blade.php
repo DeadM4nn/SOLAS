@@ -222,7 +222,7 @@
             <x-alert-box :new-library-id="$library->library_id" :library-name="$name" :link="$link"/>
             @endif
                 
-                        
+            @if(auth()->user() && auth()->user()->is_admin == false)            
                 <form style="display:inline-block;" action="{{ url($bookmark_action) }}" method="POST">
                     @csrf
                     <input type="hidden" name="library_id" id="library_id" value="{{$library->library_id}}">
@@ -231,6 +231,8 @@
                     src="{{ asset($bookmark_image)  }}"
                     >
                 </form>
+            @endif
+
                 <div  style="display:inline-block; text-align: end;">
                     <x-button-comparison :id="$library->library_id" />
                 </div>

@@ -7,9 +7,13 @@ All Downloads - {{$library->name}}
     <a class="justify-content-start btn btn-outline-primary" href="{{ url('library/request/'.$library->library_id) }}">
         < Back
     </a>
+
+    @if(auth()->user() && auth()->user()->id == $library->creator_id)
     <a class="justify-content-end btn btn-primary" href="{{ url('library/update/'.$library->library_id) }}#upload">
         Upload ＋
     </a>
+    @endif
+
 </div>
 <table class="table">
   <thead>
